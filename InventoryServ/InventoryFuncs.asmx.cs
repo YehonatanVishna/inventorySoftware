@@ -23,7 +23,7 @@ namespace InventoryServ
         [WebMethod]
         public string HelloWorld()
         {
-            return "Hello World";
+            return "Hello Worlder";
         }
         [WebMethod]
         public DataTable GetInventoryDataTable()
