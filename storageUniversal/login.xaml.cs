@@ -93,6 +93,7 @@ namespace storageUniversal
         {
             usr.Password = password.Text;
             usr.Email = email.Text;
+             string s ="select * from users where email = N'" + usr.Email + "' AND password= N'" + usr.Password + "';";
             UserDBServ.IsUserPermittedResponse a = await UDBS.IsUserPermittedAsync(usr);
             bool b = bool.Parse(a.Body.IsUserPermittedResult.ToString());
             if (b)

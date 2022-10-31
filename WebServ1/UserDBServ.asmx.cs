@@ -29,24 +29,13 @@ namespace WebServ1
         [WebMethod]
         public Boolean reg(User usr)
         {
-            try
-            {
                 Connection con = new Connection("Server = 'DESKTOP-2BGT9RO\\SQLEXPRESS'; Database = StorageSystem; Trusted_Connection = True;");
                 con.openCon();
                 string b = "Insert into [StorageSystem].[dbo].[Users] (FName, LName, BDate, compeny, email, password) Values (N'" + usr.Fname + "', N'" + usr.Lname + "' , " + "CAST(N'" + usr.BDate.ToShortDateString() + "' AS DateTime)" + " , N'" + usr.Compeny + "', N'" + usr.Email + "' , N'" + usr.Password + "');";
                 bool a = con.ExequteNoneQury(b);
                 con.CloseCon();
                 return a;
-            }
-            catch
-            {
-                Connection con = new Connection("Server = 'YONVISHDESK\\SQLEXPRESS'; Database = StorageSystem; Trusted_Connection = True;");
-                con.openCon();
-                string b = "Insert into [StorageSystem].[dbo].[Users] (FName, LName, BDate, compeny, email, password) Values ('" + usr.Fname + "', '" + usr.Lname + "' , " + "CAST(N'" + usr.BDate.ToShortDateString() + "' AS DateTime)" + " , '" + usr.Compeny + "', '" + usr.Email + "' , '" + usr.Password + "');";
-                bool a = con.ExequteNoneQury(b);
-                con.CloseCon();
-                return a;
-            }
+
         }
         [WebMethod]
         public bool IsUserPermitted(User usr)
@@ -54,8 +43,8 @@ namespace WebServ1
             try
             {
                 Connection con = new Connection("Server = 'DESKTOP-2BGT9RO\\SQLEXPRESS'; Database = StorageSystem; Trusted_Connection = True;");
-                DataSet ds = con.GetDataSet("logged", "select * from users where email = '" + usr.Email + "' AND password= '" + usr.Password + "';");
-                return ds.Tables["logged"].Rows[0]["ID"] != null;
+                DataSet ds = con.GetDataSet("logged", "select * from users where email = N'" + usr.Email + "' AND password= N'" + usr.Password + "';");
+                return ds.Tables["logged"].Rows[1]["ID"] != null;
             }
             catch {
                 return false;
