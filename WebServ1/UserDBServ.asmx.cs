@@ -24,7 +24,7 @@ namespace WebServ1
         [WebMethod]
         public string HelloWorld()
         {
-            return "Hello World";
+            return "Hello Worldrerer";
         }
         [WebMethod]
         public Boolean reg(User usr)
