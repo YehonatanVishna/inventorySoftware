@@ -1,0 +1,29 @@
+private async void Pick_csv_Click(object sender, RoutedEventArgs e)
+        {
+            var picker = new Windows.Storage.Pickers.FileOpenPicker();
+            picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
+            picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
+            picker.FileTypeFilter.Add(".csv");
+            Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
+            var randomAccessStream = await file.OpenReadAsync();
+            Stream stream = randomAccessStream.AsStreamForRead();
+            StreamReader reader = new StreamReader(stream);
+            using (reader)
+            {
+                string line;
+
+                while ((line = reader.ReadLine()) != null)
+                {
+                    //define pattern
+                    Regex csvparser = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
+
+                    //separating columns to array
+                    string[] x = csvparser.Split(line);
+
+                    /* do something with x */
+                    T1.Text = T1.Text + x[0].ToString();
+                }
+            }
+            string text = await Windows.Storage.FileIO.ReadTextAsync(file);
+            
+        }
