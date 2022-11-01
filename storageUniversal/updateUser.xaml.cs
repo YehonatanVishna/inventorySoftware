@@ -54,7 +54,6 @@ namespace storageUniversal
             if (res)
             {
                 isDone.Text = "update complete sucssfuly";
-                //Thread.Sleep(3000);
                 Frame.Navigate(typeof(login));
             }
             else

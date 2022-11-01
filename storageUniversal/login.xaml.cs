@@ -50,31 +50,6 @@ namespace storageUniversal
             }
         }
 
-        //private async void Update_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (usr != null) {
-
-        //        UserDBServ.User NewUser = new UserDBServ.User();
-        //        var date = BDate.Date;
-        //        DateTime time = date.Value.DateTime;
-        //        NewUser.BDate = time;
-        //        NewUser.Fname = FN.Text;
-        //        NewUser.Lname = LN.Text;
-        //        NewUser.Email = newemail.Text;
-        //        NewUser.Password = pass.Text;
-        //        NewUser.Compeny = compeny.Text;
-        //        UserDBServ.updateUserResponse resTemp = await UDBS.updateUserAsync(usr, NewUser);
-        //        bool res = resTemp.Body.updateUserResult;
-        //        if (res) {
-        //            isDone.Text = "update complete sucssfuly";
-        //        }
-        //        else
-        //        {
-        //            isDone.Text = "update failed";
-        //        }
-        //    }
-        //}
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 

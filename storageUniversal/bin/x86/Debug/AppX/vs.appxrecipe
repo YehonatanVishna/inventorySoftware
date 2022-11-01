@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Machine>YONVISHDESK</Machine>
+    <Machine>DESKTOP-2BGT9RO</Machine>
     <WindowsUser>yehonatan</WindowsUser>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetOsVersion>10.0</TargetOsVersion>
@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Users\yehonatan\source\repos\inventorySoftware2\storageUniversal\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2022-10-31T16:11:19.978</Modified>
+      <Modified>2022-11-01T07:23:51.071</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\yehonatan\source\repos\inventorySoftware2\storageUniversal\bin\x86\Debug\storageUniversal.exe">
       <PackagePath>entrypoint\storageUniversal.exe</PackagePath>
-      <Modified>2022-10-31T16:11:18.313</Modified>
+      <Modified>2022-11-01T07:23:50.677</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\microsoft.csharp\4.0.1\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -542,27 +542,27 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\yehonatan\source\repos\inventorySoftware2\storageUniversal\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2022-10-31T16:11:18.225</Modified>
+      <Modified>2022-11-01T07:23:50.594</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\yehonatan\source\repos\inventorySoftware2\storageUniversal\bin\x86\Debug\InventoryView.xbf">
       <PackagePath>InventoryView.xbf</PackagePath>
-      <Modified>2022-10-31T16:11:18.225</Modified>
+      <Modified>2022-11-01T07:23:50.594</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\yehonatan\source\repos\inventorySoftware2\storageUniversal\bin\x86\Debug\login.xbf">
       <PackagePath>login.xbf</PackagePath>
-      <Modified>2022-10-31T16:11:18.226</Modified>
+      <Modified>2022-11-01T07:23:50.594</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\yehonatan\source\repos\inventorySoftware2\storageUniversal\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2022-10-31T16:11:18.226</Modified>
+      <Modified>2022-11-01T07:23:50.594</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\yehonatan\source\repos\inventorySoftware2\storageUniversal\bin\x86\Debug\Register.xbf">
       <PackagePath>Register.xbf</PackagePath>
-      <Modified>2022-10-31T16:11:18.226</Modified>
+      <Modified>2022-11-01T07:23:50.595</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\yehonatan\source\repos\inventorySoftware2\storageUniversal\bin\x86\Debug\updateUser.xbf">
       <PackagePath>updateUser.xbf</PackagePath>
-      <Modified>2022-10-31T16:11:18.226</Modified>
+      <Modified>2022-11-01T07:23:50.595</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.17763.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -570,11 +570,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\yehonatan\source\repos\inventorySoftware2\storageUniversal\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2022-10-31T16:11:19.193</Modified>
+      <Modified>2022-10-31T16:41:35.045</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\yehonatan\source\repos\inventorySoftware2\storageUniversal\bin\x86\Debug\Core\storageUniversal.exe">
       <PackagePath>storageUniversal.exe</PackagePath>
-      <Modified>2022-10-31T16:11:19.973</Modified>
+      <Modified>2022-11-01T07:23:51.067</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
