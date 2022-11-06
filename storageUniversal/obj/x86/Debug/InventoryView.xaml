@@ -27,7 +27,7 @@
             <TextBlock Grid.Column="4" Text="remarkes"/>
         </Grid>
         <ScrollViewer>
-            <GridView x:ConnectionId='8'  Name="InventoryTbl"                                    HorizontalAlignment="Left" Margin="0,172,0,0" VerticalAlignment="Top" Width="1000" Height="326">
+            <GridView x:ConnectionId='8'  Name="InventoryTbl"                                    HorizontalAlignment="Left" VerticalAlignment="Center" Width="1000" Height="627" Margin="0,0,0,0">
                 <GridView.ItemTemplate>
                     <DataTemplate x:Name="dataTemp"                               >
                         <Grid x:ConnectionId='9' Name="gridy">

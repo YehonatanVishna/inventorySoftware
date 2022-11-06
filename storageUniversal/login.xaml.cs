@@ -36,17 +36,27 @@ namespace storageUniversal
             
             usr.Password = password.Text;
             usr.Email = email.Text;
-            UserDBServ.IsUserPermittedResponse a = await  UDBS.IsUserPermittedAsync(usr);
-            bool b = bool.Parse(a.Body.IsUserPermittedResult.ToString());
-            if (b)
-            { 
-                res.Text = "user exists, data should be showen";
-                UserDBServ.GetFullUserResponse TempFullUsr = await UDBS.GetFullUserAsync(usr);
-                FullUser = TempFullUsr.Body.GetFullUserResult;
-                this.Frame.Navigate(typeof(updateUser));
+            if (await UDBS.IsAdminAsync(usr))
+            {
+                res.Text = "admin panel will shortly be showen";
+                FullUser = usr;
+                this.Frame.Navigate(typeof(AdminControl));
             }
-            else {
-                res.Text = "email or password are wrong, try again";
+            else
+            {
+                var a = await UDBS.IsUserPermittedAsync(usr);
+                bool b = bool.Parse(a.ToString());
+                if (b)
+                {
+                    res.Text = "user exists, data should be showen";
+                    var TempFullUsr = await UDBS.GetFullUserAsync(usr);
+                    FullUser = TempFullUsr;
+                    this.Frame.Navigate(typeof(updateUser));
+                }
+                else
+                {
+                    res.Text = "email or password are wrong, try again";
+                }
             }
         }
 
@@ -59,8 +69,8 @@ namespace storageUniversal
         {
             usr.Password = password.Text;
             usr.Email = email.Text;
-            UserDBServ.DeleteUserResponse a = await UDBS.DeleteUserAsync(usr);
-            bool b = bool.Parse(a.Body.DeleteUserResult.ToString());
+            var a = await UDBS.DeleteUserAsync(usr);
+            bool b = bool.Parse(a.ToString());
 
         }
 
@@ -69,13 +79,13 @@ namespace storageUniversal
             usr.Password = password.Text;
             usr.Email = email.Text;
              string s ="select * from users where email = N'" + usr.Email + "' AND password= N'" + usr.Password + "';";
-            UserDBServ.IsUserPermittedResponse a = await UDBS.IsUserPermittedAsync(usr);
-            bool b = bool.Parse(a.Body.IsUserPermittedResult.ToString());
+            var a = await UDBS.IsUserPermittedAsync(usr);
+            bool b = bool.Parse(a.ToString());
             if (b)
             {
                 res.Text = "user exists, data should be showen";
-                UserDBServ.GetFullUserResponse TempFullUsr = await UDBS.GetFullUserAsync(usr);
-                FullUser = TempFullUsr.Body.GetFullUserResult;
+                var TempFullUsr = await UDBS.GetFullUserAsync(usr);
+                FullUser = TempFullUsr;
                 this.Frame.Navigate(typeof(InventoryView));
             }
             else

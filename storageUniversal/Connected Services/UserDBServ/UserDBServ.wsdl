@@ -94,6 +94,41 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="IsAdmin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="tns:User" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsAdminResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsAdminResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAdminUserTbl">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="tns:User" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAdminUserTblResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAdminUserTblResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="HelloWorldSoapIn">
@@ -132,6 +167,18 @@
   <wsdl:message name="DeleteUserSoapOut">
     <wsdl:part name="parameters" element="tns:DeleteUserResponse" />
   </wsdl:message>
+  <wsdl:message name="IsAdminSoapIn">
+    <wsdl:part name="parameters" element="tns:IsAdmin" />
+  </wsdl:message>
+  <wsdl:message name="IsAdminSoapOut">
+    <wsdl:part name="parameters" element="tns:IsAdminResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAdminUserTblSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAdminUserTbl" />
+  </wsdl:message>
+  <wsdl:message name="GetAdminUserTblSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAdminUserTblResponse" />
+  </wsdl:message>
   <wsdl:portType name="UserDBServSoap">
     <wsdl:operation name="HelloWorld">
       <wsdl:input message="tns:HelloWorldSoapIn" />
@@ -156,6 +203,14 @@
     <wsdl:operation name="DeleteUser">
       <wsdl:input message="tns:DeleteUserSoapIn" />
       <wsdl:output message="tns:DeleteUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsAdmin">
+      <wsdl:input message="tns:IsAdminSoapIn" />
+      <wsdl:output message="tns:IsAdminSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAdminUserTbl">
+      <wsdl:input message="tns:GetAdminUserTblSoapIn" />
+      <wsdl:output message="tns:GetAdminUserTblSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="UserDBServSoap" type="tns:UserDBServSoap">
@@ -214,6 +269,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="IsAdmin">
+      <soap:operation soapAction="http://tempuri.org/IsAdmin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAdminUserTbl">
+      <soap:operation soapAction="http://tempuri.org/GetAdminUserTbl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="UserDBServSoap12" type="tns:UserDBServSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -264,6 +337,24 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteUser">
       <soap12:operation soapAction="http://tempuri.org/DeleteUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsAdmin">
+      <soap12:operation soapAction="http://tempuri.org/IsAdmin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAdminUserTbl">
+      <soap12:operation soapAction="http://tempuri.org/GetAdminUserTbl" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
