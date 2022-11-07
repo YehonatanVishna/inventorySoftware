@@ -40,12 +40,11 @@ namespace WebServ1
         [WebMethod]
         public bool IsUserPermitted(User usr)
         {
-            Connection con = new Connection("Server = 'DESKTOP-2BGT9RO\\SQLEXPRESS'; Database = StorageSystem; Trusted_Connection = True;");
-            DataSet ds = con.GetDataSet("logged", "select * from users where email = N'" + usr.Email + "' AND password= N'" + usr.Password + "';");
-            return ds.Tables[0].Rows[0]["ID"] != null;
-
             try
             {
+                Connection con = new Connection("Server = 'DESKTOP-2BGT9RO\\SQLEXPRESS'; Database = StorageSystem; Trusted_Connection = True;");
+                DataSet ds = con.GetDataSet("logged", "select * from users where email = N'" + usr.Email + "' AND password= N'" + usr.Password + "';");
+                return ds.Tables[0].Rows[0]["ID"] != null;
             }
             catch {
                 return false;
