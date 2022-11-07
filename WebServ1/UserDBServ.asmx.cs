@@ -107,16 +107,30 @@ namespace WebServ1
             return con.ExequteNoneQury("Delete From users where email='" + usr.Email + "' AND password = '" + usr.Password + "'");
 
         }
-        //[WebMethod]
-        //public DataTable GetInventoryDataTable()
-        //{
-        //    Connection con = new Connection("Server = 'DESKTOP-2BGT9RO\\SQLEXPRESS'; Database = StorageSystem; Trusted_Connection = True; ");
-        //    con.openCon();
-        //    DataSet ds = con.GetDataSet("inventory", "Select * From inventory");
-        //    DataTable dt = ds.Tables[0];
-        //    return dt;
-
-        //}
-
+        [WebMethod]
+        public bool IsAdmin(User user)
+        {
+            if (user.Email.Equals("admin@administrator.adm") && user.Password.Equals("Admin"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public DataTable GetAdminUserTbl(User user)
+        {
+            if (IsAdmin(user))
+            {
+                Connection con = new Connection("Server = 'DESKTOP-2BGT9RO\\SQLEXPRESS'; Database = StorageSystem; Trusted_Connection = True; ");
+                con.openCon();
+                DataSet ds = con.GetDataSet("Users", "Select * From Users");
+                DataTable dt = ds.Tables[0];
+                return dt;
+            }
+            else { return null; }
+        }
     }
 }

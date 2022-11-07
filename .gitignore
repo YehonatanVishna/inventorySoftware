@@ -3,3 +3,9 @@
 ################################################################################
 
 /.vs
+/InventoryServ/bin
+/InventoryServ/obj/Debug
+/storageUniversal/bin/x86/Debug
+/storageUniversal/obj
+/WebServ1/bin
+/WebServ1/obj/Debug

@@ -39,8 +39,8 @@ namespace storageUniversal
             usr.Email = email.Text;
             usr.Password = pass.Text;
             usr.Compeny = compeny.Text;
-            UserDBServ.regResponse a = await UDBS.regAsync(usr);
-            bool IsSuccess = bool.Parse(a.Body.regResult.ToString());
+            var a = await UDBS.regAsync(usr);
+            bool IsSuccess = bool.Parse(a.ToString());
             if (IsSuccess)
             {
                 isDone.Text = "logon is successfull";

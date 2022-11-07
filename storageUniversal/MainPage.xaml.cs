@@ -21,12 +21,12 @@ namespace storageUniversal
             this.InitializeComponent();
         }
 
-        private async void Login_Click(object sender, RoutedEventArgs e)
+        private void Login_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(login));
         }
 
-        private async void Logon_Click(object sender, RoutedEventArgs e)
+        private void Logon_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(Register));
         }

@@ -49,8 +49,8 @@ namespace storageUniversal
             NewUser.Email = newemail.Text;
             NewUser.Password = pass.Text;
             NewUser.Compeny = compeny.Text;
-            UserDBServ.updateUserResponse resTemp = await UDBS.updateUserAsync(FullUser, NewUser);
-            bool res = resTemp.Body.updateUserResult;
+            var resTemp = await UDBS.updateUserAsync(FullUser, NewUser);
+            bool res = resTemp;
             if (res)
             {
                 isDone.Text = "update complete sucssfuly";
