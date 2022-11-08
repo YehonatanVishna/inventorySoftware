@@ -28,7 +28,7 @@ namespace storageUniversal
         public AdminPanel()
         {
             this.InitializeComponent();
-            
+            loudTbl();
 
         }
         public async void loudTbl()
@@ -71,7 +71,7 @@ namespace storageUniversal
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            loudTbl();
+            
         }
     }
 
