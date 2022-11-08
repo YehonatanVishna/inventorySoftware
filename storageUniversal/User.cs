@@ -62,6 +62,11 @@ namespace storageUniversal
             get { return this.bdate; }
             set { this.bdate = value; }
         }
+        public DateTimeOffset BDateTimeOffset
+        {
+            get { return DateTimeOffset.Parse(this.BDate.ToString()); }
+            set { this.bdate = DateTime.Parse(value.ToString()); }
+        }
         public string Compeny
         {
             get { return this.compeny; }

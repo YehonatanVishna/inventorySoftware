@@ -60,13 +60,13 @@ namespace storageUniversal
                 Users.Add(row);
 
             }
-            
+            UsersTbl.ItemsSource = Users;
             UsersOriginal = new List<User>();
             foreach (User Row in Users)
             {
                 UsersOriginal.Add(Row.copy());
             }
-            UsersTbl.ItemsSource = UsersOriginal;
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -83,7 +83,7 @@ namespace storageUniversal
             DateTimeOffset dt;
             if (value != null && value is DateTime)
             {
-                var stringToConvert = value as string;
+                String stringToConvert = value.ToString();
                 if (!DateTimeOffset.TryParse(stringToConvert, out dt))
                 {
                     return null;
