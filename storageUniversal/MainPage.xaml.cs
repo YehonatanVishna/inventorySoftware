@@ -6,6 +6,7 @@ using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using System.Net;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -19,6 +20,7 @@ namespace storageUniversal
         public MainPage()
         {
             this.InitializeComponent();
+            tt.Text = Dns.GetHostName() ;
         }
 
         private void Login_Click(object sender, RoutedEventArgs e)

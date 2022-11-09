@@ -6,6 +6,7 @@ using System.Web.Services;
 using WpfApp1;
 using System.Data;
 using System.Data.SqlClient;
+using System.Net;
 //made by yehonatan vishna
 
 namespace WebServ1
@@ -20,7 +21,7 @@ namespace WebServ1
     // [System.Web.Script.Services.ScriptService]
     public class UserDBServ : System.Web.Services.WebService
     {
-
+        public String constr = "Server = '" + Dns.GetHostName() + "\\SQLEXPRESS'; Database = StorageSystem; Trusted_Connection = True; ";
         [WebMethod]
         public string HelloWorld()
         {
@@ -29,7 +30,7 @@ namespace WebServ1
         [WebMethod]
         public Boolean reg(User usr)
         {
-                Connection con = new Connection("Server = 'DESKTOP-2BGT9RO\\SQLEXPRESS'; Database = StorageSystem; Trusted_Connection = True;");
+                Connection con = new Connection(constr);
                 con.openCon();
                 string b = "Insert into [StorageSystem].[dbo].[Users] (FName, LName, BDate, compeny, email, password) Values (N'" + usr.Fname + "', N'" + usr.Lname + "' , " + "CAST(N'" + usr.BDate.ToShortDateString() + "' AS DateTime)" + " , N'" + usr.Compeny + "', N'" + usr.Email + "' , N'" + usr.Password + "');";
                 bool a = con.ExequteNoneQury(b);
@@ -42,7 +43,7 @@ namespace WebServ1
         {
             try
             {
-                Connection con = new Connection("Server = 'DESKTOP-2BGT9RO\\SQLEXPRESS'; Database = StorageSystem; Trusted_Connection = True;");
+                Connection con = new Connection(constr);
                 DataSet ds = con.GetDataSet("logged", "select * from users where email = N'" + usr.Email + "' AND password= N'" + usr.Password + "';");
                 return ds.Tables[0].Rows[0]["ID"] != null;
             }
@@ -53,12 +54,12 @@ namespace WebServ1
         [WebMethod]
         public int AddEmptyUser()
         {
-            Connection con = new Connection("Server = 'DESKTOP-2BGT9RO\\SQLEXPRESS'; Database = StorageSystem; Trusted_Connection = True;");
+            Connection con = new Connection(constr);
             con.openCon();
             string b = "Insert into [StorageSystem].[dbo].[Users] (FName, LName, BDate, compeny, email, password) Values (N'new user', N'' ,'' , N'', N'' , N'');";
             bool a = con.ExequteNoneQury(b);
             DataSet ds = con.GetDataSet("newUser", "Select * from Users where FName = 'new user'");
-            int newId = int.Parse(ds.Tables[0].Rows[0][0].ToString());
+            int newId = int.Parse(ds.Tables[0].Rows[ds.Tables[0].Rows.Count-1][0].ToString());
             con.CloseCon();
             return newId;
 
@@ -70,7 +71,7 @@ namespace WebServ1
             User user = new User();
             if (IsUserPermitted(usr))
             {
-                Connection con = new Connection("Server = 'DESKTOP-2BGT9RO\\SQLEXPRESS'; Database = StorageSystem; Trusted_Connection = True;");
+                Connection con = new Connection(constr);
                 DataSet ds = con.GetDataSet("logged", "select * from users where email = '" + usr.Email + "' AND password= '" + usr.Password + "';");
                 user.ID = int.Parse(ds.Tables["logged"].Rows[0]["ID"].ToString());
                 user.Fname = ds.Tables["logged"].Rows[0]["FName"].ToString();
@@ -83,11 +84,29 @@ namespace WebServ1
             return user;
         }
         [WebMethod]
+        public bool updateUserById(User OldUsr, User NewUsr, int id)
+        {
+            if (IsUserPermitted(OldUsr))
+            {
+                Connection con = new Connection(constr);
+                DataSet ds = con.GetDataSet("logged", "select * from users where email = '" + OldUsr.Email + "' AND password= '" + OldUsr.Password + "' And ID=" + id.ToString() +";");
+                ds.Tables["logged"].Rows[0]["FName"] = NewUsr.Fname;
+                ds.Tables["logged"].Rows[0]["LName"] = NewUsr.Lname;
+                ds.Tables["logged"].Rows[0]["BDate"] = NewUsr.BDate;
+                ds.Tables["logged"].Rows[0]["compeny"] = NewUsr.Compeny;
+                ds.Tables["logged"].Rows[0]["email"] = NewUsr.Email;
+                ds.Tables["logged"].Rows[0]["password"] = NewUsr.Password;
+                con.Update(ds);
+                return true;
+            }
+            return false;
+        }
+        [WebMethod]
         public bool updateUser(User OldUsr, User NewUsr)
         {
             if (IsUserPermitted(OldUsr))
             {
-                Connection con = new Connection("Server = 'DESKTOP-2BGT9RO\\SQLEXPRESS'; Database = StorageSystem; Trusted_Connection = True;");
+                Connection con = new Connection(constr);
                 DataSet ds = con.GetDataSet("logged", "select * from users where email = '" + OldUsr.Email + "' AND password= '" + OldUsr.Password + "';");
                 ds.Tables["logged"].Rows[0]["FName"] = NewUsr.Fname;
                 ds.Tables["logged"].Rows[0]["LName"] = NewUsr.Lname;
@@ -104,7 +123,7 @@ namespace WebServ1
 
         [WebMethod]
         public bool DeleteUser(User usr) {
-            Connection con = new Connection("Server = 'DESKTOP-2BGT9RO\\SQLEXPRESS'; Database = StorageSystem; Trusted_Connection = True;");
+            Connection con = new Connection(constr);
             con.openCon();
             return con.ExequteNoneQury("Delete From users where email='" + usr.Email + "' AND password = '" + usr.Password + "'");
 
@@ -126,7 +145,7 @@ namespace WebServ1
         {
             if (IsAdmin(user))
             {
-                Connection con = new Connection("Server = 'DESKTOP-2BGT9RO\\SQLEXPRESS'; Database = StorageSystem; Trusted_Connection = True; ");
+                Connection con = new Connection(constr);
                 con.openCon();
                 DataSet ds = con.GetDataSet("Users", "Select * From Users");
                 DataTable dt = ds.Tables[0];

@@ -75,6 +75,22 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="updateUserById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OldUsr" type="tns:User" />
+            <s:element minOccurs="0" maxOccurs="1" name="NewUsr" type="tns:User" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateUserByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="updateUserByIdResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="updateUser">
         <s:complexType>
           <s:sequence>
@@ -171,6 +187,12 @@
   <wsdl:message name="GetFullUserSoapOut">
     <wsdl:part name="parameters" element="tns:GetFullUserResponse" />
   </wsdl:message>
+  <wsdl:message name="updateUserByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:updateUserById" />
+  </wsdl:message>
+  <wsdl:message name="updateUserByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:updateUserByIdResponse" />
+  </wsdl:message>
   <wsdl:message name="updateUserSoapIn">
     <wsdl:part name="parameters" element="tns:updateUser" />
   </wsdl:message>
@@ -215,6 +237,10 @@
     <wsdl:operation name="GetFullUser">
       <wsdl:input message="tns:GetFullUserSoapIn" />
       <wsdl:output message="tns:GetFullUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="updateUserById">
+      <wsdl:input message="tns:updateUserByIdSoapIn" />
+      <wsdl:output message="tns:updateUserByIdSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="updateUser">
       <wsdl:input message="tns:updateUserSoapIn" />
@@ -273,6 +299,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetFullUser">
       <soap:operation soapAction="http://tempuri.org/GetFullUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateUserById">
+      <soap:operation soapAction="http://tempuri.org/updateUserById" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -357,6 +392,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetFullUser">
       <soap12:operation soapAction="http://tempuri.org/GetFullUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateUserById">
+      <soap12:operation soapAction="http://tempuri.org/updateUserById" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

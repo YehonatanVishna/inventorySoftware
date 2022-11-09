@@ -38,6 +38,10 @@ namespace storageUniversal.UserDBServ {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Threading.Tasks.Task<storageUniversal.UserDBServ.User> GetFullUserAsync(storageUniversal.UserDBServ.User usr);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/updateUserById", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Threading.Tasks.Task<bool> updateUserByIdAsync(storageUniversal.UserDBServ.User OldUsr, storageUniversal.UserDBServ.User NewUsr, int id);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/updateUser", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Threading.Tasks.Task<bool> updateUserAsync(storageUniversal.UserDBServ.User OldUsr, storageUniversal.UserDBServ.User NewUsr);
@@ -56,7 +60,7 @@ namespace storageUniversal.UserDBServ {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public partial class User : object, System.ComponentModel.INotifyPropertyChanged {
@@ -170,7 +174,7 @@ namespace storageUniversal.UserDBServ {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://tempuri.org/")]
     public partial class GetAdminUserTblResponseGetAdminUserTblResult : object, System.ComponentModel.INotifyPropertyChanged {
@@ -274,6 +278,10 @@ namespace storageUniversal.UserDBServ {
         
         public System.Threading.Tasks.Task<storageUniversal.UserDBServ.User> GetFullUserAsync(storageUniversal.UserDBServ.User usr) {
             return base.Channel.GetFullUserAsync(usr);
+        }
+        
+        public System.Threading.Tasks.Task<bool> updateUserByIdAsync(storageUniversal.UserDBServ.User OldUsr, storageUniversal.UserDBServ.User NewUsr, int id) {
+            return base.Channel.updateUserByIdAsync(OldUsr, NewUsr, id);
         }
         
         public System.Threading.Tasks.Task<bool> updateUserAsync(storageUniversal.UserDBServ.User OldUsr, storageUniversal.UserDBServ.User NewUsr) {

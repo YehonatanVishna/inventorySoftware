@@ -108,7 +108,7 @@ namespace storageUniversal
                         {
                             UserDBServ.User NewUser = LocalUserToWebUser(user);
                             UserDBServ.User OldUser = LocalUserToWebUser(OgUsr);
-                            bool hadWorked = await s.updateUserAsync(OldUser, NewUser);
+                            bool hadWorked = await s.updateUserByIdAsync(OldUser, NewUser, user.ID);
                             IsAllOk = IsAllOk && hadWorked;
                         }
                     }

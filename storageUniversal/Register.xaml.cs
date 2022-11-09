@@ -26,6 +26,7 @@ namespace storageUniversal
         public Register()
         {
             this.InitializeComponent();
+
         }
         private async void RegBot_Click(object sender, RoutedEventArgs e)
         {

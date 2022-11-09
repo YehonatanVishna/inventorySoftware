@@ -6,6 +6,7 @@ using System.Web.Services;
 using System.Data;
 using System.Data.SqlClient;
 using WpfApp1;
+using System.Net;
 
 namespace InventoryServ
 {
@@ -19,7 +20,7 @@ namespace InventoryServ
     // [System.Web.Script.Services.ScriptService]
     public class InventoryFuncs : System.Web.Services.WebService
     {
-
+        public String constr = "Server = '"+ Dns.GetHostName() +"\\SQLEXPRESS'; Database = StorageSystem; Trusted_Connection = True; ";
         [WebMethod]
         public string HelloWorld()
         {
@@ -28,7 +29,7 @@ namespace InventoryServ
         [WebMethod]
         public DataTable GetInventoryDataTable()
         {
-            Connection con = new Connection("Server = 'DESKTOP-2BGT9RO\\SQLEXPRESS'; Database = StorageSystem; Trusted_Connection = True; ");
+            Connection con = new Connection(constr);
             con.openCon();
             DataSet ds = con.GetDataSet("inventory", "Select * From inventory");
             DataTable dt = ds.Tables[0];
@@ -37,7 +38,7 @@ namespace InventoryServ
         [WebMethod]
         public DataTable GetInventoryUserDataTable(int userId)
         {
-            Connection con = new Connection("Server = 'DESKTOP-2BGT9RO\\SQLEXPRESS'; Database = StorageSystem; Trusted_Connection = True; ");
+            Connection con = new Connection(constr);
             con.openCon();
             DataSet ds = con.GetDataSet("inventory", "Select * From inventory where OwnerUserId= "+ userId);
             DataTable dt = ds.Tables[0];
@@ -46,7 +47,7 @@ namespace InventoryServ
         [WebMethod]
         public bool changeInventoryRow(InventoryRow inventoryRow)
         {
-            Connection con = new Connection("Server = 'DESKTOP-2BGT9RO\\SQLEXPRESS'; Database = StorageSystem; Trusted_Connection = True; ");
+            Connection con = new Connection(constr);
             con.openCon();
             bool a = con.ExequteNoneQury("update Inventory Set Name = N'" + inventoryRow.Name + "', Quantity = " + inventoryRow.Quantity.ToString() + ", NeededQuantity = " + inventoryRow.NeededQuantity.ToString() + ", Remarkes = N'"+ inventoryRow.Remarkes +"' Where ID = " + inventoryRow.ID.ToString() + " ;");
             con.CloseCon();
@@ -55,7 +56,7 @@ namespace InventoryServ
         [WebMethod]
         public bool DeleteInventoryRow(int id)
         {
-            Connection con = new Connection("Server = 'DESKTOP-2BGT9RO\\SQLEXPRESS'; Database = StorageSystem; Trusted_Connection = True; ");
+            Connection con = new Connection(constr);
             con.openCon();
             bool a = con.ExequteNoneQury("Delete from Inventory where id = " + id + ";");
             con.CloseCon();
@@ -64,7 +65,7 @@ namespace InventoryServ
         [WebMethod]
         public int getNewItemId(int UserId)
         {
-            Connection con = new Connection("Server = 'DESKTOP-2BGT9RO\\SQLEXPRESS'; Database = StorageSystem; Trusted_Connection = True; ");
+            Connection con = new Connection(constr);
             DataSet ds = con.GetDataSet("inventory", "select * from inventory");
             DataRow dr = ds.Tables[0].NewRow();
             dr[4] = UserId;

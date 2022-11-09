@@ -62,10 +62,10 @@ namespace storageUniversal
             get { return this.bdate; }
             set { this.bdate = value; }
         }
-        public DateTimeOffset BDateTimeOffset
+        public DateTimeOffset? BDateTimeOffset
         {
             get { try { return DateTimeOffset.Parse(this.BDate.ToString()); }
-                catch { return DateTimeOffset.MinValue; }
+                catch { return null; }
                 }
             set { this.bdate = DateTime.Parse(value.ToString()); }
         }
