@@ -25,6 +25,7 @@ namespace storageUniversal
     {
         public UserDBServ.User AdminUser = login.FullUser;
         public List<User> UsersOriginal;
+        public List<User> UsersInTbl;
         public AdminPanel()
         {
             this.InitializeComponent();
@@ -61,50 +62,76 @@ namespace storageUniversal
 
             }
             UsersTbl.ItemsSource = Users;
+            UsersInTbl = Users;
             UsersOriginal = new List<User>();
             foreach (User Row in Users)
             {
                 UsersOriginal.Add(Row.copy());
             }
-            
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
-        }
-    }
 
-    }
-    public class DateTimeToDateTimeOffsetConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, string language)
+        }
+        ContentDialog changesApplyed = new ContentDialog()
         {
-            DateTimeOffset dt;
-            if (value != null && value is DateTime)
+            Title = "Sucsess",
+            Content = "The changes to users info where sucsussfully commited to database",
+            CloseButtonText = "Ok"
+        };
+        public UserDBServ.User LocalUserToWebUser(User user)
+        {
+            UserDBServ.User NewUser = new UserDBServ.User();
+            NewUser.ID = user.ID;
+            NewUser.Fname = user.Fname;
+            NewUser.Lname = user.Lname;
+            NewUser.Compeny = user.Compeny;
+            NewUser.Email = user.Email;
+            NewUser.BDate = user.BDate;
+            NewUser.Password = user.Password;
+            return NewUser;
+        }
+        private async void Apply_Click(object sender, RoutedEventArgs e)
+        {
+            UserDBServ.UserDBServSoapClient s = new UserDBServ.UserDBServSoapClient();
+            var CurrentUsers = UsersTbl.Items;
+            bool IsAllOk = true;
+            foreach (User user in CurrentUsers)
             {
-                String stringToConvert = value.ToString();
-                if (!DateTimeOffset.TryParse(stringToConvert, out dt))
+                foreach (User OgUsr in UsersOriginal)
                 {
-                    return null;
+                    if (OgUsr.ID == user.ID)
+                    {
+                        if (!OgUsr.IsSame(user))
+                        {
+                            UserDBServ.User NewUser = LocalUserToWebUser(user);
+                            UserDBServ.User OldUser = LocalUserToWebUser(OgUsr);
+                            bool hadWorked = await s.updateUserAsync(OldUser, NewUser);
+                            IsAllOk = IsAllOk && hadWorked;
+                        }
+                    }
                 }
             }
-            return dt;
+            if (IsAllOk)
+            {
+                await changesApplyed.ShowAsync();
+            }
+
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        private async void AddUser_Click(object sender, RoutedEventArgs e)
         {
-            DateTime time;
-            if (value != null && value is DateTimeOffset)
-            {
-                var valueToConvert = (DateTimeOffset)value;
-                time = new DateTime(valueToConvert.Ticks);
-            }
-            else
-            {
-                return null;
-            }
-            return time;
+            UserDBServ.UserDBServSoapClient s = new UserDBServ.UserDBServSoapClient();
+            User NewUser = new User();
+            var id = await s.AddEmptyUserAsync();
+            NewUser.ID = id;
+            UsersInTbl.Add(NewUser);
+            UsersTbl.ItemsSource = null;
+            UsersTbl.ItemsSource = UsersInTbl;
         }
     }
+}
+
 

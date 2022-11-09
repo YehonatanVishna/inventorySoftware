@@ -51,6 +51,16 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="AddEmptyUser">
+        <s:complexType />
+      </s:element>
+      <s:element name="AddEmptyUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AddEmptyUserResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetFullUser">
         <s:complexType>
           <s:sequence>
@@ -149,6 +159,12 @@
   <wsdl:message name="IsUserPermittedSoapOut">
     <wsdl:part name="parameters" element="tns:IsUserPermittedResponse" />
   </wsdl:message>
+  <wsdl:message name="AddEmptyUserSoapIn">
+    <wsdl:part name="parameters" element="tns:AddEmptyUser" />
+  </wsdl:message>
+  <wsdl:message name="AddEmptyUserSoapOut">
+    <wsdl:part name="parameters" element="tns:AddEmptyUserResponse" />
+  </wsdl:message>
   <wsdl:message name="GetFullUserSoapIn">
     <wsdl:part name="parameters" element="tns:GetFullUser" />
   </wsdl:message>
@@ -191,6 +207,10 @@
     <wsdl:operation name="IsUserPermitted">
       <wsdl:input message="tns:IsUserPermittedSoapIn" />
       <wsdl:output message="tns:IsUserPermittedSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddEmptyUser">
+      <wsdl:input message="tns:AddEmptyUserSoapIn" />
+      <wsdl:output message="tns:AddEmptyUserSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetFullUser">
       <wsdl:input message="tns:GetFullUserSoapIn" />
@@ -235,6 +255,15 @@
     </wsdl:operation>
     <wsdl:operation name="IsUserPermitted">
       <soap:operation soapAction="http://tempuri.org/IsUserPermitted" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddEmptyUser">
+      <soap:operation soapAction="http://tempuri.org/AddEmptyUser" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -310,6 +339,15 @@
     </wsdl:operation>
     <wsdl:operation name="IsUserPermitted">
       <soap12:operation soapAction="http://tempuri.org/IsUserPermitted" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddEmptyUser">
+      <soap12:operation soapAction="http://tempuri.org/AddEmptyUser" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

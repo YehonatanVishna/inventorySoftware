@@ -50,6 +50,19 @@ namespace WebServ1
                 return false;
             }
         }
+        [WebMethod]
+        public int AddEmptyUser()
+        {
+            Connection con = new Connection("Server = 'DESKTOP-2BGT9RO\\SQLEXPRESS'; Database = StorageSystem; Trusted_Connection = True;");
+            con.openCon();
+            string b = "Insert into [StorageSystem].[dbo].[Users] (FName, LName, BDate, compeny, email, password) Values (N'new user', N'' ,'' , N'', N'' , N'');";
+            bool a = con.ExequteNoneQury(b);
+            DataSet ds = con.GetDataSet("newUser", "Select * from Users where FName = 'new user'");
+            int newId = int.Parse(ds.Tables[0].Rows[0][0].ToString());
+            con.CloseCon();
+            return newId;
+
+        }
         //made by yehonatan vishna
         [WebMethod]
         public User GetFullUser(User usr)

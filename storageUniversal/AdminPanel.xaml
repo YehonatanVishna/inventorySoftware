@@ -10,7 +10,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <GridView  Name="UsersTbl" HorizontalAlignment="Left" Width="1110" Margin="111,0,0,409">
+        <GridView  Name="UsersTbl" HorizontalAlignment="Left" Width="1080" VerticalAlignment="Stretch">
             <GridView.ItemTemplate>
                 <DataTemplate x:Name="dataTemp" x:DataType="data:User" x:DefaultBindMode="TwoWay">
                     <Grid Name="gridy">
@@ -34,5 +34,7 @@
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
+        <Button Content="apply changes" Name="Apply" Click="Apply_Click" HorizontalAlignment="Left" Margin="1161,79,0,0" VerticalAlignment="Top"/>
+        <Button Content="add user" Name="AddUser" Click="AddUser_Click" HorizontalAlignment="Left" Margin="1216,147,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Page>
