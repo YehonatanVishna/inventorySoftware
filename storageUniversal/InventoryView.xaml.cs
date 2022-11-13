@@ -33,6 +33,13 @@ namespace storageUniversal
         public InventoryView()
         {
             this.InitializeComponent();
+            Titels.Margin = new Thickness(0, back.Height, 0, 0);
+            InventoryTbl.Margin = new Thickness(0, back.Height + Titels.Height, 0, 0);
+            //TblWrapper.Height = InventoryTbl.Height;
+            //TblWrapper.Width = InventoryTbl.Width;
+            //TblWrapper.Margin = InventoryTbl.Margin;
+            //TblWrapper.VerticalAlignment = InventoryTbl.VerticalAlignment;
+            //TblWrapper.HorizontalAlignment = InventoryTbl.HorizontalAlignment;
         }
 
         private  void InventoryTbl_ItemClick(object sender, ItemClickEventArgs e)

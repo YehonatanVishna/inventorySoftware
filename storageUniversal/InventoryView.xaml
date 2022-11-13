@@ -12,7 +12,7 @@
 
     <Grid HorizontalAlignment="Stretch" Margin="0,0,0,-18" VerticalAlignment="Stretch">
         <Button Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
-        <Grid>
+        <Grid Name="Titels" Height="40" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="200"/>
@@ -27,30 +27,28 @@
             <TextBlock Grid.Column="3" Text="amount out"/>
             <TextBlock Grid.Column="4" Text="remarkes"/>
         </Grid>
-        <ScrollViewer>
-            <GridView  Name="InventoryTbl" ItemClick="InventoryTbl_ItemClick" HorizontalAlignment="Left" VerticalAlignment="Center" Width="1000" Height="627" Margin="0,0,0,0">
-                <GridView.ItemTemplate>
-                    <DataTemplate x:Name="dataTemp" x:DataType="data:InventoryRow">
-                        <Grid Name="gridy">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="200"/>
-                                <ColumnDefinition Width="200"/>
-                                <ColumnDefinition Width="200"/>
-                                <ColumnDefinition Width="200"/>
-                                <ColumnDefinition Width="200"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBox Grid.Column="0" Name="NameBlock" Text= "{x:Bind Name, Mode=TwoWay}"/>
-                            <TextBox Grid.Column="1" Name="QuantityBlock" Text= "{x:Bind Quantity, Mode=TwoWay}"/>
-                            <TextBox Grid.Column="2" Name="NeededQuantityBlock" Text= "{x:Bind NeededQuantity, Mode=TwoWay}"/>
-                            <TextBox Grid.Column="3" Name="AmountOutBox" Text="{x:Bind AmountOut, Mode=TwoWay}"/>
-                            <TextBox Grid.Column="4" Name="Remarkes" Text="{x:Bind Remarkes, Mode=TwoWay}"/>
-                            <!--<TextBlock Visibility="Collapsed" Name="id" Text= "{x:Bind ID, Mode=TwoWay}"/>-->
-                        </Grid>
+        <GridView  Name="InventoryTbl" ItemClick="InventoryTbl_ItemClick" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1000" Height="627" Margin="0,110">
+            <GridView.ItemTemplate>
+                <DataTemplate x:Name="dataTemp" x:DataType="data:InventoryRow">
+                    <Grid Name="gridy">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="200"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" Name="NameBlock" Text= "{x:Bind Name, Mode=TwoWay}"/>
+                        <TextBox Grid.Column="1" Name="QuantityBlock" Text= "{x:Bind Quantity, Mode=TwoWay}"/>
+                        <TextBox Grid.Column="2" Name="NeededQuantityBlock" Text= "{x:Bind NeededQuantity, Mode=TwoWay}"/>
+                        <TextBox Grid.Column="3" Name="AmountOutBox" Text="{x:Bind AmountOut, Mode=TwoWay}"/>
+                        <TextBox Grid.Column="4" Name="Remarkes" Text="{x:Bind Remarkes, Mode=TwoWay}"/>
+                        <!--<TextBlock Visibility="Collapsed" Name="id" Text= "{x:Bind ID, Mode=TwoWay}"/>-->
+                    </Grid>
 
-                    </DataTemplate>
-                </GridView.ItemTemplate>
-            </GridView>
-        </ScrollViewer>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
         <Button Content="load table" Name="LoadTbl" Click="LoadTbl_Click" HorizontalAlignment="Left" Margin="1188,314,0,0" VerticalAlignment="Top"/>
         <Button Content="updateData" Name="updateDataFromTbl" Click="UpdateDataFromTbl_Click" HorizontalAlignment="Left" Margin="1188,172,0,0" VerticalAlignment="Top"/>
         <TextBlock Name="IsSucss" HorizontalAlignment="Left" Margin="976,46,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
