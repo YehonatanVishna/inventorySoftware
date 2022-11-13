@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -26,6 +29,7 @@ namespace storageUniversal
         public static UserDBServ.User usr = new UserDBServ.User();
         public static UserDBServ.User FullUser;
         private UserDBServ.UserDBServSoapClient UDBS = new UserDBServ.UserDBServSoapClient();
+        public static string SentFrom; 
         public login()
         {
             this.InitializeComponent();
@@ -46,6 +50,7 @@ namespace storageUniversal
                     res.Text = "user exists, data should be showen";
                     var TempFullUsr = await UDBS.GetFullUserAsync(usr);
                     FullUser = TempFullUsr;
+                    updateUser.SentFrom = "login";
                     this.Frame.Navigate(typeof(updateUser));
                 }
                 else
@@ -56,6 +61,7 @@ namespace storageUniversal
             else
             {
                 FullUser = usr;
+                AdminPanel.SentFrom = "login";
                 this.Frame.Navigate(typeof(AdminPanel));
             }
         }
@@ -110,11 +116,25 @@ namespace storageUniversal
                 res.Text = "user exists, data should be showen";
                 var TempFullUsr = await UDBS.GetFullUserAsync(usr);
                 FullUser = TempFullUsr;
+                InventoryView.SentFrom = "login";
                 this.Frame.Navigate(typeof(InventoryView));
             }
             else
             {
                 res.Text = "email or password are wrong, try again";
+            }
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            switch (SentFrom)
+            {
+                case "login": Frame.Navigate(typeof(login)); break;
+                case "Register": Frame.Navigate(typeof(Register)); break;
+                case "InventoryView": Frame.Navigate(typeof(InventoryView)); break;
+                case "AdminPanel": Frame.Navigate(typeof(AdminPanel)); break;
+                case "updateUser": Frame.Navigate(typeof(updateUser)); break;
+                case "MainPage": Frame.Navigate(typeof(MainPage)); break;
             }
         }
     }

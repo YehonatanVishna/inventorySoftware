@@ -26,9 +26,11 @@ namespace storageUniversal
         public UserDBServ.User AdminUser = login.FullUser;
         public List<User> UsersOriginal;
         public List<User> UsersInTbl;
+        public static string SentFrom;
         public AdminPanel()
         {
             this.InitializeComponent();
+            UsersTbl.Margin = new Thickness(0, back.Height, 0, 0);
             loudTbl();
 
         }
@@ -149,6 +151,18 @@ namespace storageUniversal
             bool hasWorked = await r.DeleteUserAdminAsync(AdminUser,id);
             UsersTbl.ItemsSource = null;
             loudTbl();
+        }
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            switch (SentFrom)
+            {
+                case "login": Frame.Navigate(typeof(login)); break;
+                case "Register": Frame.Navigate(typeof(Register)); break;
+                case "InventoryView": Frame.Navigate(typeof(InventoryView)); break;
+                case "AdminPanel": Frame.Navigate(typeof(AdminPanel)); break;
+                case "updateUser": Frame.Navigate(typeof(updateUser)); break;
+                case "MainPage": Frame.Navigate(typeof(MainPage)); break;
+            }
         }
     }
 }

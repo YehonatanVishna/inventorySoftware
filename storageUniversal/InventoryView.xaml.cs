@@ -29,6 +29,7 @@ namespace storageUniversal
         public List<InventoryRow> inventories;// original inventory
         public List<InventoryRow> currentInventories;
         public static UserDBServ.User FullUser = login.FullUser;
+        public static string SentFrom;
         public InventoryView()
         {
             this.InitializeComponent();
@@ -223,6 +224,18 @@ namespace storageUniversal
                 UpdateDataToDB();
             }
             catch { }
+        }
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            switch (SentFrom)
+            {
+                case "login": Frame.Navigate(typeof(login)); break;
+                case "Register": Frame.Navigate(typeof(Register)); break;
+                case "InventoryView": Frame.Navigate(typeof(InventoryView)); break;
+                case "AdminPanel": Frame.Navigate(typeof(AdminPanel)); break;
+                case "updateUser": Frame.Navigate(typeof(updateUser)); break;
+                case "MainPage": Frame.Navigate(typeof(MainPage)); break;
+            }
         }
 
     }

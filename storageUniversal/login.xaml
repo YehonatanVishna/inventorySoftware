@@ -9,13 +9,13 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <!--made by yehonatan vishna-->
     <Grid Name="g1">
+        <Button Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
         <TextBox Name="email" HorizontalAlignment="Left" Margin="50,100,0,0" Text="email" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="-0.5,0.375"/>
         <TextBox Name="password" HorizontalAlignment="Left" Margin="240,100,0,0" Text="password" VerticalAlignment="Top"/>
         <Button Click="SendEmailPass_Click" Name="sendEmailPass" Content="change personal info" HorizontalAlignment="Left" Margin="682,100,0,0" VerticalAlignment="Top"/>
         <Button Content="Delete" Name="DelBot"  Click="DelBot_Click"  HorizontalAlignment="Left" Margin="551,100,0,0" VerticalAlignment="Top"/>
         <TextBlock Name="res" HorizontalAlignment="Left" Margin="114,194,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <Button Content="login" Name="sendToInventoryTbl" Click="SendToInventoryTbl_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="425,100,0,0"/>
-
-
+        
     </Grid>
 </Page>

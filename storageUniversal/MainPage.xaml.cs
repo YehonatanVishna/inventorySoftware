@@ -25,11 +25,13 @@ namespace storageUniversal
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
+            login.SentFrom = "MainPage";
             this.Frame.Navigate(typeof(login));
         }
 
         private void Logon_Click(object sender, RoutedEventArgs e)
         {
+            Register.SentFrom = "MainPage";
             Frame.Navigate(typeof(Register));
         }
 

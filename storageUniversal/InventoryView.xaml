@@ -11,6 +11,7 @@
     <!--made by yehonatan vishna-->
 
     <Grid HorizontalAlignment="Stretch" Margin="0,0,0,-18" VerticalAlignment="Stretch">
+        <Button Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>

@@ -9,6 +9,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <Button Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
         <TextBox Name="FN" HorizontalAlignment="Left" Margin="92,238,0,0" Text="first name" VerticalAlignment="Top" Width="Auto"/>
         <TextBox Name="LN" HorizontalAlignment="Left" Margin="220,238,0,0" Text="Last Name" VerticalAlignment="Top"/>
         <CalendarDatePicker Name="BDate"  HorizontalAlignment="Left" Margin="346,238,0,0" VerticalAlignment="Top"/>

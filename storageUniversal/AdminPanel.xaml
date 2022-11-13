@@ -10,7 +10,8 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <GridView  Name="UsersTbl" HorizontalAlignment="Left" Width="1080" VerticalAlignment="Stretch">
+        <Button Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
+        <GridView Margin="0,0,0,0" Name="UsersTbl" HorizontalAlignment="Left" Width="1080" VerticalAlignment="Stretch">
             <GridView.ItemTemplate>
                 <DataTemplate x:Name="dataTemp" x:DataType="data:User" x:DefaultBindMode="TwoWay">
                     <Grid Name="gridy">
