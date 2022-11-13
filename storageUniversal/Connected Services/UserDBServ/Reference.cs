@@ -42,6 +42,10 @@ namespace storageUniversal.UserDBServ {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Threading.Tasks.Task<bool> updateUserByIdAsync(storageUniversal.UserDBServ.User OldUsr, storageUniversal.UserDBServ.User NewUsr, int id);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/updateUserByIdAdmin", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Threading.Tasks.Task<bool> updateUserByIdAdminAsync(int id, storageUniversal.UserDBServ.User Admin, storageUniversal.UserDBServ.User NewUsr);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/updateUser", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Threading.Tasks.Task<bool> updateUserAsync(storageUniversal.UserDBServ.User OldUsr, storageUniversal.UserDBServ.User NewUsr);
@@ -49,6 +53,10 @@ namespace storageUniversal.UserDBServ {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DeleteUser", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Threading.Tasks.Task<bool> DeleteUserAsync(storageUniversal.UserDBServ.User usr);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DeleteUserAdmin", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Threading.Tasks.Task<bool> DeleteUserAdminAsync(storageUniversal.UserDBServ.User Admin, int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IsAdmin", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -60,7 +68,7 @@ namespace storageUniversal.UserDBServ {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public partial class User : object, System.ComponentModel.INotifyPropertyChanged {
@@ -174,7 +182,7 @@ namespace storageUniversal.UserDBServ {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://tempuri.org/")]
     public partial class GetAdminUserTblResponseGetAdminUserTblResult : object, System.ComponentModel.INotifyPropertyChanged {
@@ -284,12 +292,20 @@ namespace storageUniversal.UserDBServ {
             return base.Channel.updateUserByIdAsync(OldUsr, NewUsr, id);
         }
         
+        public System.Threading.Tasks.Task<bool> updateUserByIdAdminAsync(int id, storageUniversal.UserDBServ.User Admin, storageUniversal.UserDBServ.User NewUsr) {
+            return base.Channel.updateUserByIdAdminAsync(id, Admin, NewUsr);
+        }
+        
         public System.Threading.Tasks.Task<bool> updateUserAsync(storageUniversal.UserDBServ.User OldUsr, storageUniversal.UserDBServ.User NewUsr) {
             return base.Channel.updateUserAsync(OldUsr, NewUsr);
         }
         
         public System.Threading.Tasks.Task<bool> DeleteUserAsync(storageUniversal.UserDBServ.User usr) {
             return base.Channel.DeleteUserAsync(usr);
+        }
+        
+        public System.Threading.Tasks.Task<bool> DeleteUserAdminAsync(storageUniversal.UserDBServ.User Admin, int id) {
+            return base.Channel.DeleteUserAdminAsync(Admin, id);
         }
         
         public System.Threading.Tasks.Task<bool> IsAdminAsync(storageUniversal.UserDBServ.User user) {

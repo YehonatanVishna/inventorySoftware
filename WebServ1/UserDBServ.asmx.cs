@@ -102,6 +102,24 @@ namespace WebServ1
             return false;
         }
         [WebMethod]
+        public bool updateUserByIdAdmin( int id, User Admin, User NewUsr)
+        {
+            if (IsAdmin(Admin))
+            {
+                Connection con = new Connection(constr);
+                DataSet ds = con.GetDataSet("logged", "select * from users where ID=" + id.ToString() + ";");
+                ds.Tables["logged"].Rows[0]["FName"] = NewUsr.Fname;
+                ds.Tables["logged"].Rows[0]["LName"] = NewUsr.Lname;
+                ds.Tables["logged"].Rows[0]["BDate"] = NewUsr.BDate;
+                ds.Tables["logged"].Rows[0]["compeny"] = NewUsr.Compeny;
+                ds.Tables["logged"].Rows[0]["email"] = NewUsr.Email;
+                ds.Tables["logged"].Rows[0]["password"] = NewUsr.Password;
+                con.Update(ds);
+                return true;
+            }
+            return false;
+        }
+        [WebMethod]
         public bool updateUser(User OldUsr, User NewUsr)
         {
             if (IsUserPermitted(OldUsr))
@@ -126,7 +144,26 @@ namespace WebServ1
             Connection con = new Connection(constr);
             con.openCon();
             return con.ExequteNoneQury("Delete From users where email='" + usr.Email + "' AND password = '" + usr.Password + "'");
-
+        }
+        [WebMethod]
+        public bool DeleteUserAdmin(User Admin ,int id)
+        {
+            User user = Admin;
+            if (IsAdmin(user))
+            {
+                try
+                {
+                    Connection con = new Connection(constr);
+                    con.openCon();
+                    bool a = con.ExequteNoneQury("Delete from Users where ID =" + id + ";");
+                    return a;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            else { return false; }
         }
         [WebMethod]
         public bool IsAdmin(User user)
@@ -153,5 +190,6 @@ namespace WebServ1
             }
             else { return null; }
         }
+
     }
 }

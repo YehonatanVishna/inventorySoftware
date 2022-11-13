@@ -36,5 +36,6 @@
         </GridView>
         <Button Content="apply changes" Name="Apply" Click="Apply_Click" HorizontalAlignment="Left" Margin="1161,79,0,0" VerticalAlignment="Top"/>
         <Button Content="add user" Name="AddUser" Click="AddUser_Click" HorizontalAlignment="Left" Margin="1216,147,0,0" VerticalAlignment="Top"/>
+        <Button Content="delete user" Name="deleteBut" Click="DeleteBut_Click" HorizontalAlignment="Left" Margin="1216,184,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Page>

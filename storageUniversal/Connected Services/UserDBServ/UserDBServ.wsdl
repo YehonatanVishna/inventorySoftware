@@ -91,6 +91,22 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="updateUserByIdAdmin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Admin" type="tns:User" />
+            <s:element minOccurs="0" maxOccurs="1" name="NewUsr" type="tns:User" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateUserByIdAdminResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="updateUserByIdAdminResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="updateUser">
         <s:complexType>
           <s:sequence>
@@ -117,6 +133,21 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="DeleteUserResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteUserAdmin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Admin" type="tns:User" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteUserAdminResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DeleteUserAdminResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -193,6 +224,12 @@
   <wsdl:message name="updateUserByIdSoapOut">
     <wsdl:part name="parameters" element="tns:updateUserByIdResponse" />
   </wsdl:message>
+  <wsdl:message name="updateUserByIdAdminSoapIn">
+    <wsdl:part name="parameters" element="tns:updateUserByIdAdmin" />
+  </wsdl:message>
+  <wsdl:message name="updateUserByIdAdminSoapOut">
+    <wsdl:part name="parameters" element="tns:updateUserByIdAdminResponse" />
+  </wsdl:message>
   <wsdl:message name="updateUserSoapIn">
     <wsdl:part name="parameters" element="tns:updateUser" />
   </wsdl:message>
@@ -204,6 +241,12 @@
   </wsdl:message>
   <wsdl:message name="DeleteUserSoapOut">
     <wsdl:part name="parameters" element="tns:DeleteUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteUserAdminSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteUserAdmin" />
+  </wsdl:message>
+  <wsdl:message name="DeleteUserAdminSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteUserAdminResponse" />
   </wsdl:message>
   <wsdl:message name="IsAdminSoapIn">
     <wsdl:part name="parameters" element="tns:IsAdmin" />
@@ -242,6 +285,10 @@
       <wsdl:input message="tns:updateUserByIdSoapIn" />
       <wsdl:output message="tns:updateUserByIdSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="updateUserByIdAdmin">
+      <wsdl:input message="tns:updateUserByIdAdminSoapIn" />
+      <wsdl:output message="tns:updateUserByIdAdminSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="updateUser">
       <wsdl:input message="tns:updateUserSoapIn" />
       <wsdl:output message="tns:updateUserSoapOut" />
@@ -249,6 +296,10 @@
     <wsdl:operation name="DeleteUser">
       <wsdl:input message="tns:DeleteUserSoapIn" />
       <wsdl:output message="tns:DeleteUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUserAdmin">
+      <wsdl:input message="tns:DeleteUserAdminSoapIn" />
+      <wsdl:output message="tns:DeleteUserAdminSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="IsAdmin">
       <wsdl:input message="tns:IsAdminSoapIn" />
@@ -315,6 +366,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="updateUserByIdAdmin">
+      <soap:operation soapAction="http://tempuri.org/updateUserByIdAdmin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="updateUser">
       <soap:operation soapAction="http://tempuri.org/updateUser" style="document" />
       <wsdl:input>
@@ -326,6 +386,15 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteUser">
       <soap:operation soapAction="http://tempuri.org/DeleteUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUserAdmin">
+      <soap:operation soapAction="http://tempuri.org/DeleteUserAdmin" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -408,6 +477,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="updateUserByIdAdmin">
+      <soap12:operation soapAction="http://tempuri.org/updateUserByIdAdmin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="updateUser">
       <soap12:operation soapAction="http://tempuri.org/updateUser" style="document" />
       <wsdl:input>
@@ -419,6 +497,15 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteUser">
       <soap12:operation soapAction="http://tempuri.org/DeleteUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUserAdmin">
+      <soap12:operation soapAction="http://tempuri.org/DeleteUserAdmin" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

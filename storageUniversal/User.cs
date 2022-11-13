@@ -101,15 +101,21 @@ namespace storageUniversal
         }
         public bool IsSame(User user)
         {
-            bool idS = this.ID == user.ID;
-            bool FnameS = this.Fname.Equals(user.Fname);
-            bool LnameS = this.Lname.Equals(user.Lname);
-            bool DateS = this.BDate.Equals(user.BDate);
-            bool CompS = this.compeny.Equals(user.Compeny);
-            bool EmailS = this.email.Equals(user.Email);
-            bool PassS = this.password.Equals(user.Password);
-            return idS && FnameS && LnameS && DateS && CompS && EmailS && PassS;
-        }
+            try
+            {
+                bool idS = this.ID == user.ID;
+                bool FnameS = this.Fname.Equals(user.Fname);
+                bool LnameS = this.Lname.Equals(user.Lname);
+                bool DateS = this.BDate.Equals(user.BDate);
+                bool CompS = this.compeny.Equals(user.Compeny);
+                bool EmailS = this.email.Equals(user.Email);
+                bool PassS = this.password.Equals(user.Password);
+                return idS && FnameS && LnameS && DateS && CompS && EmailS && PassS;
+            }
+            catch {
+                return false;
+            }
+            }
         //made by yehonatan vishna
 
     }

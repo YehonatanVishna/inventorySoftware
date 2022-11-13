@@ -89,7 +89,14 @@ namespace storageUniversal
             NewUser.Lname = user.Lname;
             NewUser.Compeny = user.Compeny;
             NewUser.Email = user.Email;
-            NewUser.BDate = user.BDate;
+            if (user.BDate == null)
+            {
+                NewUser.BDate = DateTime.Parse(DateTimeOffset.MinValue.ToString());
+            }
+            else
+            {
+                NewUser.BDate = user.BDate;
+            }
             NewUser.Password = user.Password;
             return NewUser;
         }
@@ -108,7 +115,7 @@ namespace storageUniversal
                         {
                             UserDBServ.User NewUser = LocalUserToWebUser(user);
                             UserDBServ.User OldUser = LocalUserToWebUser(OgUsr);
-                            bool hadWorked = await s.updateUserByIdAsync(OldUser, NewUser, user.ID);
+                            bool hadWorked = await s.updateUserByIdAdminAsync(user.ID, AdminUser, NewUser);
                             IsAllOk = IsAllOk && hadWorked;
                         }
                     }
@@ -128,8 +135,20 @@ namespace storageUniversal
             var id = await s.AddEmptyUserAsync();
             NewUser.ID = id;
             UsersInTbl.Add(NewUser);
+            UsersOriginal.Add(NewUser);
             UsersTbl.ItemsSource = null;
             UsersTbl.ItemsSource = UsersInTbl;
+        }
+
+        private async void DeleteBut_Click(object sender, RoutedEventArgs e)
+        {
+            int SelIn = UsersTbl.SelectedIndex;
+            User SelectedUser = UsersTbl.Items[SelIn] as User;
+            int id = SelectedUser.ID;
+            UserDBServ.UserDBServSoapClient r = new UserDBServ.UserDBServSoapClient();
+            bool hasWorked = await r.DeleteUserAdminAsync(AdminUser,id);
+            UsersTbl.ItemsSource = null;
+            loudTbl();
         }
     }
 }
