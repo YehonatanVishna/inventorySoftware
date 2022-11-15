@@ -122,6 +122,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BrowwingsAndDistractions.xaml.cs">
+      <DependentUpon>BrowwingsAndDistractions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\InventoryServ\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -204,6 +207,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="AdminPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BrowwingsAndDistractions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
