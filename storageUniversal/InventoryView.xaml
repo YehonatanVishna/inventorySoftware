@@ -12,7 +12,7 @@
 
     <Grid HorizontalAlignment="Stretch" Margin="0,0,0,-18" VerticalAlignment="Stretch">
         <Button Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
-        <Grid Name="Titels" Height="40" VerticalAlignment="Top">
+        <Grid Name="Titels" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -31,24 +31,24 @@
         <GridView  Name="InventoryTbl" ItemClick="InventoryTbl_ItemClick" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1000" Height="627" Margin="0,110">
             <GridView.ItemTemplate>
                 <DataTemplate x:Name="dataTemp" x:DataType="data:InventoryRow">
-                    <Grid Name="gridy">
+                    <Grid Name="gridy" Width="1000">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
-                        <TextBox Grid.Column="0" Name="NameBlock" Text= "{x:Bind Name, Mode=TwoWay}"/>
-                        <TextBox Grid.Column="1" Name="QuantityBlock" Text= "{x:Bind Quantity, Mode=TwoWay}"/>
-                        <TextBox Grid.Column="2" Name="NeededQuantityBlock" Text= "{x:Bind NeededQuantity, Mode=TwoWay}"/>
-                        <TextBox Grid.Column="3" Name="AmountOutBox" Text="{x:Bind AmountOut, Mode=TwoWay}"/>
-                        <TextBox Grid.Column="4" Name="Remarkes" Text="{x:Bind Remarkes, Mode=TwoWay}"/>
-                        <Button Grid.Column="5" Name="landButton" Content="LandItemOut"/>
+                        <TextBox Grid.Row="0" Grid.Column="0" Name="NameBlock" Text= "{x:Bind Name, Mode=TwoWay}"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" Name="QuantityBlock" Text= "{x:Bind Quantity, Mode=TwoWay}"/>
+                        <TextBox Grid.Row="0" Grid.Column="2" Name="NeededQuantityBlock" Text= "{x:Bind NeededQuantity, Mode=TwoWay}"/>
+                        <TextBox Grid.Row="0" Grid.Column="3" Name="AmountOutBox" Text="{x:Bind AmountOut, Mode=TwoWay}"/>
+                        <TextBox Grid.Row="0" Grid.Column="4" Name="Remarkes" Text="{x:Bind Remarkes, Mode=TwoWay}"/>
+                        <Button Grid.Row="0" Click="LandButton_Click" Grid.Column="5" Name="landButton" Content="LandItemOut"/>
                         <!--<TextBlock Visibility="Collapsed" Name="id" Text= "{x:Bind ID, Mode=TwoWay}"/>-->
                     </Grid>
 

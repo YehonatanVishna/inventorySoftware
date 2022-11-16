@@ -35,6 +35,7 @@ namespace storageUniversal
             this.InitializeComponent();
             Titels.Margin = new Thickness(0, back.Height, 0, 0);
             InventoryTbl.Margin = new Thickness(0, back.Height + Titels.Height, 0, 0);
+            Titels.Width = InventoryTbl.Width;
             //TblWrapper.Height = InventoryTbl.Height;
             //TblWrapper.Width = InventoryTbl.Width;
             //TblWrapper.Margin = InventoryTbl.Margin;
@@ -245,5 +246,11 @@ namespace storageUniversal
             }
         }
 
+        private void LandButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button b = sender as Button;
+            int a = InventoryTbl.IndexFromContainer(b);
+
+        }
     }
 }
