@@ -22,10 +22,16 @@ namespace storageUniversal
     /// </summary>
     public sealed partial class BrowwingsAndDistractions : Page
     {
-        public InventoryRow row;
+        public static InventoryRow row ;
+        public static Type senderPage;
         public BrowwingsAndDistractions()
         {
             this.InitializeComponent();
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(senderPage);
         }
     }
 }

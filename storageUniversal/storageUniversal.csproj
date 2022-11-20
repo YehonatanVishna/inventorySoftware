@@ -125,6 +125,11 @@
     <Compile Include="BrowwingsAndDistractions.xaml.cs">
       <DependentUpon>BrowwingsAndDistractions.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\BorowwDb\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\InventoryServ\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -158,6 +163,13 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <None Include="Connected Services\BorowwDb\BorowwingsDB.wsdl" />
+    <None Include="Connected Services\BorowwDb\storageUniversal.BorowwDb.AddLendingResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\BorowwDb\storageUniversal.BorowwDb.HelloWorldResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\InventoryServ\InventoryFuncs.wsdl" />
     <None Include="Connected Services\InventoryServ\storageUniversal.InventoryServ.GetInventoryDataTableResponseGetInventoryDataTableResult.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -189,6 +201,13 @@
     <None Include="Connected Services\InventoryServ\configuration91.svcinfo" />
     <None Include="Connected Services\InventoryServ\configuration.svcinfo" />
     <None Include="Connected Services\InventoryServ\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\BorowwDb\BorowwingsDB.disco" />
+    <None Include="Connected Services\BorowwDb\configuration91.svcinfo" />
+    <None Include="Connected Services\BorowwDb\configuration.svcinfo" />
+    <None Include="Connected Services\BorowwDb\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -244,6 +263,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\BorowwDb\" />
     <WCFMetadataStorage Include="Connected Services\InventoryServ\" />
     <WCFMetadataStorage Include="Connected Services\UserDBServ\" />
   </ItemGroup>

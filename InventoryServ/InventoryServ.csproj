@@ -69,10 +69,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BorowwingsDB.asmx" />
     <Content Include="InventoryFuncs.asmx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BorowwingsDB.asmx.cs">
+      <DependentUpon>BorowwingsDB.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Connection.cs" />
     <Compile Include="InventoryFuncs.asmx.cs">
       <DependentUpon>InventoryFuncs.asmx</DependentUpon>

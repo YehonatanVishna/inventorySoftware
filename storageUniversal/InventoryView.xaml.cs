@@ -252,6 +252,8 @@ namespace storageUniversal
         {
             InventoryRow a = InventoryTbl.SelectedItem as InventoryRow;
             LantItem = a;
+            BrowwingsAndDistractions.senderPage = typeof(InventoryView);
+            BrowwingsAndDistractions.row = a;
             Frame.Navigate(typeof(BrowwingsAndDistractions));
         }
         
