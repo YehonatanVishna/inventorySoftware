@@ -16,6 +16,7 @@ using System.Data;
 using System.Xml;
 using storageUniversal;
 using System.Text.RegularExpressions;
+using System.Windows.Input;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -30,6 +31,7 @@ namespace storageUniversal
         public List<InventoryRow> currentInventories;
         public static UserDBServ.User FullUser = login.FullUser;
         public static string SentFrom;
+        public static InventoryRow LantItem;
         public InventoryView()
         {
             this.InitializeComponent();
@@ -248,8 +250,38 @@ namespace storageUniversal
 
         private void LandButton_Click(object sender, RoutedEventArgs e)
         {
-            Button b = sender as Button;
-            int a = InventoryTbl.IndexFromContainer(b);
+            InventoryRow a = InventoryTbl.SelectedItem as InventoryRow;
+            LantItem = a;
+            Frame.Navigate(typeof(BrowwingsAndDistractions));
+        }
+        
+        private void Gridy_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            if (InventoryTbl.SelectedItem != null)
+            {
+                MenuFlyout myFlyout = new MenuFlyout();
+                MenuFlyoutItem firstItem = new MenuFlyoutItem { Text = "land out" };
+                firstItem.Click += LandButton_Click;
+                MenuFlyoutItem secondItem = new MenuFlyoutItem { Text = "TwoIt" };
+                myFlyout.Items.Add(firstItem);
+                myFlyout.Items.Add(secondItem);
+                UIElement b = sender as UIElement;
+                b.ContextFlyout = myFlyout;
+                Point point = new Point(e.GetPosition(b).X, e.GetPosition(b).Y);
+                myFlyout.ShowAt(b, point);
+            }
+
+
+
+        }
+
+        private void FirstItem_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void LandButton_ContextRequested(UIElement sender, ContextRequestedEventArgs args)
+        {
 
         }
     }

@@ -22,6 +22,7 @@ namespace storageUniversal
     /// </summary>
     public sealed partial class BrowwingsAndDistractions : Page
     {
+        public InventoryRow row;
         public BrowwingsAndDistractions()
         {
             this.InitializeComponent();
