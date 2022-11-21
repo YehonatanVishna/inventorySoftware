@@ -36,10 +36,10 @@ namespace storageUniversal
         public InventoryView()
         {
             this.InitializeComponent();
-            Titels.Margin = new Thickness(0, back.Height, 0, 0);
-            InventoryTbl.Margin = new Thickness(0, back.Height + Titels.Height, 0, 0);
-            Titels.Width = InventoryTbl.Width;
-            //TblWrapper.Height = InventoryTbl.Height;
+            //Titels.Margin = new Thickness(0, back.Height, 0, 0);
+            //InventoryTbl.Margin = new Thickness(0, back.Height + Titels.Height, 0, 0);
+            //Titels.Width = InventoryTbl.Width;
+            ////TblWrapper.Height = InventoryTbl.Height;
             //TblWrapper.Width = InventoryTbl.Width;
             //TblWrapper.Margin = InventoryTbl.Margin;
             //TblWrapper.VerticalAlignment = InventoryTbl.VerticalAlignment;

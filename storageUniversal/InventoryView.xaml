@@ -6,13 +6,22 @@
     xmlns:local="using:storageUniversal"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Windows10FallCreatorsUpdate="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 5)"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <!--made by yehonatan vishna-->
 
     <Grid HorizontalAlignment="Stretch" Margin="0,0,0,-18" VerticalAlignment="Stretch">
-        <Button Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
-        <Grid Name="Titels" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width="40"></ColumnDefinition>
+            <ColumnDefinition ></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button Grid.Column="0" Grid.Row="0" Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
+        <Grid Grid.Column="1" Grid.Row="0" Name="Titels" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -28,36 +37,48 @@
             <TextBlock Grid.Column="3" Text="amount out"/>
             <TextBlock Grid.Column="4" Text="remarkes"/>
         </Grid>
-        <GridView  Name="InventoryTbl" RightTapped="Gridy_RightTapped" ItemClick="InventoryTbl_ItemClick" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1000" Height="627" Margin="0,110">
-            <GridView.ItemTemplate >
+        <ListView Grid.Column="1" Grid.Row="1" Name="InventoryTbl" RightTapped="Gridy_RightTapped" HorizontalContentAlignment="Stretch" ItemClick="InventoryTbl_ItemClick" HorizontalAlignment="Left" VerticalAlignment="Top" >
+            <ListView.Header>
+                <ListViewHeaderItem>
+                    <TextBlock Text="name"></TextBlock>
+                </ListViewHeaderItem>
+            </ListView.Header>
+            <ListView.ItemTemplate>
                 <DataTemplate  x:Name="dataTemp" x:DataType="data:InventoryRow">
-                    <Grid Name="gridy" Width="1000" >
+                    <Grid   Name="gridy" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
+                            <ColumnDefinition MinWidth="50"  Width="2*"></ColumnDefinition>
+                            <ColumnDefinition MinWidth="50" MaxWidth="2000" Width="1*"></ColumnDefinition>
+                            <ColumnDefinition MinWidth="50" MaxWidth="2000" Width="1*"></ColumnDefinition>
+                            <ColumnDefinition MinWidth="50" MaxWidth="2000" Width="1*"></ColumnDefinition>
+                            <ColumnDefinition MinWidth="50" Width="2*"></ColumnDefinition>
+
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
-                        
-                        <TextBox Grid.Row="0" Grid.Column="0" Name="NameBlock" Text= "{x:Bind Name, Mode=TwoWay}"/>
-                        <TextBox Grid.Row="0" Grid.Column="1" Name="QuantityBlock" Text= "{x:Bind Quantity, Mode=TwoWay}"/>
-                        <TextBox Grid.Row="0" Grid.Column="2" Name="NeededQuantityBlock" Text= "{x:Bind NeededQuantity, Mode=TwoWay}"/>
-                        <TextBox Grid.Row="0" Grid.Column="3" Name="AmountOutBox" Text="{x:Bind AmountOut, Mode=TwoWay}"/>
-                        <TextBox  Grid.Row="0" Grid.Column="4" Name="Remarkes" Text="{x:Bind Remarkes, Mode=TwoWay}"/>
+
+                        <TextBox Grid.Row="0" TextWrapping="Wrap" FlowDirection="LeftToRight" TextAlignment="Left" HorizontalAlignment="Stretch" Grid.Column="0" Name="NameBlock" Text= "{x:Bind Name, Mode=TwoWay}"/>
+                        <TextBox Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Stretch" Grid.Column="1" Name="QuantityBlock" Text= "{x:Bind Quantity, Mode=TwoWay}"/>
+                        <TextBox Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Stretch" Grid.Column="2" Name="NeededQuantityBlock" Text= "{x:Bind NeededQuantity, Mode=TwoWay}"/>
+                        <TextBox Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Stretch" Grid.Column="3" Name="AmountOutBox" Text="{x:Bind AmountOut, Mode=TwoWay}"/>
+                        <TextBox  Grid.Row="0" TextWrapping="Wrap" HorizontalContentAlignment="Right"  Grid.Column="4" FlowDirection="RightToLeft" TextAlignment="Justify" Name="Remarkes" Text="{x:Bind Remarkes, Mode=TwoWay}"/>
 
                         <!--<Button Grid.Row="0" ContextRequested="LandButton_ContextRequested" RightTapped="Gridy_RightTapped" Click="LandButton_Click" Grid.Column="5" Name="landButton" Content="LandItemOut"/>-->
                         <!--<TextBlock Visibility="Collapsed" Name="id" Text= "{x:Bind ID, Mode=TwoWay}"/>-->
                     </Grid>
 
                 </DataTemplate>
-            </GridView.ItemTemplate>
-        </GridView>
-        <Button Content="load table" Name="LoadTbl" Click="LoadTbl_Click" HorizontalAlignment="Left" Margin="1188,314,0,0" VerticalAlignment="Top"/>
+            </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment"  Value="Stretch"></Setter>
+                    <Setter Property="HorizontalAlignment"  Value="Stretch"></Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+
+        </ListView>
+        <Button Grid.Column="0" Grid.Row="1" Content="load table" Name="LoadTbl" Click="LoadTbl_Click" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Button Content="updateData" Name="updateDataFromTbl" Click="UpdateDataFromTbl_Click" HorizontalAlignment="Left" Margin="1188,172,0,0" VerticalAlignment="Top"/>
         <TextBlock Name="IsSucss" HorizontalAlignment="Left" Margin="976,46,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <Button Name="addItem" Click="AddItem_Click" Content="add item" HorizontalAlignment="Left" Margin="1229,411,0,0" VerticalAlignment="Top"/>
