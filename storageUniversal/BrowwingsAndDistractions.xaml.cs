@@ -33,5 +33,19 @@ namespace storageUniversal
         {
             Frame.Navigate(senderPage);
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void AmountLant_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            switch (e.Key.ToString())
+            {
+                case "Down": amountLant.Text = (float.Parse(amountLant.Text) - 1).ToString(); break;
+                case "Up": amountLant.Text = (float.Parse(amountLant.Text) + 1).ToString(); break;
+            }
+        }
     }
 }

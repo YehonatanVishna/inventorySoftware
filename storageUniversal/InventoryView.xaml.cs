@@ -18,6 +18,7 @@ using storageUniversal;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 
+
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace storageUniversal
@@ -45,7 +46,7 @@ namespace storageUniversal
             //TblWrapper.HorizontalAlignment = InventoryTbl.HorizontalAlignment;
         }
 
-        private  void InventoryTbl_ItemClick(object sender, ItemClickEventArgs e)
+        private void InventoryTbl_ItemClick(object sender, ItemClickEventArgs e)
         {
 
 
@@ -96,7 +97,7 @@ namespace storageUniversal
         {
 
         }
-        
+
         private async void UpdateDataFromTbl_Click(object sender, RoutedEventArgs e)
         {
             UpdateDataToDB();
@@ -248,43 +249,78 @@ namespace storageUniversal
             }
         }
 
-        private void LandButton_Click(object sender, RoutedEventArgs e)
+        private async void LandButton_Click(object sender, RoutedEventArgs e)
         {
-            InventoryRow a = InventoryTbl.SelectedItem as InventoryRow;
-            LantItem = a;
-            BrowwingsAndDistractions.senderPage = typeof(InventoryView);
-            BrowwingsAndDistractions.row = a;
-            Frame.Navigate(typeof(BrowwingsAndDistractions));
+            Grid grid = new Grid();
+            var rowDefinitions = grid.RowDefinitions;
+            int i = 2;
+            for(int j=0; j<i; j++)
+            {
+                rowDefinitions.Add(new RowDefinition());
+            }
+            TextBox amount = new TextBox { PlaceholderText = "amount" };
+            Grid.SetRow(amount, 0); grid.Children.Add(amount); 
+            TextBox lentTo = new TextBox { PlaceholderText = "Lent to" };
+            Grid.SetRow(lentTo, 1); grid.Children.Add(lentTo);
+            ContentDialog getLandingDits = new ContentDialog()
+            {
+                Title = "please fill out the landing ditails",
+                Content = grid,
+                CloseButtonText = "save", CloseButtonCommandParameter = grid, CloseButtonCommand = new saveBtnCmd()
+            };
+            getLandingDits.KeyDown += GetLandingDits_KeyDown;
+            lentTo.KeyDown += GetLandingDits_KeyDown;
+            await getLandingDits.ShowAsync();
         }
-        
+
+        private async void GetLandingDits_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if(e.Key.ToString().Equals("Enter"))
+            {
+                if (sender is ContentDialog)
+                {
+                    new saveBtnCmd().Execute((sender as ContentDialog).Content);
+                    (sender as ContentDialog).Hide();
+                }
+                if(sender is TextBox)
+                    new saveBtnCmd().Execute((sender as TextBox).Parent);
+            }
+        }
+
         private void Gridy_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
             if (InventoryTbl.SelectedItem != null)
             {
-                MenuFlyout myFlyout = new MenuFlyout();
+                LantItem = InventoryTbl.Items[InventoryTbl.SelectedIndex] as InventoryRow;
+                MenuFlyout rightClick = new MenuFlyout();
                 MenuFlyoutItem firstItem = new MenuFlyoutItem { Text = "land out" };
                 firstItem.Click += LandButton_Click;
-                MenuFlyoutItem secondItem = new MenuFlyoutItem { Text = "TwoIt" };
-                myFlyout.Items.Add(firstItem);
-                myFlyout.Items.Add(secondItem);
+                rightClick.Items.Add(firstItem);
                 UIElement b = sender as UIElement;
-                b.ContextFlyout = myFlyout;
+                b.ContextFlyout = rightClick;
                 Point point = new Point(e.GetPosition(b).X, e.GetPosition(b).Y);
-                myFlyout.ShowAt(b, point);
+                rightClick.ShowAt(b, point);
             }
 
 
-
         }
-
-        private void FirstItem_Click(object sender, RoutedEventArgs e)
+        class saveBtnCmd : ICommand
         {
-            throw new NotImplementedException();
-        }
+            public event EventHandler CanExecuteChanged;
 
-        private void LandButton_ContextRequested(UIElement sender, ContextRequestedEventArgs args)
-        {
+            public bool CanExecute(object parameter)
+            {
+                throw new NotImplementedException();
+            }
 
+            public async void Execute(object parameter)
+            {
+                UIElement content = parameter as UIElement;
+                float amount = float.Parse(((content as Grid).Children[0] as TextBox).Text);
+                string lentTo = ((content as Grid).Children[1] as TextBox).Text;
+                var s = new BorowwDb.BorowwingsDBSoapClient();
+                var id = await s.AddLendingAsync(LantItem.ID, lentTo, DateTime.Now, amount);
+            }
         }
     }
 }
