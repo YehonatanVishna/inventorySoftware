@@ -37,7 +37,7 @@ namespace InventoryServ
             dr["Quantity"] = amountBorowwed;
             con.InsertDataRow(dr);
 
-            ds = con.GetDataSet("lands1", "select Top 1 * from BorrowedItems where ItemId =" + itemId.ToString() + "And BorrowedBy = '"+ lentForWho.ToString() + "' And Quantity =" + amountBorowwed.ToString() + "  ORDER BY BorrowingId DESC");
+            ds = con.GetDataSet("lands1", "select Top 1 * from BorrowedItems where ItemId =" + itemId.ToString() + "And BorrowedBy = N'"+ lentForWho.ToString() + "' And Quantity =" + amountBorowwed.ToString() + "  ORDER BY BorrowingId DESC");
             return int.Parse( ds.Tables[0].Rows[0]["BorrowingId"].ToString());
         }
     }

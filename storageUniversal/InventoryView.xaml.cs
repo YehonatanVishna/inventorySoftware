@@ -36,6 +36,7 @@ namespace storageUniversal
         public InventoryView()
         {
             this.InitializeComponent();
+            LoadTblFunc();
             //Titels.Margin = new Thickness(0, back.Height, 0, 0);
             //InventoryTbl.Margin = new Thickness(0, back.Height + Titels.Height, 0, 0);
             //Titels.Width = InventoryTbl.Width;
@@ -141,14 +142,14 @@ namespace storageUniversal
                             row.NeededQuantity = a.NeededQuantity;
                             row.Remarkes = a.Remarkes;
                             bool isOk = await s.changeInventoryRowAsync(row);
-                            if (isOk)
-                            {
-                                IsSucss.Text = "changes saved sucssfully";
-                            }
-                            else
-                            {
-                                IsSucss.Text = "Something went wrong, please try again";
-                            }
+                            //if (isOk)
+                            //{
+                            //    IsSucss.Text = "changes saved sucssfully";
+                            //}
+                            //else
+                            //{
+                            //    IsSucss.Text = "Something went wrong, please try again";
+                            //}
                         }
                     }
                 }
@@ -266,7 +267,9 @@ namespace storageUniversal
             {
                 Title = "please fill out the landing ditails",
                 Content = grid,
-                CloseButtonText = "save", CloseButtonCommandParameter = grid, CloseButtonCommand = new saveBtnCmd()
+                SecondaryButtonText = "save",
+                SecondaryButtonCommandParameter= grid, SecondaryButtonCommand=new saveBtnCmd(),
+                CloseButtonText = "cancel"
             };
             getLandingDits.KeyDown += GetLandingDits_KeyDown;
             lentTo.KeyDown += GetLandingDits_KeyDown;

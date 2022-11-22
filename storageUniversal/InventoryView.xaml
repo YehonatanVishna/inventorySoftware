@@ -13,12 +13,13 @@
 
     <Grid HorizontalAlignment="Stretch" Margin="0,0,0,-18" VerticalAlignment="Stretch">
         <Grid.ColumnDefinitions >
-            <ColumnDefinition Width="40"></ColumnDefinition>
+            <ColumnDefinition Width="100"></ColumnDefinition>
             <ColumnDefinition ></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
         </Grid.RowDefinitions>
         <Button Grid.Column="0" Grid.Row="0" Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
         <Grid Grid.Column="1" Grid.Row="0" Name="Titels" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -78,12 +79,32 @@
             </ListView.ItemContainerStyle>
 
         </ListView>
-        <Button Grid.Column="0" Grid.Row="1" Content="load table" Name="LoadTbl" Click="LoadTbl_Click" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Button Content="updateData" Name="updateDataFromTbl" Click="UpdateDataFromTbl_Click" HorizontalAlignment="Left" Margin="1188,172,0,0" VerticalAlignment="Top"/>
-        <TextBlock Name="IsSucss" HorizontalAlignment="Left" Margin="976,46,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <Button Name="addItem" Click="AddItem_Click" Content="add item" HorizontalAlignment="Left" Margin="1229,411,0,0" VerticalAlignment="Top"/>
-        <Button Name="Delete" Content="delete selected item" Click="Delete_Click" HorizontalAlignment="Left" Height="51" VerticalAlignment="Top" Width="147" Margin="1123,503,0,0"/>
-        <Button Content="import from csv" Name="CsvImport" Click="CsvImport_Click"  HorizontalAlignment="Left" Margin="1234,65,0,0" VerticalAlignment="Top"/>
+        <Grid Grid.Column="0" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
 
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" Name="LoadTbl" Click="LoadTbl_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="WrapWholeWords" Text="load table"></TextBlock>
+            </Button>
+            <Button Grid.Row="1" Name="updateDataFromTbl" Click="UpdateDataFromTbl_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="WrapWholeWords" Text="update Data"></TextBlock>
+            </Button>
+            <!--<TextBlock Name="IsSucss" HorizontalAlignment="Left" Margin="976,46,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>-->
+            <Button Grid.Row="2" Name="addItem" Click="AddItem_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="WrapWholeWords" Text="add item"></TextBlock>
+            </Button>
+
+            <Button Grid.Row="3" Name="Delete" Click="Delete_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="WrapWholeWords" Text="delete selected item"></TextBlock>
+            </Button>
+
+            <Button Grid.Row="4" Name="CsvImport" Click="CsvImport_Click"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="WrapWholeWords" Text="import from csv"></TextBlock></Button>
+        </Grid>
     </Grid>
 </Page>
