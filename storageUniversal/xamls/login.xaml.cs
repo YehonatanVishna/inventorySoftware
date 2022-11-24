@@ -33,6 +33,32 @@ namespace storageUniversal
         public login()
         {
             this.InitializeComponent();
+            var db = new UsersDatabase();
+            var a=  db.GetItemsAsync();
+            if(a.Result[0] != null)
+            {
+                autoLogin(a.Result[0]);
+            }
+        }
+        private async void autoLogin(User user)
+        {
+            usr.Password = user.Password;
+            usr.Email = user.Email;
+            var a = await UDBS.IsUserPermittedAsync(usr);
+            bool b = bool.Parse(a.ToString());
+            if (b)
+            {
+
+                res.Text = "user exists, data should be showen";
+                var TempFullUsr = await UDBS.GetFullUserAsync(usr);
+                FullUser = TempFullUsr;
+                InventoryView.SentFrom = "login";
+                this.Frame.Navigate(typeof(InventoryView));
+            }
+            else
+            {
+                res.Text = "email or password are wrong, try again";
+            }
         }
 
         private async void SendEmailPass_Click(object sender, RoutedEventArgs e)
@@ -113,9 +139,15 @@ namespace storageUniversal
             bool b = bool.Parse(a.ToString());
             if (b)
             {
+
                 res.Text = "user exists, data should be showen";
                 var TempFullUsr = await UDBS.GetFullUserAsync(usr);
                 FullUser = TempFullUsr;
+                if (rememberBox.IsChecked.Value)
+                {
+                    var db = new UsersDatabase();
+                    await db.InsertItemAsync(new User() { ID = FullUser.ID, Email = FullUser.Email, Password = FullUser.Password });
+                }
                 InventoryView.SentFrom = "login";
                 this.Frame.Navigate(typeof(InventoryView));
             }

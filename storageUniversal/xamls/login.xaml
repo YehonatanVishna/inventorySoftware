@@ -16,6 +16,7 @@
         <Button Content="Delete" Name="DelBot"  Click="DelBot_Click"  HorizontalAlignment="Left" Margin="551,100,0,0" VerticalAlignment="Top"/>
         <TextBlock Name="res" HorizontalAlignment="Left" Margin="114,194,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <Button Content="login" Name="sendToInventoryTbl" Click="SendToInventoryTbl_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="425,100,0,0"/>
-        
+        <CheckBox Name="rememberBox" Content="remenber for next time" HorizontalAlignment="Left" Margin="878,96,0,0" VerticalAlignment="Top"/>
+
     </Grid>
 </Page>
