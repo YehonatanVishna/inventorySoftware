@@ -146,7 +146,7 @@ namespace storageUniversal
                 if (rememberBox.IsChecked.Value)
                 {
                     var db = new UsersDatabase();
-                    await db.InsertItemAsync(new User() { ID = FullUser.ID, Email = FullUser.Email, Password = FullUser.Password });
+                    await db.InsertItemAsync(new User() { ID = FullUser.ID, Email = FullUser.Email, Password = FullUser.Password , BDate = FullUser.BDate, Compeny = FullUser.Compeny, Fname = FullUser.Fname, Lname = FullUser.Lname});
                 }
                 InventoryView.SentFrom = "login";
                 this.Frame.Navigate(typeof(InventoryView));
