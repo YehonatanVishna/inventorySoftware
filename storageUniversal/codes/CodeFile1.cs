@@ -51,7 +51,6 @@ namespace storageUniversal
                 user.ID = int.Parse(dr["ID"].ToString());
                 user.Password = dr["password"].ToString();
                 user.Email = dr["email"].ToString();
-                user.BDate = DateTime.Parse(dr["BDate"].ToString());
                 user.Fname = dr["FName"].ToString();
                 user.Lname = dr["LName"].ToString();
                 user.Compeny = dr["compeny"].ToString();
@@ -77,7 +76,7 @@ namespace storageUniversal
         public async Task<bool> InsertItemAsync(User item)
         {
             await Init();
-            string nonQury = "Insert into Users (ID, email, password, FName, LName, BDate, compeny) values (" + item.ID.ToString() + ", N'" + item.Email + "', N'" + item.Password + "',N'" + item.Fname.ToString() + "', N'" + item.Lname + "', " + "CAST(N'" + item.BDate.ToShortDateString() + "' AS DateTime)" + ", '" + item.Compeny + "');";
+            string nonQury = "Insert into Users (ID, email, password, FName, LName, BDate, compeny) values (" + item.ID.ToString() + ",'" + item.Email + "', '" + item.Password + "','" + item.Fname.ToString() + "', '" + item.Lname + "', " + "CAST('" + item.BDate.ToShortDateString() + "' AS DateTime)" + ", '" + item.Compeny + "');";
             var comd = new SqliteCommand(nonQury, Database);
             var a = comd.ExecuteNonQuery();
             comd.Dispose();

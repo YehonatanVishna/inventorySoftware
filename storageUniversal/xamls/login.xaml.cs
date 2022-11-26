@@ -33,12 +33,20 @@ namespace storageUniversal
         public login()
         {
             this.InitializeComponent();
+            logAutoCheck();
+        }
+        private async void logAutoCheck()
+        {
             var db = new UsersDatabase();
-            var a=  db.GetItemsAsync();
-            if(a.Result[0] != null)
+            var a = await db.GetItemsAsync();
+            try
             {
-                autoLogin(a.Result[0]);
+                if (a.Count > 0)
+                {
+                    autoLogin(a[0]);
+                }
             }
+            catch { }
         }
         private async void autoLogin(User user)
         {
