@@ -121,14 +121,18 @@ namespace storageUniversal.BorowwDb {
         [System.Runtime.Serialization.DataMemberAttribute(Order=3)]
         public float amountBorowwed;
         
+        [System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+        public int userId;
+        
         public AddLendingRequestBody() {
         }
         
-        public AddLendingRequestBody(int itemId, string lentForWho, System.DateTime whenBorowwed, float amountBorowwed) {
+        public AddLendingRequestBody(int itemId, string lentForWho, System.DateTime whenBorowwed, float amountBorowwed, int userId) {
             this.itemId = itemId;
             this.lentForWho = lentForWho;
             this.whenBorowwed = whenBorowwed;
             this.amountBorowwed = amountBorowwed;
+            this.userId = userId;
         }
     }
     
@@ -225,13 +229,14 @@ namespace storageUniversal.BorowwDb {
             return base.Channel.AddLendingAsync(request);
         }
         
-        public System.Threading.Tasks.Task<storageUniversal.BorowwDb.AddLendingResponse> AddLendingAsync(int itemId, string lentForWho, System.DateTime whenBorowwed, float amountBorowwed) {
+        public System.Threading.Tasks.Task<storageUniversal.BorowwDb.AddLendingResponse> AddLendingAsync(int itemId, string lentForWho, System.DateTime whenBorowwed, float amountBorowwed, int userId) {
             storageUniversal.BorowwDb.AddLendingRequest inValue = new storageUniversal.BorowwDb.AddLendingRequest();
             inValue.Body = new storageUniversal.BorowwDb.AddLendingRequestBody();
             inValue.Body.itemId = itemId;
             inValue.Body.lentForWho = lentForWho;
             inValue.Body.whenBorowwed = whenBorowwed;
             inValue.Body.amountBorowwed = amountBorowwed;
+            inValue.Body.userId = userId;
             return ((storageUniversal.BorowwDb.BorowwingsDBSoap)(this)).AddLendingAsync(inValue);
         }
         

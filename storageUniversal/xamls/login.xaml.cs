@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Windows.Input;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -29,27 +30,44 @@ namespace storageUniversal
         public static UserDBServ.User usr = new UserDBServ.User();
         public static UserDBServ.User FullUser;
         private UserDBServ.UserDBServSoapClient UDBS = new UserDBServ.UserDBServSoapClient();
-        public static string SentFrom; 
+        public static string SentFrom;
         public login()
         {
             this.InitializeComponent();
-            logAutoCheck();
+            TryStartAutoLoging();
+
         }
-        private async void logAutoCheck()
+        private async void TryStartAutoLoging()
+        {
+            var db = new UsersDatabase();
+            var a = await db.GetItemsAsync();
+            if (a.Count > 0)
+            {
+                ContentDialog getLandingDits = new ContentDialog()
+                {
+                    Title = "please fill out the landing ditails",
+                    Content = new TextBlock() { Text = "do you wish to use saved user?" },
+                    SecondaryButtonText = "yes",
+                    SecondaryButtonCommand = new logSavedUser(),
+                    SecondaryButtonCommandParameter = this,
+                    CloseButtonText = "no"
+                };
+                await getLandingDits.ShowAsync();
+            }
+        }
+        public static async void logAutoCheck(Frame frame, TextBlock res)
         {
             var db = new UsersDatabase();
             var a = await db.GetItemsAsync();
             try
             {
-                if (a.Count > 0)
-                {
-                    autoLogin(a[0]);
-                }
+                    autoLogin(a[0], frame, res);
             }
             catch { }
         }
-        private async void autoLogin(User user)
+        public static async void autoLogin(User user, Frame frame, TextBlock res)
         {
+            var UDBS = new UserDBServ.UserDBServSoapClient();
             usr.Password = user.Password;
             usr.Email = user.Email;
             var a = await UDBS.IsUserPermittedAsync(usr);
@@ -61,13 +79,32 @@ namespace storageUniversal
                 var TempFullUsr = await UDBS.GetFullUserAsync(usr);
                 FullUser = TempFullUsr;
                 InventoryView.SentFrom = "login";
-                this.Frame.Navigate(typeof(InventoryView));
+                frame.Navigate(typeof(InventoryView));
             }
             else
             {
                 res.Text = "email or password are wrong, try again";
             }
         }
+        public class logSavedUser : ICommand
+        {
+            public event EventHandler CanExecuteChanged;
+
+            public bool CanExecute(object parameter)
+            {
+                throw new NotImplementedException();
+            }
+
+            public async void Execute(object parameter)
+            {
+                var logPg = (parameter as login);
+                logAutoCheck(logPg.Frame, logPg.res);
+            }
+
+        }
+
+
+        
 
         private async void SendEmailPass_Click(object sender, RoutedEventArgs e)
         {
@@ -154,6 +191,7 @@ namespace storageUniversal
                 if (rememberBox.IsChecked.Value)
                 {
                     var db = new UsersDatabase();
+                    await db.DeleteAll();
                     await db.InsertItemAsync(new User() { ID = FullUser.ID, Email = FullUser.Email, Password = FullUser.Password , BDate = FullUser.BDate, Compeny = FullUser.Compeny, Fname = FullUser.Fname, Lname = FullUser.Lname});
                 }
                 InventoryView.SentFrom = "login";

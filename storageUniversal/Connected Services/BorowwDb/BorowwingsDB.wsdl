@@ -19,6 +19,7 @@
             <s:element minOccurs="0" maxOccurs="1" name="lentForWho" type="s:string" />
             <s:element minOccurs="1" maxOccurs="1" name="whenBorowwed" type="s:dateTime" />
             <s:element minOccurs="1" maxOccurs="1" name="amountBorowwed" type="s:float" />
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>

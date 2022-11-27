@@ -6,5 +6,5 @@
     cause the file to be unrecognizable by the program.
 -->
 <GenericObjectDataSource DisplayName="AddLendingResponse" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-   <TypeInfo>storageUniversal.BorowwDb.AddLendingResponse, Connected Services.BorowwDb.Reference.cs.dll, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
+   <TypeInfo>storageUniversal.BorowwDb.AddLendingResponse</TypeInfo>
 </GenericObjectDataSource>

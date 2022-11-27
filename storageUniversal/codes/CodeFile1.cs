@@ -38,7 +38,6 @@ namespace storageUniversal
         public async Task<List<User>> GetItemsAsync()
         {
             await Init();
-            Database.Open();
             var qury = "select * from Users";
             var comd = new Microsoft.Data.Sqlite.SqliteCommand(qury, Database);
             var reader = comd.ExecuteReader();
@@ -83,8 +82,9 @@ namespace storageUniversal
             return a > 0;
 
         }
-        public bool DeleteAll()
+        public async Task<bool> DeleteAll()
         {
+            await Init();
             string nonQury = "Delete from Users";
             var comd = new SqliteCommand(nonQury, Database);
             var a = comd.ExecuteNonQuery();

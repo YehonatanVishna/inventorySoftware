@@ -322,7 +322,7 @@ namespace storageUniversal
                 float amount = float.Parse(((content as Grid).Children[0] as TextBox).Text);
                 string lentTo = ((content as Grid).Children[1] as TextBox).Text;
                 var s = new BorowwDb.BorowwingsDBSoapClient();
-                var id = await s.AddLendingAsync(LantItem.ID, lentTo, DateTime.Now, amount);
+                var id = await s.AddLendingAsync(LantItem.ID, lentTo, DateTime.Now, amount, FullUser.ID);
             }
         }
     }

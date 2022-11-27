@@ -118,6 +118,7 @@
   <ItemGroup>
     <Compile Include="codes\CodeFile1.cs" />
     <Compile Include="codes\Constants.cs" />
+    <Compile Include="codes\logins.cs" />
     <Compile Include="xamls\AdminPanel.xaml.cs">
       <DependentUpon>AdminPanel.xaml</DependentUpon>
     </Compile>

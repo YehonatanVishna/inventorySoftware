@@ -26,7 +26,7 @@ namespace InventoryServ
             return "Hello World";
         }
         [WebMethod]
-        public int AddLending(int itemId, string lentForWho, DateTime whenBorowwed, float amountBorowwed)
+        public int AddLending(int itemId, string lentForWho, DateTime whenBorowwed, float amountBorowwed, int userId)
         {
             Connection con = new Connection(constr);
             DataSet ds = con.GetDataSet("lands", "select * from BorrowedItems where 0>1");
@@ -35,6 +35,7 @@ namespace InventoryServ
             dr["BorrowedBy"] = lentForWho;
             dr["When"] = whenBorowwed;
             dr["Quantity"] = amountBorowwed;
+            dr["UserId"] = userId;
             con.InsertDataRow(dr);
 
             ds = con.GetDataSet("lands1", "select Top 1 * from BorrowedItems where ItemId =" + itemId.ToString() + "And BorrowedBy = N'"+ lentForWho.ToString() + "' And Quantity =" + amountBorowwed.ToString() + "  ORDER BY BorrowingId DESC");
