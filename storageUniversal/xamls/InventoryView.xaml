@@ -86,7 +86,7 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
-
+                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Button Grid.Row="0" Name="LoadTbl" Click="LoadTbl_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="WrapWholeWords" Text="load table"></TextBlock>
@@ -105,6 +105,9 @@
 
             <Button Grid.Row="4" Name="CsvImport" Click="CsvImport_Click"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="WrapWholeWords" Text="import from csv"></TextBlock></Button>
+            <Button Grid.Row="5" Name="seeLandings" Click="SeeLandings_Click"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="WrapWholeWords" Text="see all active landings"></TextBlock>
+            </Button>
         </Grid>
     </Grid>
 </Page>

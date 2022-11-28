@@ -30,6 +30,35 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetLandings">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UserId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLandingsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLandingsResult" type="tns:ArrayOfBorrow" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBorrow">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Borrow" nillable="true" type="tns:Borrow" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Borrow">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ItemId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="BorrowedBy" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="When" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Quantity" type="s:float" />
+          <s:element minOccurs="1" maxOccurs="1" name="BorrowingId" type="s:float" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserId" type="s:int" />
+        </s:sequence>
+      </s:complexType>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="HelloWorldSoapIn">
@@ -44,6 +73,12 @@
   <wsdl:message name="AddLendingSoapOut">
     <wsdl:part name="parameters" element="tns:AddLendingResponse" />
   </wsdl:message>
+  <wsdl:message name="GetLandingsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLandings" />
+  </wsdl:message>
+  <wsdl:message name="GetLandingsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLandingsResponse" />
+  </wsdl:message>
   <wsdl:portType name="BorowwingsDBSoap">
     <wsdl:operation name="HelloWorld">
       <wsdl:input message="tns:HelloWorldSoapIn" />
@@ -52,6 +87,10 @@
     <wsdl:operation name="AddLending">
       <wsdl:input message="tns:AddLendingSoapIn" />
       <wsdl:output message="tns:AddLendingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLandings">
+      <wsdl:input message="tns:GetLandingsSoapIn" />
+      <wsdl:output message="tns:GetLandingsSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BorowwingsDBSoap" type="tns:BorowwingsDBSoap">
@@ -74,6 +113,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetLandings">
+      <soap:operation soapAction="http://tempuri.org/GetLandings" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="BorowwingsDBSoap12" type="tns:BorowwingsDBSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -88,6 +136,15 @@
     </wsdl:operation>
     <wsdl:operation name="AddLending">
       <soap12:operation soapAction="http://tempuri.org/AddLending" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLandings">
+      <soap12:operation soapAction="http://tempuri.org/GetLandings" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

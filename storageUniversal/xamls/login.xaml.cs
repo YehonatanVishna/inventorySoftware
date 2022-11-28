@@ -45,8 +45,7 @@ namespace storageUniversal
             {
                 ContentDialog getLandingDits = new ContentDialog()
                 {
-                    Title = "please fill out the landing ditails",
-                    Content = new TextBlock() { Text = "do you wish to use saved user?" },
+                    Title = "do you wish to use saved user?",
                     SecondaryButtonText = "yes",
                     SecondaryButtonCommand = new logSavedUser(),
                     SecondaryButtonCommandParameter = this,

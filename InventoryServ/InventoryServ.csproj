@@ -78,6 +78,7 @@
       <DependentUpon>BorowwingsDB.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Borrow.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="InventoryFuncs.asmx.cs">
       <DependentUpon>InventoryFuncs.asmx</DependentUpon>

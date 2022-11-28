@@ -22,11 +22,13 @@ namespace storageUniversal
     /// </summary>
     public sealed partial class BrowwingsAndDistractions : Page
     {
-        public static InventoryRow row ;
+        public static UserDBServ.User user;
         public static Type senderPage;
         public BrowwingsAndDistractions()
         {
             this.InitializeComponent();
+            var BDB = new BorowwDb.BorowwingsDBSoapClient();
+            LandsTbl.ItemsSource = BDB.GetLandingsAsync(user.ID);
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)

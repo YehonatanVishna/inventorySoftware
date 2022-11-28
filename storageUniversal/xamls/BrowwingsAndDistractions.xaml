@@ -2,6 +2,7 @@
     x:Class="storageUniversal.BrowwingsAndDistractions"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:data="using:storageUniversal.BorowwDb"
     xmlns:local="using:storageUniversal"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -11,12 +12,16 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Button Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
-        <TextBox Grid.Column="0" Name="amountLant" Text="0" KeyDown="AmountLant_KeyDown"></TextBox>
+        <ListView Name="LandsTbl">
+            <ListView.ItemTemplate>
+                <DataTemplate  x:Name="dataTemp" x:DataType="data:Borrow">
+                    <Grid>
+                        <TextBlock Name="itemName" Text="{Binding ItemName, Mode=TwoWay}"></TextBlock>
+                        <TextBox Name="amount" Text="{Binding Quantity}"></TextBox>
+                        <TextBox Name="takenBy" Text="{Binding BorrowedBy}"></TextBox>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Page>

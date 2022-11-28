@@ -37,14 +37,6 @@ namespace storageUniversal
         {
             this.InitializeComponent();
             LoadTblFunc();
-            //Titels.Margin = new Thickness(0, back.Height, 0, 0);
-            //InventoryTbl.Margin = new Thickness(0, back.Height + Titels.Height, 0, 0);
-            //Titels.Width = InventoryTbl.Width;
-            ////TblWrapper.Height = InventoryTbl.Height;
-            //TblWrapper.Width = InventoryTbl.Width;
-            //TblWrapper.Margin = InventoryTbl.Margin;
-            //TblWrapper.VerticalAlignment = InventoryTbl.VerticalAlignment;
-            //TblWrapper.HorizontalAlignment = InventoryTbl.HorizontalAlignment;
         }
 
         private void InventoryTbl_ItemClick(object sender, ItemClickEventArgs e)
@@ -142,14 +134,6 @@ namespace storageUniversal
                             row.NeededQuantity = a.NeededQuantity;
                             row.Remarkes = a.Remarkes;
                             bool isOk = await s.changeInventoryRowAsync(row);
-                            //if (isOk)
-                            //{
-                            //    IsSucss.Text = "changes saved sucssfully";
-                            //}
-                            //else
-                            //{
-                            //    IsSucss.Text = "Something went wrong, please try again";
-                            //}
                         }
                     }
                 }
@@ -324,6 +308,13 @@ namespace storageUniversal
                 var s = new BorowwDb.BorowwingsDBSoapClient();
                 var id = await s.AddLendingAsync(LantItem.ID, lentTo, DateTime.Now, amount, FullUser.ID);
             }
+        }
+
+        private void SeeLandings_Click(object sender, RoutedEventArgs e)
+        {
+            BrowwingsAndDistractions.user = FullUser;
+            BrowwingsAndDistractions.senderPage = typeof(InventoryView);
+            Frame.Navigate(typeof(BrowwingsAndDistractions));
         }
     }
 }

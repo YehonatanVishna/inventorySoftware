@@ -116,6 +116,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="codes\Borrow.cs" />
     <Compile Include="codes\CodeFile1.cs" />
     <Compile Include="codes\Constants.cs" />
     <Compile Include="codes\logins.cs" />
@@ -168,6 +169,9 @@
     </AppxManifest>
     <None Include="Connected Services\BorowwDb\BorowwingsDB.wsdl" />
     <None Include="Connected Services\BorowwDb\storageUniversal.BorowwDb.AddLendingResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\BorowwDb\storageUniversal.BorowwDb.GetLandingsResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\BorowwDb\storageUniversal.BorowwDb.HelloWorldResponse.datasource">
