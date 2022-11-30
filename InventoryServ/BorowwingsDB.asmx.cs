@@ -42,22 +42,43 @@ namespace InventoryServ
             return int.Parse( ds.Tables[0].Rows[0]["BorrowingId"].ToString());
         }
         [WebMethod]
-        public List<Borrow> GetLandings(int UserId)
+        public DataTable GetLandings(int UserId)
         {
             Connection con = new Connection(constr);
             DataSet ds = con.GetDataSet("lands", "select * from BorrowedItems where UserId=" + UserId.ToString() + ";");
-            List<Borrow> borrows = new List<Borrow>();
-            foreach(DataRow dr in ds.Tables["lands"].Rows)
-            {
-                var bro = new Borrow();
-                bro.ItemId = int.Parse(dr["ItemId"].ToString());
-                bro.BorrowedBy = dr["BorrowedBy"].ToString();
-                bro.When = DateTime.Parse(dr["When"].ToString());
-                bro.Quantity = float.Parse(dr["Quantity"].ToString());
-                bro.UserId = int.Parse(dr["UserId"].ToString());
-                borrows.Add(bro);
-            }
-            return borrows;
+            return ds.Tables["lands"];
+            //List<Borrow> borrows = new List<Borrow>();
+            //foreach(DataRow dr in ds.Tables["lands"].Rows)
+            //{
+            //    var bro = new Borrow();
+            //    bro.ItemId = int.Parse(dr["ItemId"].ToString());
+            //    bro.BorrowedBy = dr["BorrowedBy"].ToString();
+            //    bro.When = DateTime.Parse(dr["When"].ToString());
+            //    bro.Quantity = float.Parse(dr["Quantity"].ToString());
+            //    bro.UserId = int.Parse(dr["UserId"].ToString());
+            //    borrows.Add(bro);
+            //}
+            //var BorowDicts = new List<Dictionary<string, string>>();
+            //foreach (Borrow b in borrows)
+            //{
+            //    Dictionary<string, string> BorowDict = new Dictionary<string, string>();
+            //    BorowDict["ItemId"] = b.ItemId.ToString();
+            //    BorowDict["BorrowedBy"] = b.BorrowedBy.ToString();
+            //    BorowDict["When"] = b.When.ToString();
+            //    BorowDict["Quantity"] = b.Quantity.ToString();
+            //    BorowDict["UserId"] = b.UserId.ToString();
+            //    BorowDicts.Add(BorowDict);
+            //}
+            //return BorowDicts;
+
+        }
+        [WebMethod]
+        public string getName(int itemId) {
+            var con = new Connection(BorowwingsDB.constr);
+            con.openCon();
+            var ds = con.GetDataSet("item name", "select Name from Inventory where ID = " + itemId + ";");
+            con.CloseCon();
+            return ds.Tables["item name"].Rows[0]["Name"].ToString();
         }
     }
 }

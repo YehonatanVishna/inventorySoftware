@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -27,8 +28,25 @@ namespace storageUniversal
         public BrowwingsAndDistractions()
         {
             this.InitializeComponent();
+            loadTbl();
+        }
+        private async void loadTbl()
+        {
             var BDB = new BorowwDb.BorowwingsDBSoapClient();
-            LandsTbl.ItemsSource = BDB.GetLandingsAsync(user.ID);
+            var DataTbl = await BDB.GetLandingsAsync(user.ID);
+            var borrows = new List<codes.Borrow>();
+            foreach(DataRow dr in DataTbl.Rows)
+            {
+                var bro = new codes.Borrow();
+                bro.ItemId = int.Parse(dr["ItemId"].ToString());
+                bro.BorrowedBy = dr["BorrowedBy"].ToString();
+                bro.When = DateTime.Parse(dr["When"].ToString());
+                bro.Quantity = float.Parse(dr["Quantity"].ToString());
+                bro.UserId = int.Parse(dr["UserId"].ToString());
+                await bro.SetName(bro.ItemId);
+                borrows.Add(bro);
+            }
+            LandsTbl.ItemsSource = borrows;
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -43,11 +61,6 @@ namespace storageUniversal
 
         private void AmountLant_KeyDown(object sender, KeyRoutedEventArgs e)
         {
-            switch (e.Key.ToString())
-            {
-                case "Down": amountLant.Text = (float.Parse(amountLant.Text) - 1).ToString(); break;
-                case "Up": amountLant.Text = (float.Parse(amountLant.Text) + 1).ToString(); break;
-            }
         }
     }
 }

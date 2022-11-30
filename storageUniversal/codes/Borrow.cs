@@ -15,14 +15,18 @@ namespace storageUniversal.codes
         private float quantity;
         private float borrowingId;
         private int userId;
+        private string name;
         public Borrow() { }
-        public Borrow(storageUniversal.BorowwDb.Borrow borrow) {
-            itemId = borrow.ItemId;
-            borrowedBy = borrow.BorrowedBy;
-            when = borrow.When;
-            quantity = borrow.Quantity;
-            borrowingId = borrow.BorrowingId;
+        private Borrow(int id) {
+            this.ItemId = id;
         }
+        //public Borrow(storageUniversal.BorowwDb.Borrow borrow) {
+        //    itemId = borrow.ItemId;
+        //    borrowedBy = borrow.BorrowedBy;
+        //    when = borrow.When;
+        //    quantity = borrow.Quantity;
+        //    borrowingId = borrow.BorrowingId;
+        //}
         //public string ItemName
         //{
         //    get
@@ -33,11 +37,20 @@ namespace storageUniversal.codes
         //        return ds.Tables["item name"].Rows[0]["Name"].ToString();
         //    }
         //}
-        public int ItemId { get => ItemId; set => ItemId = value; }
+        public int ItemId { get { return  itemId; } set { this.itemId = value; } }
         public string BorrowedBy { get => borrowedBy; set => borrowedBy = value; }
         public DateTime When { get => when; set => when = value; }
         public float Quantity { get => quantity; set => quantity = value; }
         public float BorrowingId { get => borrowingId; set => borrowingId = value; }
         public int UserId { get => userId; set => userId = value; }
+        public string Name { get => name; set => name = value; }
+
+        public async Task<string> SetName(int id)
+        {
+            var b = new BorowwDb.BorowwingsDBSoapClient();
+            name = await b.getNameAsync(id);
+            return name;
+        }
+
     }
 }
