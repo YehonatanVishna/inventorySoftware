@@ -27,6 +27,17 @@ namespace InventoryServ
             return "Hello Worlder";
         }
         [WebMethod]
+        public float CalcAmountOut(int itemId)
+        {
+            Connection con = new Connection(constr);
+            DataSet ds = con.GetDataSet("lands", "select Quantity from BorrowedItems where ItemId=" + itemId.ToString() + ";");
+            float amount = 0;
+            foreach (DataRow dr in ds.Tables[0].Rows) {
+                amount += float.Parse(dr[0].ToString());
+            }
+            return amount;
+        }
+        [WebMethod]
         public DataTable GetInventoryDataTable()
         {
             Connection con = new Connection(constr);
@@ -51,6 +62,10 @@ namespace InventoryServ
             con.openCon();
             bool a = con.ExequteNoneQury("update Inventory Set Name = N'" + inventoryRow.Name + "', Quantity = " + inventoryRow.Quantity.ToString() + ", NeededQuantity = " + inventoryRow.NeededQuantity.ToString() + ", Remarkes = N'"+ inventoryRow.Remarkes +"' Where ID = " + inventoryRow.ID.ToString() + " ;");
             con.CloseCon();
+            if (a)
+            {
+
+            }
             return a;
         }
         [WebMethod]

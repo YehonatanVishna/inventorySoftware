@@ -22,7 +22,7 @@
             <RowDefinition Height="20"></RowDefinition>
         </Grid.RowDefinitions>
         <Button Grid.Column="0" Grid.Row="0" Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
-        <Grid Grid.Column="1" Grid.Row="0" Name="Titels" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <!--<Grid Grid.Column="1" Grid.Row="0" Name="Titels" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -37,13 +37,22 @@
             <TextBlock Grid.Column="2" Text="needed quntety"/>
             <TextBlock Grid.Column="3" Text="amount out"/>
             <TextBlock Grid.Column="4" Text="remarkes"/>
+        </Grid>-->
+        <Grid Grid.Column="1" Grid.Row="0" Name="headers" Width="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="50"  Width="2*"></ColumnDefinition>
+                <ColumnDefinition MinWidth="50" MaxWidth="2000" Width="1*"></ColumnDefinition>
+                <ColumnDefinition MinWidth="50" MaxWidth="2000" Width="1*"></ColumnDefinition>
+                <ColumnDefinition MinWidth="50" Width="2*"></ColumnDefinition>
+                <ColumnDefinition MinWidth="50" MaxWidth="2000" Width="0.5*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" HorizontalTextAlignment="Center">name</TextBlock>
+            <TextBlock Grid.Column="1" HorizontalTextAlignment="Center">Quntety</TextBlock>
+            <TextBlock Grid.Column="2" HorizontalTextAlignment="Center">needed quntety</TextBlock>
+            <TextBlock Grid.Column="3" HorizontalTextAlignment="Center">remarks</TextBlock>
+            <TextBlock Grid.Column="4" HorizontalTextAlignment="Center">amount out</TextBlock>
         </Grid>
-        <ListView Grid.Column="1" Grid.Row="1" Name="InventoryTbl" RightTapped="Gridy_RightTapped" HorizontalContentAlignment="Stretch" ItemClick="InventoryTbl_ItemClick" HorizontalAlignment="Left" VerticalAlignment="Top" >
-            <ListView.Header>
-                <ListViewHeaderItem>
-                    <TextBlock Text="name"></TextBlock>
-                </ListViewHeaderItem>
-            </ListView.Header>
+        <ListView Grid.Column="1" Grid.Row="1" Name="InventoryTbl" RightTapped="Gridy_RightTapped" HorizontalContentAlignment="Stretch" ItemClick="InventoryTbl_ItemClick" HorizontalAlignment="Stretch" VerticalAlignment="Top" >
             <ListView.ItemTemplate>
                 <DataTemplate  x:Name="dataTemp" x:DataType="data:InventoryRow">
                     <Grid   Name="gridy" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
@@ -51,9 +60,8 @@
                             <ColumnDefinition MinWidth="50"  Width="2*"></ColumnDefinition>
                             <ColumnDefinition MinWidth="50" MaxWidth="2000" Width="1*"></ColumnDefinition>
                             <ColumnDefinition MinWidth="50" MaxWidth="2000" Width="1*"></ColumnDefinition>
-                            <ColumnDefinition MinWidth="50" MaxWidth="2000" Width="1*"></ColumnDefinition>
                             <ColumnDefinition MinWidth="50" Width="2*"></ColumnDefinition>
-
+                            <ColumnDefinition MinWidth="50" MaxWidth="2000" Width="0.5*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -62,8 +70,10 @@
                         <TextBox Grid.Row="0" TextWrapping="Wrap" FlowDirection="LeftToRight" TextAlignment="Left" HorizontalAlignment="Stretch" Grid.Column="0" Name="NameBlock" Text= "{x:Bind Name, Mode=TwoWay}"/>
                         <TextBox Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Stretch" Grid.Column="1" Name="QuantityBlock" Text= "{x:Bind Quantity, Mode=TwoWay}"/>
                         <TextBox Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Stretch" Grid.Column="2" Name="NeededQuantityBlock" Text= "{x:Bind NeededQuantity, Mode=TwoWay}"/>
-                        <TextBox Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Stretch" Grid.Column="3" Name="AmountOutBox" Text="{x:Bind AmountOut, Mode=TwoWay}"/>
-                        <TextBox  Grid.Row="0" TextWrapping="Wrap" HorizontalContentAlignment="Right"  Grid.Column="4" FlowDirection="RightToLeft" TextAlignment="Justify" Name="Remarkes" Text="{x:Bind Remarkes, Mode=TwoWay}"/>
+                        <Frame Grid.Row="0" Grid.Column="4" HorizontalAlignment="Stretch" BorderThickness="2" BorderBrush="Gray">
+                            <TextBlock  TextWrapping="Wrap" HorizontalAlignment="Stretch" Name="AmountOutBox" Text="{x:Bind AmountOut, Mode=TwoWay}"/>
+                        </Frame>
+                        <TextBox  Grid.Row="0" TextWrapping="Wrap" HorizontalContentAlignment="Right"  Grid.Column="3" FlowDirection="RightToLeft" TextAlignment="Justify" Name="Remarkes" Text="{x:Bind Remarkes, Mode=TwoWay}"/>
 
                         <!--<Button Grid.Row="0" ContextRequested="LandButton_ContextRequested" RightTapped="Gridy_RightTapped" Click="LandButton_Click" Grid.Column="5" Name="landButton" Content="LandItemOut"/>-->
                         <!--<TextBlock Visibility="Collapsed" Name="id" Text= "{x:Bind ID, Mode=TwoWay}"/>-->

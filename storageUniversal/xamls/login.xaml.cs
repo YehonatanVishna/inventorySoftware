@@ -30,7 +30,7 @@ namespace storageUniversal
         public static UserDBServ.User usr = new UserDBServ.User();
         public static UserDBServ.User FullUser;
         private UserDBServ.UserDBServSoapClient UDBS = new UserDBServ.UserDBServSoapClient();
-        public static string SentFrom;
+        public static Type SentFrom;
         public login()
         {
             this.InitializeComponent();
@@ -77,7 +77,7 @@ namespace storageUniversal
                 res.Text = "user exists, data should be showen";
                 var TempFullUsr = await UDBS.GetFullUserAsync(usr);
                 FullUser = TempFullUsr;
-                InventoryView.SentFrom = "login";
+                InventoryView.SentFrom = typeof(login);
                 frame.Navigate(typeof(InventoryView));
             }
             else
@@ -120,7 +120,7 @@ namespace storageUniversal
                     res.Text = "user exists, data should be showen";
                     var TempFullUsr = await UDBS.GetFullUserAsync(usr);
                     FullUser = TempFullUsr;
-                    updateUser.SentFrom = "login";
+                    updateUser.SentFrom = typeof(login);
                     this.Frame.Navigate(typeof(updateUser));
                 }
                 else
@@ -131,7 +131,7 @@ namespace storageUniversal
             else
             {
                 FullUser = usr;
-                AdminPanel.SentFrom = "login";
+                AdminPanel.SentFrom = typeof(login);
                 this.Frame.Navigate(typeof(AdminPanel));
             }
         }
@@ -193,7 +193,7 @@ namespace storageUniversal
                     await db.DeleteAll();
                     await db.InsertItemAsync(new User() { ID = FullUser.ID, Email = FullUser.Email, Password = FullUser.Password , BDate = FullUser.BDate, Compeny = FullUser.Compeny, Fname = FullUser.Fname, Lname = FullUser.Lname});
                 }
-                InventoryView.SentFrom = "login";
+                InventoryView.SentFrom = typeof(login);
                 this.Frame.Navigate(typeof(InventoryView));
             }
             else
@@ -204,15 +204,7 @@ namespace storageUniversal
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            switch (SentFrom)
-            {
-                case "login": Frame.Navigate(typeof(login)); break;
-                case "Register": Frame.Navigate(typeof(Register)); break;
-                case "InventoryView": Frame.Navigate(typeof(InventoryView)); break;
-                case "AdminPanel": Frame.Navigate(typeof(AdminPanel)); break;
-                case "updateUser": Frame.Navigate(typeof(updateUser)); break;
-                case "MainPage": Frame.Navigate(typeof(MainPage)); break;
-            }
+            Frame.Navigate(SentFrom);
         }
     }
 }

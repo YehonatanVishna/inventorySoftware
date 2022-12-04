@@ -26,6 +26,34 @@ namespace InventoryServ
             return "Hello World";
         }
         [WebMethod]
+        public float CalcAmountOut(int itemId)
+        {
+            Connection con = new Connection(constr);
+            DataSet ds = con.GetDataSet("lands", "select Quantity from BorrowedItems where ItemId=" + itemId.ToString() + ";");
+            float amount = 0;
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                amount += float.Parse(dr[0].ToString());
+            }
+            return amount;
+        }
+        [WebMethod]
+        public bool UpdateAmountOut(int itemId)
+        {
+            Connection con = new Connection(constr);
+            DataSet ds = con.GetDataSet("lands", "select Quantity from BorrowedItems where ItemId=" + itemId.ToString() + ";");
+            float amount = 0;
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                amount += float.Parse(dr[0].ToString());
+            }
+            con.openCon();
+            var s = "Update Inventory Set AmountOut = " + amount.ToString() + " where ID = " + itemId.ToString() + ";";
+            bool a = con.ExequteNoneQury(s);
+            con.CloseCon();
+            return a;
+        }
+        [WebMethod]
         public int AddLending(int itemId, string lentForWho, DateTime whenBorowwed, float amountBorowwed, int userId)
         {
             Connection con = new Connection(constr);
@@ -39,7 +67,9 @@ namespace InventoryServ
             con.InsertDataRow(dr);
 
             ds = con.GetDataSet("lands1", "select Top 1 * from BorrowedItems where ItemId =" + itemId.ToString() + "And BorrowedBy = N'"+ lentForWho.ToString() + "' And Quantity =" + amountBorowwed.ToString() + "  ORDER BY BorrowingId DESC");
-            return int.Parse( ds.Tables[0].Rows[0]["BorrowingId"].ToString());
+            
+            int id = int.Parse( ds.Tables[0].Rows[0]["BorrowingId"].ToString());
+            return id;
         }
         [WebMethod]
         public DataTable GetLandings(int UserId)

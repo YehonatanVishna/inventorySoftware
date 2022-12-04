@@ -23,7 +23,7 @@ namespace storageUniversal
     /// </summary>
     public sealed partial class Register : Page
     {
-        public static string SentFrom;
+        public static Type SentFrom;
         public Register()
         {
             this.InitializeComponent();
@@ -60,15 +60,7 @@ namespace storageUniversal
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            switch (SentFrom)
-            {
-                case "login": Frame.Navigate(typeof(login)); break;
-                case "Register": Frame.Navigate(typeof(Register)); break;
-                case "InventoryView": Frame.Navigate(typeof(InventoryView)); break;
-                case "AdminPanel": Frame.Navigate(typeof(AdminPanel)); break;
-                case "updateUser": Frame.Navigate(typeof(updateUser)); break;
-                case "MainPage": Frame.Navigate(typeof(MainPage)); break;
-            }
+            Frame.Navigate(SentFrom);
         }
     }
 }

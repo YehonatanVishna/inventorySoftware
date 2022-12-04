@@ -31,7 +31,7 @@ namespace storageUniversal
         public List<InventoryRow> inventories;// original inventory
         public List<InventoryRow> currentInventories;
         public static UserDBServ.User FullUser = login.FullUser;
-        public static string SentFrom;
+        public static Type SentFrom;
         public static InventoryRow LantItem;
         public InventoryView()
         {
@@ -223,15 +223,7 @@ namespace storageUniversal
         }
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            switch (SentFrom)
-            {
-                case "login": Frame.Navigate(typeof(login)); break;
-                case "Register": Frame.Navigate(typeof(Register)); break;
-                case "InventoryView": Frame.Navigate(typeof(InventoryView)); break;
-                case "AdminPanel": Frame.Navigate(typeof(AdminPanel)); break;
-                case "updateUser": Frame.Navigate(typeof(updateUser)); break;
-                case "MainPage": Frame.Navigate(typeof(MainPage)); break;
-            }
+            Frame.Navigate(SentFrom);
         }
 
         private async void LandButton_Click(object sender, RoutedEventArgs e)
@@ -307,6 +299,7 @@ namespace storageUniversal
                 string lentTo = ((content as Grid).Children[1] as TextBox).Text;
                 var s = new BorowwDb.BorowwingsDBSoapClient();
                 var id = await s.AddLendingAsync(LantItem.ID, lentTo, DateTime.Now, amount, FullUser.ID);
+                var b = s.UpdateAmountOutAsync(LantItem.ID);
             }
         }
 

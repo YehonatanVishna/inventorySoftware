@@ -21,7 +21,20 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Button Grid.Column="0" Grid.Row="0" Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
-        <ListView Grid.Column="1" Grid.Row="1" Name="LandsTbl">
+        <ListView Grid.Column="1" Grid.Row="1" Name="LandsTbl" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch">
+            <ListView.Header>
+                <Grid HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0">item name</TextBlock>
+                    <TextBlock Grid.Column="1">amount lent</TextBlock>
+                    <TextBlock Grid.Column="2">taken by</TextBlock>
+
+                </Grid>
+            </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate  x:Name="dataTemp" x:DataType="data:Borrow">
                     <Grid HorizontalAlignment="Stretch">
