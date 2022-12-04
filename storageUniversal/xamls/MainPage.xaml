@@ -12,5 +12,7 @@
         <Button Click="Login_Click" Name="Login" Content="login" HorizontalAlignment="Left" Margin="265,338,0,0" VerticalAlignment="Top" Height="75" Width="150"/>
         <Button Name="logon" Click="Logon_Click" Content="register" HorizontalAlignment="Left" Margin="537,338,0,0" VerticalAlignment="Top" Height="75" Width="158"/>
         <TextBlock Name="tt" HorizontalAlignment="Left" Margin="304,156,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Button Content="about" Name="about" Click="About_Click"  HorizontalAlignment="Left" Margin="10,666,0,0" VerticalAlignment="Top"/>
+
     </Grid>
 </Page>

@@ -7,6 +7,7 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using System.Net;
+using storageUniversal.xamls;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -38,6 +39,12 @@ namespace storageUniversal
         private void Inventory_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(InventoryView));
+        }
+
+        private void About_Click(object sender, RoutedEventArgs e)
+        {
+            About.SentBy = typeof(MainPage);
+            Frame.Navigate(typeof(About));
         }
     }
 }

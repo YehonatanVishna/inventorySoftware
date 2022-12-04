@@ -254,16 +254,16 @@ namespace storageUniversal
 
         private async void GetLandingDits_KeyDown(object sender, KeyRoutedEventArgs e)
         {
-            if(e.Key.ToString().Equals("Enter"))
-            {
-                if (sender is ContentDialog)
-                {
-                    new saveBtnCmd().Execute((sender as ContentDialog).Content);
-                    (sender as ContentDialog).Hide();
-                }
-                if(sender is TextBox)
-                    new saveBtnCmd().Execute((sender as TextBox).Parent);
-            }
+            //if(e.Key.ToString().Equals("Enter"))
+            //{
+            //    if (sender is ContentDialog)
+            //    {
+            //        new saveBtnCmd().Execute((sender as ContentDialog).Content);
+            //        (sender as ContentDialog).Hide();
+            //    }
+            //    if(sender is TextBox)
+            //        new saveBtnCmd().Execute((sender as TextBox).Parent);
+            //}
         }
 
         private void Gridy_RightTapped(object sender, RightTappedRoutedEventArgs e)
