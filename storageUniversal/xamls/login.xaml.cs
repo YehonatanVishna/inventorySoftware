@@ -108,7 +108,7 @@ namespace storageUniversal
         private async void SendEmailPass_Click(object sender, RoutedEventArgs e)
         {
             
-            usr.Password = password.Text;
+            usr.Password = password.Password;
             usr.Email = email.Text;
             var a = await  UDBS.IsUserPermittedAsync(usr);
             bool b = bool.Parse(a.ToString());
@@ -168,7 +168,7 @@ namespace storageUniversal
 
         private async void DelBot_Click(object sender, RoutedEventArgs e)
         {
-            usr.Password = password.Text;
+            usr.Password = password.Password;
             usr.Email = email.Text;
             var a = await UDBS.DeleteUserAsync(usr);
             bool b = bool.Parse(a.ToString());
@@ -177,7 +177,7 @@ namespace storageUniversal
 
         private async void SendToInventoryTbl_Click(object sender, RoutedEventArgs e)
         {
-            usr.Password = password.Text;
+            usr.Password = password.Password;
             usr.Email = email.Text;
             var a = await UDBS.IsUserPermittedAsync(usr);
             bool b = bool.Parse(a.ToString());

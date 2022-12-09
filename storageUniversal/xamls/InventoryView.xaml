@@ -22,22 +22,6 @@
             <RowDefinition Height="20"></RowDefinition>
         </Grid.RowDefinitions>
         <Button Grid.Column="0" Grid.Row="0" Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
-        <!--<Grid Grid.Column="1" Grid.Row="0" Name="Titels" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                
-            </Grid.ColumnDefinitions>
-
-            <TextBlock Grid.Column="0" Text="name"/>
-            <TextBlock Grid.Column="1" Text="quntenty"/>
-            <TextBlock Grid.Column="2" Text="needed quntety"/>
-            <TextBlock Grid.Column="3" Text="amount out"/>
-            <TextBlock Grid.Column="4" Text="remarkes"/>
-        </Grid>-->
         <Grid Grid.Column="1" Grid.Row="0" Name="headers" Width="auto">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition MinWidth="50"  Width="2*"></ColumnDefinition>
@@ -74,9 +58,6 @@
                             <TextBlock  TextWrapping="Wrap" HorizontalAlignment="Stretch" Name="AmountOutBox" Text="{x:Bind AmountOut, Mode=TwoWay}"/>
                         </Frame>
                         <TextBox  Grid.Row="0" TextWrapping="Wrap" HorizontalContentAlignment="Right"  Grid.Column="3" FlowDirection="RightToLeft" TextAlignment="Justify" Name="Remarkes" Text="{x:Bind Remarkes, Mode=TwoWay}"/>
-
-                        <!--<Button Grid.Row="0" ContextRequested="LandButton_ContextRequested" RightTapped="Gridy_RightTapped" Click="LandButton_Click" Grid.Column="5" Name="landButton" Content="LandItemOut"/>-->
-                        <!--<TextBlock Visibility="Collapsed" Name="id" Text= "{x:Bind ID, Mode=TwoWay}"/>-->
                     </Grid>
 
                 </DataTemplate>

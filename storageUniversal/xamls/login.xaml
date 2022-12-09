@@ -8,15 +8,29 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <!--made by yehonatan vishna-->
-    <Grid Name="g1">
-        <Button Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
-        <TextBox Name="email" HorizontalAlignment="Left" Margin="50,100,0,0" Text="email" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="-0.5,0.375"/>
-        <TextBox Name="password" HorizontalAlignment="Left" Margin="240,100,0,0" Text="password" VerticalAlignment="Top"/>
-        <Button Click="SendEmailPass_Click" Name="sendEmailPass" Content="change personal info" HorizontalAlignment="Left" Margin="682,100,0,0" VerticalAlignment="Top"/>
-        <Button Content="Delete" Name="DelBot"  Click="DelBot_Click"  HorizontalAlignment="Left" Margin="551,100,0,0" VerticalAlignment="Top"/>
-        <TextBlock Name="res" HorizontalAlignment="Left" Margin="114,194,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <Button Content="login" Name="sendToInventoryTbl" Click="SendToInventoryTbl_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="425,100,0,0"/>
-        <CheckBox Name="rememberBox" Content="remenber for next time" HorizontalAlignment="Left" Margin="878,96,0,0" VerticalAlignment="Top"/>
+    <Grid Name="g1" ColumnSpacing="25">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition></RowDefinition>
+
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" Grid.Column="0" Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
+        <TextBox Name="email" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" HorizontalAlignment="Stretch"  PlaceholderText="email" VerticalAlignment="Center" />
+        <PasswordBox  Name="password" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  PlaceholderText="password" />
+        <Button Grid.Column="3" Grid.Row="1" Click="SendEmailPass_Click" Name="sendEmailPass" Content="change personal info" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+        <Button Grid.Column="4" Grid.Row="1" Content="Delete" Name="DelBot"  Click="DelBot_Click"  HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+        <TextBlock Visibility="Collapsed" Name="res"  Text="" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+        <Button Grid.Column="5" Grid.Row="1" Content="login" Name="sendToInventoryTbl" Click="SendToInventoryTbl_Click" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+        <CheckBox Grid.Column="6" Grid.Row="1" Name="rememberBox" Content="remenber for next time" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
 
     </Grid>
 </Page>
