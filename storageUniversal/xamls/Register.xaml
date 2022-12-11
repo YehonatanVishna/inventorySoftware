@@ -8,17 +8,46 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-        <Button Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
-        <TextBox Name="FN" HorizontalAlignment="Left" Margin="92,238,0,0" Text="first name" VerticalAlignment="Top" Width="Auto"/>
-        <TextBox Name="LN" HorizontalAlignment="Left" Margin="220,238,0,0" Text="Last Name" VerticalAlignment="Top"/>
-        <CalendarDatePicker Name="BDate"  HorizontalAlignment="Left" Margin="346,238,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="compeny" HorizontalAlignment="Left" Margin="512,238,0,0" Text="compeny" VerticalAlignment="Top"/>
-        <TextBox Name="email" HorizontalAlignment="Left" Margin="625,238,0,0" Text="email" VerticalAlignment="Top"/>
-        <TextBox Name="pass" Text="password" HorizontalAlignment="Left" Margin="728,238,0,0" VerticalAlignment="Top"/>
-        <Button Name="regBot" Click="RegBot_Click" Content="register" HorizontalAlignment="Left" Margin="407,375,0,0" VerticalAlignment="Top" Height="75" Width="152"/>
-        <TextBlock Name ="isDone"  HorizontalAlignment="Left" Margin="263,341,0,0" Text="" VerticalAlignment="Top"/>
-        <ScrollContentPresenter HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100"/>
-        
+    <Grid ColumnSpacing="40">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button Name="back" Grid.Column="0" Grid.Row="0" Click="Back_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
+        <TextBox Name="FN" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" PlaceholderText="first name" VerticalAlignment="Center" Width="Auto"/>
+        <TextBox Name="LN" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" PlaceholderText="Last Name" VerticalAlignment="Center"/>
+        <CalendarDatePicker Name="BDate" Grid.Column="3" Grid.Row="1" PlaceholderText="enter your birth date"  HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+        <TextBox Name="compeny" Grid.Column="4" Grid.Row="1" HorizontalAlignment="Stretch" PlaceholderText="compeny" VerticalAlignment="Center"/>
+        <Grid Grid.Column="5" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBox Name="email" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" PlaceholderText="email"/>
+            <TextBlock Name="IsEmailValidBlock" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" IsColorFontEnabled="True" Foreground="Red" Text=""/>
+        </Grid>
+        <Grid Grid.Column="6" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBox Name="pass" Grid.Row="1" PlaceholderText="password" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+            <TextBlock Name="IsPasswordValidBlock" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" IsColorFontEnabled="True" Foreground="Red" Text=""/>
+        </Grid>
+        <Button Name="regBot" Grid.Column="7" Grid.Row="1" Click="RegBot_Click" Content="register" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+        <TextBlock Visibility="Collapsed" Name ="isDone"  HorizontalAlignment="Left" Margin="263,341,0,0" Text="" VerticalAlignment="Top"/>
+
     </Grid>
 </Page>

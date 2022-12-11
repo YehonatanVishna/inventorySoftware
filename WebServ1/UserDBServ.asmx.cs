@@ -190,6 +190,13 @@ namespace WebServ1
             }
             else { return null; }
         }
+        [WebMethod]
+        public bool DoesEmailExist(string email)
+        {
+            var con = new Connection(constr);
+            var ds = con.GetDataSet("users", "Select * from Users where email = '" + email + "';");
+            return ds.Tables["users"].Rows[0]["ID"] != null;
+        }
 
     }
 }

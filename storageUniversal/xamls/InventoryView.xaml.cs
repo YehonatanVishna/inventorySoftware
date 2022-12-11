@@ -52,31 +52,40 @@ namespace storageUniversal
         private async void LoadTblFunc()
         {
             InventoryServ.InventoryFuncsSoapClient s = new InventoryServ.InventoryFuncsSoapClient();
-            InventoryServ.GetInventoryUserDataTableResponseGetInventoryUserDataTableResult r = await s.GetInventoryUserDataTableAsync(FullUser.ID);
+            var r = await s.GetInventoryUserDataTableAsync(FullUser.ID);
             List<InventoryRow> inventoryRows = new List<InventoryRow>();
-            InventoryRow row = null;
-            XmlReader xr = r.Any1.CreateReader();
-            XmlDocument document = new XmlDocument();
-            document.Load(xr);
-            XmlNodeList xml_items_list = document.GetElementsByTagName("inventory");
-            foreach (XmlElement item in xml_items_list)
-            {
-                row = new InventoryRow();
-                foreach (XmlNode node in item.ChildNodes)
-                {
-                    switch (node.Name)
-                    {
-                        case "Name": row.Name = node.InnerText.ToString(); break;
-                        case "ID": row.ID = int.Parse(node.InnerText); break;
-                        case "Quantity": row.Quantity = float.Parse(node.InnerText); break;
-                        case "NeededQuantity": row.NeededQuantity = float.Parse(node.InnerText); break;
-                        case "Remarkes": row.Remarkes = node.InnerText; break;
-                        case "AmountOut": row.AmountOut = float.Parse(node.InnerText); break;
-                    }
-                }
+            foreach (DataRow dr in r.Rows) {
+                InventoryRow row = new InventoryRow();
+                row.Name = dr["Name"].ToString();
+                row.ID = int.Parse(dr["ID"].ToString());
+                row.NeededQuantity = float.Parse(dr["NeededQuantity"].ToString());
+                row.OwnerUserId = int.Parse(dr["OwnerUserId"].ToString());
+                row.Quantity = float.Parse(dr["Quantity"].ToString());
+                row.Remarkes = dr["Remarkes"].ToString();
                 inventoryRows.Add(row);
-
             }
+            //XmlReader xr = r.Any1.CreateReader();
+            //XmlDocument document = new XmlDocument();
+            //document.Load(xr);
+            //XmlNodeList xml_items_list = document.GetElementsByTagName("inventory");
+            //foreach (XmlElement item in xml_items_list)
+            //{
+            //    row = new InventoryRow();
+            //    foreach (XmlNode node in item.ChildNodes)
+            //    {
+            //        switch (node.Name)
+            //        {
+            //            case "Name": row.Name = node.InnerText.ToString(); break;
+            //            case "ID": row.ID = int.Parse(node.InnerText); break;
+            //            case "Quantity": row.Quantity = float.Parse(node.InnerText); break;
+            //            case "NeededQuantity": row.NeededQuantity = float.Parse(node.InnerText); break;
+            //            case "Remarkes": row.Remarkes = node.InnerText; break;
+            //            case "AmountOut": row.AmountOut = float.Parse(node.InnerText); break;
+            //        }
+            //    }
+            //    inventoryRows.Add(row);
+
+            //}
             InventoryTbl.ItemsSource = inventoryRows;
             inventories = new List<InventoryRow>();
             foreach (InventoryRow Row in inventoryRows)

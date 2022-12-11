@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.Threading;
+using System.Threading.Tasks;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -29,10 +30,39 @@ namespace storageUniversal
             this.InitializeComponent();
 
         }
+        public bool isEmailValid(String email)
+        {
+            var trimmedEmail = email.Trim();
+
+            if (trimmedEmail.EndsWith("."))
+            {
+                return false; 
+            }
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == trimmedEmail;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public async Task<bool> DoesEmailExistAlready(string email)
+        {
+            var UDBS = new UserDBServ.UserDBServSoapClient();
+            return await UDBS.DoesEmailExistAsync(email);
+        }
         private async void RegBot_Click(object sender, RoutedEventArgs e)
         {
             UserDBServ.UserDBServSoapClient UDBS = new UserDBServ.UserDBServSoapClient();
             UserDBServ.User usr = new UserDBServ.User();
+            if (!isEmailValid(email.Text)) {
+                IsEmailValidBlock.Text = "email is not valid";
+                return;
+            }
+            bool exists = await DoesEmailExistAlready(email.Text);
+            if (exists) { }
             var date = BDate.Date;
             DateTime time = date.Value.DateTime;
             usr.BDate = time;
@@ -45,9 +75,7 @@ namespace storageUniversal
             bool IsSuccess = bool.Parse(a.ToString());
             if (IsSuccess)
             {
-                isDone.Text = "logon is successfull";
-                //Thread.Sleep(66);
-                
+                isDone.Text = "logon is successfull";                
                 Frame.Navigate(typeof(MainPage));
             }
             else

@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.Xml;
+using System.Data;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -39,35 +40,48 @@ namespace storageUniversal
             UserDBServ.UserDBServSoapClient s = new UserDBServ.UserDBServSoapClient();
             var r = await s.GetAdminUserTblAsync(AdminUser);
             List<User> Users = new List<User>();
-            User row = null;
-            XmlReader xr = r.Any1.CreateReader();
-            XmlDocument document = new XmlDocument();
-            document.Load(xr);
-            XmlNodeList xml_items_list = document.GetElementsByTagName("Users");
-            foreach (XmlElement item in xml_items_list)
-            {
-                row = new User();
-                foreach (XmlNode node in item.ChildNodes)
-                {
-                    switch (node.Name)
-                    {
-                        case "FName": row.Fname = node.InnerText.ToString(); break;
-                        case "ID": row.ID = int.Parse(node.InnerText); break;
-                        case "LName": row.Lname = node.InnerText; break;
-                        case "BDate": row.BDate = DateTime.Parse(node.InnerText.ToString()); break;
-                        case "compeny": row.Compeny = node.InnerText; break;
-                        case "email": row.Email = node.InnerText; break;
-                        case "password": row.Password = node.InnerText; break;
-                    }
-                }
-                Users.Add(row);
+            
+            //XmlReader xr = r.Any1.CreateReader();
+            //XmlDocument document = new XmlDocument();
+            //document.Load(xr);
+            //XmlNodeList xml_items_list = document.GetElementsByTagName("Users");
+            //foreach (XmlElement item in xml_items_list)
+            //{
+            //    row = new User();
+            //    foreach (XmlNode node in item.ChildNodes)
+            //    {
+            //        switch (node.Name)
+            //        {
+            //            case "FName": row.Fname = node.InnerText.ToString(); break;
+            //            case "ID": row.ID = int.Parse(node.InnerText); break;
+            //            case "LName": row.Lname = node.InnerText; break;
+            //            case "BDate": row.BDate = DateTime.Parse(node.InnerText.ToString()); break;
+            //            case "compeny": row.Compeny = node.InnerText; break;
+            //            case "email": row.Email = node.InnerText; break;
+            //            case "password": row.Password = node.InnerText; break;
+            //        }
+            //    }
+            //    Users.Add(row);
 
+            //}
+            foreach(DataRow a in r.Rows)
+            {
+                User row = new User();
+                row.ID = int.Parse(a["ID"].ToString());
+                row.Fname = a["FName"].ToString();
+                row.Lname = a["LName"].ToString();
+                row.Email = a["email"].ToString();
+                row.BDate = DateTime.Parse(a["BDate"].ToString());
+                row.Compeny = a["compeny"].ToString();
+                row.Password = a["password"].ToString();
+                Users.Add(row);
             }
             UsersTbl.ItemsSource = Users;
             UsersInTbl = Users;
             UsersOriginal = new List<User>();
             foreach (User Row in Users)
             {
+                
                 UsersOriginal.Add(Row.copy());
             }
 

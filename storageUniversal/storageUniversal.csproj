@@ -172,15 +172,6 @@
     </AppxManifest>
     <None Include="Connected Services\BorowwDb\BorowwingsDB.wsdl" />
     <None Include="Connected Services\InventoryServ\InventoryFuncs.wsdl" />
-    <None Include="Connected Services\InventoryServ\storageUniversal.InventoryServ.GetInventoryDataTableResponseGetInventoryDataTableResult.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\InventoryServ\storageUniversal.InventoryServ.GetInventoryUserDataTableResponseGetInventoryUserDataTableResult.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\UserDBServ\storageUniversal.UserDBServ.GetAdminUserTblResponseGetAdminUserTblResult.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Connected Services\UserDBServ\storageUniversal.UserDBServ.User.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

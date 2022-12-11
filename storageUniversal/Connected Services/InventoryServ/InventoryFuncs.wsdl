@@ -12,6 +12,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="CalcAmountOut">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="itemId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CalcAmountOutResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CalcAmountOutResult" type="s:float" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetInventoryDataTable">
         <s:complexType />
       </s:element>
@@ -111,6 +125,12 @@
   <wsdl:message name="HelloWorldSoapOut">
     <wsdl:part name="parameters" element="tns:HelloWorldResponse" />
   </wsdl:message>
+  <wsdl:message name="CalcAmountOutSoapIn">
+    <wsdl:part name="parameters" element="tns:CalcAmountOut" />
+  </wsdl:message>
+  <wsdl:message name="CalcAmountOutSoapOut">
+    <wsdl:part name="parameters" element="tns:CalcAmountOutResponse" />
+  </wsdl:message>
   <wsdl:message name="GetInventoryDataTableSoapIn">
     <wsdl:part name="parameters" element="tns:GetInventoryDataTable" />
   </wsdl:message>
@@ -146,6 +166,10 @@
       <wsdl:input message="tns:HelloWorldSoapIn" />
       <wsdl:output message="tns:HelloWorldSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="CalcAmountOut">
+      <wsdl:input message="tns:CalcAmountOutSoapIn" />
+      <wsdl:output message="tns:CalcAmountOutSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetInventoryDataTable">
       <wsdl:input message="tns:GetInventoryDataTableSoapIn" />
       <wsdl:output message="tns:GetInventoryDataTableSoapOut" />
@@ -171,6 +195,15 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="HelloWorld">
       <soap:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CalcAmountOut">
+      <soap:operation soapAction="http://tempuri.org/CalcAmountOut" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -228,6 +261,15 @@
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="HelloWorld">
       <soap12:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CalcAmountOut">
+      <soap12:operation soapAction="http://tempuri.org/CalcAmountOut" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

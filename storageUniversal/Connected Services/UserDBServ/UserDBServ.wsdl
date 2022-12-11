@@ -186,6 +186,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="DoesEmailExist">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DoesEmailExistResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DoesEmailExistResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="HelloWorldSoapIn">
@@ -260,6 +274,12 @@
   <wsdl:message name="GetAdminUserTblSoapOut">
     <wsdl:part name="parameters" element="tns:GetAdminUserTblResponse" />
   </wsdl:message>
+  <wsdl:message name="DoesEmailExistSoapIn">
+    <wsdl:part name="parameters" element="tns:DoesEmailExist" />
+  </wsdl:message>
+  <wsdl:message name="DoesEmailExistSoapOut">
+    <wsdl:part name="parameters" element="tns:DoesEmailExistResponse" />
+  </wsdl:message>
   <wsdl:portType name="UserDBServSoap">
     <wsdl:operation name="HelloWorld">
       <wsdl:input message="tns:HelloWorldSoapIn" />
@@ -308,6 +328,10 @@
     <wsdl:operation name="GetAdminUserTbl">
       <wsdl:input message="tns:GetAdminUserTblSoapIn" />
       <wsdl:output message="tns:GetAdminUserTblSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DoesEmailExist">
+      <wsdl:input message="tns:DoesEmailExistSoapIn" />
+      <wsdl:output message="tns:DoesEmailExistSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="UserDBServSoap" type="tns:UserDBServSoap">
@@ -420,6 +444,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="DoesEmailExist">
+      <soap:operation soapAction="http://tempuri.org/DoesEmailExist" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="UserDBServSoap12" type="tns:UserDBServSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -524,6 +557,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetAdminUserTbl">
       <soap12:operation soapAction="http://tempuri.org/GetAdminUserTbl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DoesEmailExist">
+      <soap12:operation soapAction="http://tempuri.org/DoesEmailExist" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
