@@ -21,7 +21,6 @@ namespace storageUniversal
         public MainPage()
         {
             this.InitializeComponent();
-            tt.Text = Dns.GetHostName() ;
         }
 
         private void Login_Click(object sender, RoutedEventArgs e)

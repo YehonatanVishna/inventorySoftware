@@ -31,6 +31,10 @@ namespace storageUniversal.BorowwDb {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Threading.Tasks.Task<bool> UpdateAmountOutAsync(int itemId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UpdateUserAmountOut", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Threading.Tasks.Task<bool> UpdateUserAmountOutAsync(int UserId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/AddLending", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Threading.Tasks.Task<int> AddLendingAsync(int itemId, string lentForWho, System.DateTime whenBorowwed, float amountBorowwed, int userId);
@@ -97,6 +101,10 @@ namespace storageUniversal.BorowwDb {
         
         public System.Threading.Tasks.Task<bool> UpdateAmountOutAsync(int itemId) {
             return base.Channel.UpdateAmountOutAsync(itemId);
+        }
+        
+        public System.Threading.Tasks.Task<bool> UpdateUserAmountOutAsync(int UserId) {
+            return base.Channel.UpdateUserAmountOutAsync(UserId);
         }
         
         public System.Threading.Tasks.Task<int> AddLendingAsync(int itemId, string lentForWho, System.DateTime whenBorowwed, float amountBorowwed, int userId) {

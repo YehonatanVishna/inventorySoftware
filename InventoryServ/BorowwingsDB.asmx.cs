@@ -54,6 +54,18 @@ namespace InventoryServ
             return a;
         }
         [WebMethod]
+        public bool UpdateUserAmountOut(int UserId)
+        {
+            Connection con = new Connection(constr);
+            DataSet ds = con.GetDataSet("Items", "select ID from Inventory where OwnerUserId=" + UserId.ToString() + ";");
+            bool isOk = true;
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                isOk = isOk && UpdateAmountOut(int.Parse(dr["ID"].ToString()));
+            }
+            return isOk;
+        }
+        [WebMethod]
         public int AddLending(int itemId, string lentForWho, DateTime whenBorowwed, float amountBorowwed, int userId)
         {
             Connection con = new Connection(constr);

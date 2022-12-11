@@ -40,6 +40,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="UpdateUserAmountOut">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UserId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateUserAmountOutResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateUserAmountOutResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="AddLending">
         <s:complexType>
           <s:sequence>
@@ -113,6 +127,12 @@
   <wsdl:message name="UpdateAmountOutSoapOut">
     <wsdl:part name="parameters" element="tns:UpdateAmountOutResponse" />
   </wsdl:message>
+  <wsdl:message name="UpdateUserAmountOutSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateUserAmountOut" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserAmountOutSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateUserAmountOutResponse" />
+  </wsdl:message>
   <wsdl:message name="AddLendingSoapIn">
     <wsdl:part name="parameters" element="tns:AddLending" />
   </wsdl:message>
@@ -143,6 +163,10 @@
     <wsdl:operation name="UpdateAmountOut">
       <wsdl:input message="tns:UpdateAmountOutSoapIn" />
       <wsdl:output message="tns:UpdateAmountOutSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAmountOut">
+      <wsdl:input message="tns:UpdateUserAmountOutSoapIn" />
+      <wsdl:output message="tns:UpdateUserAmountOutSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="AddLending">
       <wsdl:input message="tns:AddLendingSoapIn" />
@@ -179,6 +203,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateAmountOut">
       <soap:operation soapAction="http://tempuri.org/UpdateAmountOut" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAmountOut">
+      <soap:operation soapAction="http://tempuri.org/UpdateUserAmountOut" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -236,6 +269,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateAmountOut">
       <soap12:operation soapAction="http://tempuri.org/UpdateAmountOut" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAmountOut">
+      <soap12:operation soapAction="http://tempuri.org/UpdateUserAmountOut" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

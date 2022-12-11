@@ -24,18 +24,18 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Button Name="back" Grid.Column="0" Grid.Row="0" Click="Back_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
-        <TextBox Name="FN" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" PlaceholderText="first name" VerticalAlignment="Center" Width="Auto"/>
-        <TextBox Name="LN" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" PlaceholderText="Last Name" VerticalAlignment="Center"/>
-        <CalendarDatePicker Name="BDate" Grid.Column="3" Grid.Row="1" PlaceholderText="enter your birth date"  HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-        <TextBox Name="compeny" Grid.Column="4" Grid.Row="1" HorizontalAlignment="Stretch" PlaceholderText="compeny" VerticalAlignment="Center"/>
+        <TextBox Name="FN" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" HorizontalAlignment="Stretch" PlaceholderText="first name" VerticalAlignment="Center" Width="Auto"/>
+        <TextBox Name="LN" Grid.Column="2" Grid.Row="1" TextWrapping="Wrap" HorizontalAlignment="Stretch" PlaceholderText="Last Name" VerticalAlignment="Center"/>
+        <CalendarDatePicker Name="BDate" Grid.Column="3" Grid.Row="1"  PlaceholderText="enter your birth date"  HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+        <TextBox Name="compeny" Grid.Column="4" Grid.Row="1" TextWrapping="Wrap" HorizontalAlignment="Stretch" PlaceholderText="compeny" VerticalAlignment="Center"/>
         <Grid Grid.Column="5" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <TextBox Name="email" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" PlaceholderText="email"/>
-            <TextBlock Name="IsEmailValidBlock" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" IsColorFontEnabled="True" Foreground="Red" Text=""/>
+            <TextBox Name="email" Grid.Row="1" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Center" PlaceholderText="email"/>
+            <TextBlock Name="IsEmailValidBlock" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" IsColorFontEnabled="True" Foreground="Red" Text=""/>
         </Grid>
         <Grid Grid.Column="6" Grid.Row="1">
             <Grid.RowDefinitions>
@@ -43,8 +43,8 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <TextBox Name="pass" Grid.Row="1" PlaceholderText="password" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-            <TextBlock Name="IsPasswordValidBlock" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" IsColorFontEnabled="True" Foreground="Red" Text=""/>
+            <TextBox Name="pass" Grid.Row="1" TextWrapping="Wrap" PlaceholderText="password" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+            <TextBlock Name="IsPasswordValidBlock" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" IsColorFontEnabled="True" Foreground="Red" Text=""/>
         </Grid>
         <Button Name="regBot" Grid.Column="7" Grid.Row="1" Click="RegBot_Click" Content="register" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
         <TextBlock Visibility="Collapsed" Name ="isDone"  HorizontalAlignment="Left" Margin="263,341,0,0" Text="" VerticalAlignment="Top"/>

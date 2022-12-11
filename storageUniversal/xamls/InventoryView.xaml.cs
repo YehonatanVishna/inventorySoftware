@@ -29,7 +29,7 @@ namespace storageUniversal
     public sealed partial class InventoryView : Page
     {
         public List<InventoryRow> inventories;// original inventory
-        public List<InventoryRow> currentInventories;
+        public List<InventoryRow> InventoryRowes;
         public static UserDBServ.User FullUser = login.FullUser;
         public static Type SentFrom;
         public static InventoryRow LantItem;
@@ -52,6 +52,8 @@ namespace storageUniversal
         private async void LoadTblFunc()
         {
             InventoryServ.InventoryFuncsSoapClient s = new InventoryServ.InventoryFuncsSoapClient();
+            var broww = new BorowwDb.BorowwingsDBSoapClient();
+            var hasCalcWorked = await broww.UpdateUserAmountOutAsync(FullUser.ID);
             var r = await s.GetInventoryUserDataTableAsync(FullUser.ID);
             List<InventoryRow> inventoryRows = new List<InventoryRow>();
             foreach (DataRow dr in r.Rows) {
@@ -62,6 +64,7 @@ namespace storageUniversal
                 row.OwnerUserId = int.Parse(dr["OwnerUserId"].ToString());
                 row.Quantity = float.Parse(dr["Quantity"].ToString());
                 row.Remarkes = dr["Remarkes"].ToString();
+                row.AmountOut = float.Parse(dr["AmountOut"].ToString());
                 inventoryRows.Add(row);
             }
             //XmlReader xr = r.Any1.CreateReader();
@@ -86,13 +89,14 @@ namespace storageUniversal
             //    inventoryRows.Add(row);
 
             //}
-            InventoryTbl.ItemsSource = inventoryRows;
+            InventoryRowes = inventoryRows;
+            InventoryTbl.ItemsSource = InventoryRowes;
             inventories = new List<InventoryRow>();
             foreach (InventoryRow Row in inventoryRows)
             {
                 inventories.Add(Row.copy());
             }
-            currentInventories = inventoryRows;
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -166,9 +170,9 @@ namespace storageUniversal
             var ItemId = await s.getNewItemIdAsync(FullUser.ID);
             NewRow.ID = int.Parse(ItemId.ToString());
             NewRow.OwnerUserId = FullUser.ID;
-            currentInventories.Add(NewRow);
+            InventoryRowes.Add(NewRow);
             InventoryTbl.ItemsSource = null;
-            InventoryTbl.ItemsSource = currentInventories;
+            InventoryTbl.ItemsSource = InventoryRowes;
             inventories.Add(NewRow.copy());
 
         }
@@ -179,9 +183,9 @@ namespace storageUniversal
             var ItemId = await s.getNewItemIdAsync(FullUser.ID);
             NewRow.ID = int.Parse(ItemId.ToString());
             NewRow.OwnerUserId = FullUser.ID;
-            currentInventories.Add(NewRow);
+            InventoryRowes.Add(NewRow);
             InventoryTbl.ItemsSource = null;
-            InventoryTbl.ItemsSource = currentInventories;
+            InventoryTbl.ItemsSource = InventoryRowes;
             inventories.Add(NewRow.copy());
         }
 
@@ -259,6 +263,7 @@ namespace storageUniversal
             getLandingDits.KeyDown += GetLandingDits_KeyDown;
             lentTo.KeyDown += GetLandingDits_KeyDown;
             await getLandingDits.ShowAsync();
+            LoadTblFunc();
         }
 
         private async void GetLandingDits_KeyDown(object sender, KeyRoutedEventArgs e)
@@ -309,6 +314,8 @@ namespace storageUniversal
                 var s = new BorowwDb.BorowwingsDBSoapClient();
                 var id = await s.AddLendingAsync(LantItem.ID, lentTo, DateTime.Now, amount, FullUser.ID);
                 var b = s.UpdateAmountOutAsync(LantItem.ID);
+                
+                
             }
         }
 

@@ -62,7 +62,11 @@ namespace storageUniversal
                 return;
             }
             bool exists = await DoesEmailExistAlready(email.Text);
-            if (exists) { }
+            if (exists)
+            {
+                IsEmailValidBlock.Text = "user with this email already exists, use another email adress"; return;
+            }
+            
             var date = BDate.Date;
             DateTime time = date.Value.DateTime;
             usr.BDate = time;
@@ -75,12 +79,24 @@ namespace storageUniversal
             bool IsSuccess = bool.Parse(a.ToString());
             if (IsSuccess)
             {
-                isDone.Text = "logon is successfull";                
+                //isDone.Text = "logon is successfull";
+                ContentDialog sucsessDialog = new ContentDialog()
+                {
+                    Title = "regestration completed sucssesfully",
+                    CloseButtonText = "ok"
+                };
+                await sucsessDialog.ShowAsync();
                 Frame.Navigate(typeof(MainPage));
             }
             else
             {
-                isDone.Text = "logon is unsuccessfull, try again";
+                //isDone.Text = "logon is unsuccessfull, try again";
+                ContentDialog FailDialog = new ContentDialog()
+                {
+                    Title = "regestration failed, please try again",
+                    CloseButtonText = "ok"
+                };
+                await FailDialog.ShowAsync();
             }
 
 

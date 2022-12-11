@@ -195,7 +195,14 @@ namespace WebServ1
         {
             var con = new Connection(constr);
             var ds = con.GetDataSet("users", "Select * from Users where email = '" + email + "';");
-            return ds.Tables["users"].Rows[0]["ID"] != null;
+            try
+            {
+                return ds.Tables["users"].Rows[0]["ID"] != null;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
     }

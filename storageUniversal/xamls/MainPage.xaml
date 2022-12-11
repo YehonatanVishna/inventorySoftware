@@ -9,10 +9,16 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Button Click="Login_Click" Name="Login" Content="login" HorizontalAlignment="Left" Margin="265,338,0,0" VerticalAlignment="Top" Height="75" Width="150"/>
-        <Button Name="logon" Click="Logon_Click" Content="register" HorizontalAlignment="Left" Margin="537,338,0,0" VerticalAlignment="Top" Height="75" Width="158"/>
-        <TextBlock Name="tt" HorizontalAlignment="Left" Margin="304,156,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <Button Content="about" Name="about" Click="About_Click"  HorizontalAlignment="Left" Margin="10,666,0,0" VerticalAlignment="Top"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button Grid.Column="0" Grid.Row="0" Click="Login_Click" Name="Login" Content="login" HorizontalAlignment="Stretch"  VerticalAlignment="Center" />
+        <Button Grid.Column="1" Grid.Row="0"  Name="logon" Click="Logon_Click" Content="register" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+        <Button Content="about" Name="about" Click="About_Click"  HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
 
     </Grid>
 </Page>
