@@ -3,6 +3,7 @@ namespace storageUniversal
 {
     public class User
     {
+        //defining basic properties
         private int id;
         private string fname;
         private string lname;
@@ -10,10 +11,12 @@ namespace storageUniversal
         private string compeny;
         private string email;
         private string password;
+        // empty constractor
         public User()
         {
 
         }
+        // a constaractor that gets all properties at create
         public User(string compeny, string Fname, string Lname, DateTime BDate, string email, string password)
         {
             this.compeny = compeny;
@@ -35,7 +38,7 @@ namespace storageUniversal
             this.password = password;
         }
 
-
+        //getters + setters for properties
         public int ID
         {
             get
@@ -62,6 +65,7 @@ namespace storageUniversal
             get { return this.bdate; }
             set { this.bdate = value; }
         }
+        //In order to display BDate in standard CalendarDatePicker I had to write a property that would return BDate as a nullable DateTimeOffset
         public DateTimeOffset? BDateTimeOffset
         {
             get { try { return DateTimeOffset.Parse(this.BDate.ToString()); }
@@ -88,6 +92,7 @@ namespace storageUniversal
         {
             return "Insert INTO " + tableN + " (Fname, LName, BDate, City, email, password) VALUES " + "(" + ",'" + this.fname + "','" + this.lname + "','" + this.bdate.ToString() + "','" + this.email + "','" + this.password + "');";
         }
+        // a fution that creatates another User obj identical to this one
         public User copy() {
             User a = new User();
             a.ID = this.id;
@@ -99,6 +104,7 @@ namespace storageUniversal
             a.password = this.password;
             return a;
         }
+        // a function that returns wether another User object is identical to this one
         public bool IsSame(User user)
         {
             try

@@ -6,6 +6,7 @@ namespace storageUniversal
 {
     public class InventoryRow
     {
+        //defines some properies
         private int id;
         private string name;
         private float quantity;
@@ -22,6 +23,7 @@ namespace storageUniversal
             this.neededQuantity = nq;
             this.ownerUserId = oui;
         }
+        //getters and setters for all the properties listed above
         public int ID
         {
             get { return this.id; }
@@ -57,6 +59,7 @@ namespace storageUniversal
             get { return this.remarks; }
             set { this.remarks = value; }
         }
+        // a fution that creatates another InventoryRow obj identical to this one
         public InventoryRow copy()
         {
             InventoryRow a = new InventoryRow();
@@ -68,6 +71,7 @@ namespace storageUniversal
             a.Remarkes = this.remarks;
             return a;
         }
+        // a function that returns wether another InventoryRow object is identical to this one
         public bool Equal(InventoryRow row)
         {
             bool IdSame = this.id == row.ID;

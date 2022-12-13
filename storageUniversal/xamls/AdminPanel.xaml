@@ -10,33 +10,75 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Button Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
-        <GridView Margin="0,0,0,0" Name="UsersTbl" HorizontalAlignment="Left" Width="1080" VerticalAlignment="Stretch">
-            <GridView.ItemTemplate>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="11*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button Name="back" Grid.Row="0" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
+            <Button Content="apply changes" Name="Apply" Grid.Row="1" Click="Apply_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <Button Content="add user" Name="AddUser" Grid.Row="2" Click="AddUser_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <Button Content="delete user" Name="deleteBut" Grid.Row="3" Click="DeleteBut_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" TextAlignment="Center">ID</TextBlock>
+            <TextBlock Grid.Column="1" TextAlignment="Center">First Name</TextBlock>
+            <TextBlock Grid.Column="2" TextAlignment="Center">Last Name</TextBlock>
+            <TextBlock Grid.Column="3" TextAlignment="Center">Birth day</TextBlock>
+            <TextBlock Grid.Column="4" TextAlignment="Center">Company</TextBlock>
+            <TextBlock Grid.Column="5" TextAlignment="Center">Email</TextBlock>
+            <TextBlock Grid.Column="6" TextAlignment="Center">Password</TextBlock>
+
+
+
+        </Grid>
+        <ListView Grid.Column="1" Grid.Row="1" Name="UsersTbl" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Top" >
+            <ListView.ItemTemplate>
                 <DataTemplate x:Name="dataTemp" x:DataType="data:User" x:DefaultBindMode="TwoWay">
-                    <Grid Name="gridy">
+                    <Grid Name="gridy" HorizontalAlignment="Stretch">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBox Grid.Column="0" Name="IdBox" Text= "{x:Bind ID, Mode=TwoWay}"/>
                         <TextBox Grid.Column="1" Name="FNameBox" Text= "{x:Bind Fname, Mode=TwoWay}"/>
                         <TextBox Grid.Column="2" Name="LNameBox" Text= "{x:Bind Lname, Mode=TwoWay}"/>
-                        <CalendarDatePicker Grid.Column="3" Name="BdateBox" Date="{x:Bind BDateTimeOffset, Mode=TwoWay}"/>
+                        <CalendarDatePicker Grid.Column="3" Name="BdateBox" Date="{x:Bind BDateTimeOffset, Mode=TwoWay}" HorizontalAlignment="Stretch"/>
                         <TextBox Grid.Column="4" Name="CompenyBox" Text="{x:Bind Compeny, Mode=TwoWay}"/>
                         <TextBox Grid.Column="5" Name="EmailBox" Text="{x:Bind Email, Mode=TwoWay}"/>
                         <TextBox Grid.Column="6" Name="PassBox" Text="{x:Bind Password, Mode=TwoWay}"/>
                     </Grid>
                 </DataTemplate>
-            </GridView.ItemTemplate>
-        </GridView>
-        <Button Content="apply changes" Name="Apply" Click="Apply_Click" HorizontalAlignment="Left" Margin="1161,79,0,0" VerticalAlignment="Top"/>
-        <Button Content="add user" Name="AddUser" Click="AddUser_Click" HorizontalAlignment="Left" Margin="1216,147,0,0" VerticalAlignment="Top"/>
-        <Button Content="delete user" Name="deleteBut" Click="DeleteBut_Click" HorizontalAlignment="Left" Margin="1216,184,0,0" VerticalAlignment="Top"/>
+
+            </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment"  Value="Stretch"></Setter>
+                    <Setter Property="HorizontalAlignment"  Value="Stretch"></Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+
+            </ListView>
+
     </Grid>
 </Page>

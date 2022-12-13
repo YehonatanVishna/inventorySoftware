@@ -30,19 +30,7 @@ namespace storageUniversal.xamls
             this.InitializeComponent();
             
         }
-
-        private void Weby_WebResourceRequested(WebView sender, WebViewWebResourceRequestedEventArgs args)
-        {
-            //var u = new Uri("ms-appx-web:///help.html");
-            //weby.Navigate(u);
-
-        }
-
-        private void Weby_ContentLoading(WebView sender, WebViewContentLoadingEventArgs args)
-        {
-            var a = 0;
-        }
-
+        //Defines to where the user would 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(SentBy);

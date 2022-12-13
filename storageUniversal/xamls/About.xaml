@@ -18,6 +18,7 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Button Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
+        <!--for desine flexability, I used HTML + WebView--> 
         <WebView Grid.Column="1" Grid.Row="1" Source="ms-appx-web:///about.html" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
     </Grid>
 </Page>

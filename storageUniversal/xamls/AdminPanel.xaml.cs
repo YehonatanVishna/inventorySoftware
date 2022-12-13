@@ -35,35 +35,12 @@ namespace storageUniversal
             loudTbl();
 
         }
+        //
         public async void loudTbl()
         {
             UserDBServ.UserDBServSoapClient s = new UserDBServ.UserDBServSoapClient();
             var r = await s.GetAdminUserTblAsync(AdminUser);
             List<User> Users = new List<User>();
-            
-            //XmlReader xr = r.Any1.CreateReader();
-            //XmlDocument document = new XmlDocument();
-            //document.Load(xr);
-            //XmlNodeList xml_items_list = document.GetElementsByTagName("Users");
-            //foreach (XmlElement item in xml_items_list)
-            //{
-            //    row = new User();
-            //    foreach (XmlNode node in item.ChildNodes)
-            //    {
-            //        switch (node.Name)
-            //        {
-            //            case "FName": row.Fname = node.InnerText.ToString(); break;
-            //            case "ID": row.ID = int.Parse(node.InnerText); break;
-            //            case "LName": row.Lname = node.InnerText; break;
-            //            case "BDate": row.BDate = DateTime.Parse(node.InnerText.ToString()); break;
-            //            case "compeny": row.Compeny = node.InnerText; break;
-            //            case "email": row.Email = node.InnerText; break;
-            //            case "password": row.Password = node.InnerText; break;
-            //        }
-            //    }
-            //    Users.Add(row);
-
-            //}
             foreach(DataRow a in r.Rows)
             {
                 User row = new User();
@@ -84,11 +61,6 @@ namespace storageUniversal
                 
                 UsersOriginal.Add(Row.copy());
             }
-
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
 
         }
         ContentDialog changesApplyed = new ContentDialog()

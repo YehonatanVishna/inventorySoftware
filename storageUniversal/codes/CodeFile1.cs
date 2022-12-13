@@ -17,11 +17,17 @@ namespace storageUniversal
         }
         async Task Init()
         {
+            // Return if the database has already been initialized
             if (Database != null)
                 return;
 
+            // Create a new Sqlite database connection using the specified database file path
             Database = new SqliteConnection($"Filename={Constants.DatabasePath}");
+
+            // Open the database connection
             Database.Open();
+
+            // Create the table command string with the specified columns and data types
             String tableCommand = "CREATE TABLE IF NOT " +
         "EXISTS Users ( [ID][int] IDENTITY NOT NULL," +
         "[FName] [nchar] (20) NULL," +
@@ -30,22 +36,42 @@ namespace storageUniversal
         "[compeny] [nchar] (20) NULL," +
         "[email] [nchar] (30) NULL," +
         "[password] [nchar] (20) NULL)";
+
+            // Create a new Sqlite command using the table command string and the database connection
             SqliteCommand createTable = new SqliteCommand(tableCommand, Database);
+
+            // Execute the command to create the table
             createTable.ExecuteReader();
-            //Database.Close();
         }
+
 
         public async Task<List<User>> GetItemsAsync()
         {
+            // Initialize the database
             await Init();
+
+            // Create a query string to select all rows from the Users table
             var qury = "select * from Users";
+
+            // Create a new Sqlite command using the query string and the database connection
             var comd = new Microsoft.Data.Sqlite.SqliteCommand(qury, Database);
+
+            // Execute the command to retrieve the rows from the table
             var reader = comd.ExecuteReader();
+
+            // Create a new DataTable to hold the rows
             var tbl = new DataTable();
+
+            // Load the rows into the DataTable
             tbl.Load(reader);
+
+            // Create a list to hold the user objects
             var users = new List<User>();
-            foreach(DataRow dr in tbl.Rows)
+
+            // Loop through each row in the DataTable
+            foreach (DataRow dr in tbl.Rows)
             {
+                // Create a new User object and populate its properties with the data from the DataRow
                 var user = new User();
                 user.ID = int.Parse(dr["ID"].ToString());
                 user.Password = dr["password"].ToString();
@@ -53,61 +79,57 @@ namespace storageUniversal
                 user.Fname = dr["FName"].ToString();
                 user.Lname = dr["LName"].ToString();
                 user.Compeny = dr["compeny"].ToString();
+
+                // Add the user to the list of users
                 users.Add(user);
             }
+
+            // Return the list of users
             return users;
         }
 
-        //public async Task<List<InventoryRow>> GetItemsNotDoneAsync()
-        //{
-        //    await Init();
-        //    return await Database.Table<InventoryRow>().Where(t => t.Done).ToListAsync();
 
-        //    // SQL queries are also possible
-        //    //return await Database.QueryAsync<InventoryRow>("SELECT * FROM [InventoryRow] WHERE [Done] = 0");
-        //}
-
-        //public async Task<InventoryRow> GetItemAsync(int id)
-        //{
-        //    await Init();
-        //    return await Database.Table<InventoryRow>().Where(i => i.ID == id).FirstOrDefaultAsync();
-        //}
         public async Task<bool> InsertItemAsync(User item)
         {
+            // Initialize the database
             await Init();
-            string nonQury = "Insert into Users (ID, email, password, FName, LName, BDate, compeny) values (" + item.ID.ToString() + ",'" + item.Email + "', '" + item.Password + "','" + item.Fname.ToString() + "', '" + item.Lname + "', " + "CAST('" + item.BDate.ToShortDateString() + "' AS DateTime)" + ", '" + item.Compeny + "');";
-            var comd = new SqliteCommand(nonQury, Database);
-            var a = comd.ExecuteNonQuery();
-            comd.Dispose();
-            return a > 0;
 
+            // Create a string containing the query to insert a new row into the Users table with the data from the provided User object
+            string nonQury = "Insert into Users (ID, email, password, FName, LName, BDate, compeny) values (" + item.ID.ToString() + ",'" + item.Email + "', '" + item.Password + "','" + item.Fname.ToString() + "', '" + item.Lname + "', " + "CAST('" + item.BDate.ToShortDateString() + "' AS DateTime)" + ", '" + item.Compeny + "');";
+
+            // Create a new Sqlite command using the query string and the database connection
+            var comd = new SqliteCommand(nonQury, Database);
+
+            // Execute the command to insert the new row
+            var a = comd.ExecuteNonQuery();
+
+            // Dispose of the command object
+            comd.Dispose();
+
+            // Return a value indicating whether the insertion was successful
+            return a > 0;
         }
+
         public async Task<bool> DeleteAll()
         {
+            // Initialize the database
             await Init();
+
+            // Create a string containing the query to delete all rows from the Users table
             string nonQury = "Delete from Users";
+
+            // Create a new Sqlite command using the query string and the database connection
             var comd = new SqliteCommand(nonQury, Database);
+
+            // Execute the command to delete the rows
             var a = comd.ExecuteNonQuery();
+
+            // Dispose of the command object
             comd.Dispose();
+
+            // Return a value indicating whether the deletion was successful
             return a > 0;
-
         }
-        //public async Task<bool> InsertItemAsync(User item)
-        //{
-        //    await Init();
-        //    string nonQury = "Insert into Users (ID, email, password) values (" + item.ID.ToString() + ", '" + item.Email + "', '" + item.Password + "');";
-        //    var comd = new SqliteCommand(nonQury, Database);
-        //    var a = comd.ExecuteNonQuery();
-        //    comd.Dispose();
-        //    //Database.Close();
-        //    return a > 0;
 
-        //}
-
-        //public async Task<int> DeleteItemAsync(InventoryRow item)
-        //{
-        //    await Init();
-        //    return await Database.DeleteAsync(item);
-        //}
     }
 }
