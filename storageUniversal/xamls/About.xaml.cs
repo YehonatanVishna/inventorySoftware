@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using storageUniversal;
 using Windows.Storage;
+using Windows.UI.Core;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -49,13 +50,41 @@ namespace storageUniversal.xamls
                     // An error occurred, the link could not be opened
                 }
             };
-
-
+            // some code to handle mouse back + forward buttons
+            Window.Current.Activate();
+            Window.Current.CoreWindow.PointerPressed += CoreWindow_PointerPressed;
+        }
+        // some code to handle mouse back + forward buttons
+        private void CoreWindow_PointerPressed(CoreWindow sender, PointerEventArgs args)
+        {
+            if (args.CurrentPoint.Properties.IsXButton1Pressed)
+            {
+                Frame frame = Window.Current.Content as Frame;
+                if (frame.CanGoBack)
+                {
+                    frame.GoBack();
+                }
+            }
+            else
+            {
+                if (args.CurrentPoint.Properties.IsXButton2Pressed)
+                {
+                    Frame frame = Window.Current.Content as Frame;
+                    if (frame.CanGoForward)
+                    {
+                        frame.GoForward();
+                    }
+                }
+            }
         }
         //Defines to where the user would 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(SentBy);
+            Frame frame = Window.Current.Content as Frame;
+            if (frame.CanGoBack)
+            {
+                frame.GoBack();
+            }
         }
 
     }

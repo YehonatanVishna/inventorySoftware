@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.Xml;
 using System.Data;
+using Windows.UI.Core;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -37,7 +38,32 @@ namespace storageUniversal
             this.InitializeComponent();
             UsersTbl.Margin = new Thickness(0, back.Height, 0, 0);
             loudTbl();
-
+            // some code to handle mouse back + forward buttons
+            Window.Current.Activate();
+            Window.Current.CoreWindow.PointerPressed += CoreWindow_PointerPressed;
+        }
+        // some code to handle mouse back + forward buttons
+        private void CoreWindow_PointerPressed(CoreWindow sender, PointerEventArgs args)
+        {
+            if (args.CurrentPoint.Properties.IsXButton1Pressed)
+            {
+                Frame frame = Window.Current.Content as Frame;
+                if (frame.CanGoBack)
+                {
+                    frame.GoBack();
+                }
+            }
+            else
+            {
+                if (args.CurrentPoint.Properties.IsXButton2Pressed)
+                {
+                    Frame frame = Window.Current.Content as Frame;
+                    if (frame.CanGoForward)
+                    {
+                        frame.GoForward();
+                    }
+                }
+            }
         }
         //loads all users from db and inserts them to the table (ListView)
         public async void loudTbl()
@@ -146,7 +172,11 @@ namespace storageUniversal
         }
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(SentFrom);
+            Frame frame = Window.Current.Content as Frame;
+            if (frame.CanGoBack)
+            {
+                frame.GoBack();
+            }
         }
     }
 }

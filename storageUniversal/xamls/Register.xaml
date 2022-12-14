@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid ColumnSpacing="40">
+    <Grid ColumnSpacing="40" KeyDown="Grid_KeyDown">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>

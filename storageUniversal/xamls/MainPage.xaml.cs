@@ -21,6 +21,32 @@ namespace storageUniversal
         public MainPage()
         {
             this.InitializeComponent();
+            // some code to handle mouse back + forward buttons
+            Window.Current.Activate();
+            Window.Current.CoreWindow.PointerPressed += CoreWindow_PointerPressed;
+        }
+        // some code to handle mouse back + forward buttons
+        private void CoreWindow_PointerPressed(CoreWindow sender, PointerEventArgs args)
+        {
+            if (args.CurrentPoint.Properties.IsXButton1Pressed)
+            {
+                Frame frame = Window.Current.Content as Frame;
+                if (frame.CanGoBack)
+                {
+                    frame.GoBack();
+                }
+            }
+            else
+            {
+                if (args.CurrentPoint.Properties.IsXButton2Pressed)
+                {
+                    Frame frame = Window.Current.Content as Frame;
+                    if (frame.CanGoForward)
+                    {
+                        frame.GoForward();
+                    }
+                }
+            }
         }
         //sends user to login
         private void Login_Click(object sender, RoutedEventArgs e)

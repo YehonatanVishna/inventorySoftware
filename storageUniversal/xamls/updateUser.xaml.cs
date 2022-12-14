@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using storageUniversal;
 using System.Threading;
+using Windows.UI.Core;
 
 //made by yehonatan vishna
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -39,6 +40,32 @@ namespace storageUniversal
             BDate.Date = time.Date;
             compeny.Text = FullUser.Compeny;
             pass.Text = FullUser.Password;
+            // some code to handle mouse back + forward buttons
+            Window.Current.Activate();
+            Window.Current.CoreWindow.PointerPressed += CoreWindow_PointerPressed;
+        }
+        // some code to handle mouse back + forward buttons
+        private void CoreWindow_PointerPressed(CoreWindow sender, PointerEventArgs args)
+        {
+            if (args.CurrentPoint.Properties.IsXButton1Pressed)
+            {
+                Frame frame = Window.Current.Content as Frame;
+                if (frame.CanGoBack)
+                {
+                    frame.GoBack();
+                }
+            }
+            else
+            {
+                if (args.CurrentPoint.Properties.IsXButton2Pressed)
+                {
+                    Frame frame = Window.Current.Content as Frame;
+                    if (frame.CanGoForward)
+                    {
+                        frame.GoForward();
+                    }
+                }
+            }
         }
         //sends motified data to web service
         private async void Update_Click(object sender, RoutedEventArgs e)

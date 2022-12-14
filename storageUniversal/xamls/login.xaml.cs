@@ -35,6 +35,32 @@ namespace storageUniversal
         {
             this.InitializeComponent();
             TryStartAutoLoging();
+            // some code to handle mouse back + forward buttons
+            Window.Current.Activate();
+            Window.Current.CoreWindow.PointerPressed += CoreWindow_PointerPressed;
+        }
+        // some code to handle mouse back + forward buttons
+        private void CoreWindow_PointerPressed(CoreWindow sender, PointerEventArgs args)
+        {
+            if (args.CurrentPoint.Properties.IsXButton1Pressed)
+            {
+                Frame frame = Window.Current.Content as Frame;
+                if (frame.CanGoBack)
+                {
+                    frame.GoBack();
+                }
+            }
+            else
+            {
+                if (args.CurrentPoint.Properties.IsXButton2Pressed)
+                {
+                    Frame frame = Window.Current.Content as Frame;
+                    if (frame.CanGoForward)
+                    {
+                        frame.GoForward();
+                    }
+                }
+            }
         }
         //checking if the user has previusly signed in, if he did, offering him to use previus login info
         private async void TryStartAutoLoging()
@@ -177,7 +203,11 @@ namespace storageUniversal
         //send user back to previus page
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(SentFrom);
+            Frame frame = Window.Current.Content as Frame;
+            if (frame.CanGoBack)
+            {
+                frame.GoBack();
+            }
         }
     }
 }
