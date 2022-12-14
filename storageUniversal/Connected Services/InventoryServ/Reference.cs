@@ -19,21 +19,9 @@ namespace storageUniversal.InventoryServ {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="InventoryServ.InventoryFuncsSoap")]
     public interface InventoryFuncsSoap {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/HelloWorld", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<string> HelloWorldAsync();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CalcAmountOut", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<float> CalcAmountOutAsync(int itemId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetInventoryDataTable", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<System.Data.DataTable> GetInventoryDataTableAsync();
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetInventoryUserDataTable", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<System.Data.DataTable> GetInventoryUserDataTableAsync(int userId);
+        System.Threading.Tasks.Task<System.Data.DataTable> GetInventoryUserDataTableAsync(int userId, string email, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/changeInventoryRow", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -49,7 +37,7 @@ namespace storageUniversal.InventoryServ {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public partial class InventoryRow : object, System.ComponentModel.INotifyPropertyChanged {
@@ -205,20 +193,8 @@ namespace storageUniversal.InventoryServ {
                 base(binding, remoteAddress) {
         }
         
-        public System.Threading.Tasks.Task<string> HelloWorldAsync() {
-            return base.Channel.HelloWorldAsync();
-        }
-        
-        public System.Threading.Tasks.Task<float> CalcAmountOutAsync(int itemId) {
-            return base.Channel.CalcAmountOutAsync(itemId);
-        }
-        
-        public System.Threading.Tasks.Task<System.Data.DataTable> GetInventoryDataTableAsync() {
-            return base.Channel.GetInventoryDataTableAsync();
-        }
-        
-        public System.Threading.Tasks.Task<System.Data.DataTable> GetInventoryUserDataTableAsync(int userId) {
-            return base.Channel.GetInventoryUserDataTableAsync(userId);
+        public System.Threading.Tasks.Task<System.Data.DataTable> GetInventoryUserDataTableAsync(int userId, string email, string password) {
+            return base.Channel.GetInventoryUserDataTableAsync(userId, email, password);
         }
         
         public System.Threading.Tasks.Task<bool> changeInventoryRowAsync(storageUniversal.InventoryServ.InventoryRow inventoryRow) {

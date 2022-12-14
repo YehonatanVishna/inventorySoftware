@@ -20,11 +20,7 @@ namespace InventoryServ
     public class BorowwingsDB : System.Web.Services.WebService
     {
         public static String constr = "Server = '" + Dns.GetHostName() + "\\SQLEXPRESS'; Database = StorageSystem; Trusted_Connection = True; ";
-        [WebMethod]
-        public string HelloWorld()
-        {
-            return "Hello World";
-        }
+        //calculates the amount of items borrowed of a given item id
         [WebMethod]
         public float CalcAmountOut(int itemId)
         {
@@ -38,6 +34,7 @@ namespace InventoryServ
             return amount;
         }
         [WebMethod]
+        //take an item id and updates this item amount out in db according to sum of his landings
         public bool UpdateAmountOut(int itemId)
         {
             Connection con = new Connection(constr);
@@ -54,6 +51,7 @@ namespace InventoryServ
             return a;
         }
         [WebMethod]
+        //update user's item's amount out in db acoording to each item's landings in db.
         public bool UpdateUserAmountOut(int UserId)
         {
             Connection con = new Connection(constr);
@@ -66,6 +64,7 @@ namespace InventoryServ
             return isOk;
         }
         [WebMethod]
+        //adds landing with given properties and adds it to db
         public int AddLending(int itemId, string lentForWho, DateTime whenBorowwed, float amountBorowwed, int userId)
         {
             Connection con = new Connection(constr);
@@ -84,6 +83,7 @@ namespace InventoryServ
             return id;
         }
         [WebMethod]
+        //returns datatable of all of the user's active landings
         public DataTable GetLandings(int UserId)
         {
             Connection con = new Connection(constr);
@@ -92,6 +92,7 @@ namespace InventoryServ
 
         }
         [WebMethod]
+        //returns a item with a given item id name in db
         public string getName(int itemId) {
             var con = new Connection(BorowwingsDB.constr);
             con.openCon();

@@ -2,51 +2,12 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
-      <s:element name="HelloWorld">
-        <s:complexType />
-      </s:element>
-      <s:element name="HelloWorldResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="HelloWorldResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="CalcAmountOut">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="itemId" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="CalcAmountOutResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="CalcAmountOutResult" type="s:float" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetInventoryDataTable">
-        <s:complexType />
-      </s:element>
-      <s:element name="GetInventoryDataTableResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetInventoryDataTableResult">
-              <s:complexType>
-                <s:sequence>
-                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
-                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
-                </s:sequence>
-              </s:complexType>
-            </s:element>
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="GetInventoryUserDataTable">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -119,24 +80,6 @@
       </s:element>
     </s:schema>
   </wsdl:types>
-  <wsdl:message name="HelloWorldSoapIn">
-    <wsdl:part name="parameters" element="tns:HelloWorld" />
-  </wsdl:message>
-  <wsdl:message name="HelloWorldSoapOut">
-    <wsdl:part name="parameters" element="tns:HelloWorldResponse" />
-  </wsdl:message>
-  <wsdl:message name="CalcAmountOutSoapIn">
-    <wsdl:part name="parameters" element="tns:CalcAmountOut" />
-  </wsdl:message>
-  <wsdl:message name="CalcAmountOutSoapOut">
-    <wsdl:part name="parameters" element="tns:CalcAmountOutResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetInventoryDataTableSoapIn">
-    <wsdl:part name="parameters" element="tns:GetInventoryDataTable" />
-  </wsdl:message>
-  <wsdl:message name="GetInventoryDataTableSoapOut">
-    <wsdl:part name="parameters" element="tns:GetInventoryDataTableResponse" />
-  </wsdl:message>
   <wsdl:message name="GetInventoryUserDataTableSoapIn">
     <wsdl:part name="parameters" element="tns:GetInventoryUserDataTable" />
   </wsdl:message>
@@ -162,18 +105,6 @@
     <wsdl:part name="parameters" element="tns:getNewItemIdResponse" />
   </wsdl:message>
   <wsdl:portType name="InventoryFuncsSoap">
-    <wsdl:operation name="HelloWorld">
-      <wsdl:input message="tns:HelloWorldSoapIn" />
-      <wsdl:output message="tns:HelloWorldSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="CalcAmountOut">
-      <wsdl:input message="tns:CalcAmountOutSoapIn" />
-      <wsdl:output message="tns:CalcAmountOutSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetInventoryDataTable">
-      <wsdl:input message="tns:GetInventoryDataTableSoapIn" />
-      <wsdl:output message="tns:GetInventoryDataTableSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GetInventoryUserDataTable">
       <wsdl:input message="tns:GetInventoryUserDataTableSoapIn" />
       <wsdl:output message="tns:GetInventoryUserDataTableSoapOut" />
@@ -193,33 +124,6 @@
   </wsdl:portType>
   <wsdl:binding name="InventoryFuncsSoap" type="tns:InventoryFuncsSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="HelloWorld">
-      <soap:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CalcAmountOut">
-      <soap:operation soapAction="http://tempuri.org/CalcAmountOut" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetInventoryDataTable">
-      <soap:operation soapAction="http://tempuri.org/GetInventoryDataTable" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetInventoryUserDataTable">
       <soap:operation soapAction="http://tempuri.org/GetInventoryUserDataTable" style="document" />
       <wsdl:input>
@@ -259,33 +163,6 @@
   </wsdl:binding>
   <wsdl:binding name="InventoryFuncsSoap12" type="tns:InventoryFuncsSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="HelloWorld">
-      <soap12:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CalcAmountOut">
-      <soap12:operation soapAction="http://tempuri.org/CalcAmountOut" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetInventoryDataTable">
-      <soap12:operation soapAction="http://tempuri.org/GetInventoryDataTable" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetInventoryUserDataTable">
       <soap12:operation soapAction="http://tempuri.org/GetInventoryUserDataTable" style="document" />
       <wsdl:input>

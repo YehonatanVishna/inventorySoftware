@@ -12,6 +12,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServ1", "WebServ1\WebServ1.csproj", "{18AC7960-66F9-42BC-B8BE-0376A6985DCA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryServ", "InventoryServ\InventoryServ.csproj", "{56A798B1-43E5-4ACB-A362-5CEEB58199F2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{18AC7960-66F9-42BC-B8BE-0376A6985DCA} = {18AC7960-66F9-42BC-B8BE-0376A6985DCA}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

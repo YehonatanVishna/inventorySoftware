@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="HelloWorld">
+        <s:complexType />
+      </s:element>
+      <s:element name="HelloWorldResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HelloWorldResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="reg">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usr" type="tns:User" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="User">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Lname" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Compeny" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="regResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="regResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsUserPermitted">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usr" type="tns:User" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsUserPermittedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsUserPermittedResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddEmptyUser">
+        <s:complexType />
+      </s:element>
+      <s:element name="AddEmptyUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AddEmptyUserResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFullUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usr" type="tns:User" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFullUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFullUserResult" type="tns:User" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateUserById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OldUsr" type="tns:User" />
+            <s:element minOccurs="0" maxOccurs="1" name="NewUsr" type="tns:User" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateUserByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="updateUserByIdResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateUserByIdAdmin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Admin" type="tns:User" />
+            <s:element minOccurs="0" maxOccurs="1" name="NewUsr" type="tns:User" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateUserByIdAdminResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="updateUserByIdAdminResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OldUsr" type="tns:User" />
+            <s:element minOccurs="0" maxOccurs="1" name="NewUsr" type="tns:User" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="updateUserResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usr" type="tns:User" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DeleteUserResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteUserAdmin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Admin" type="tns:User" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteUserAdminResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DeleteUserAdminResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsAdmin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="tns:User" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsAdminResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsAdminResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAdminUserTbl">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="tns:User" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAdminUserTblResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAdminUserTblResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DoesEmailExist">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DoesEmailExistResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DoesEmailExistResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="HelloWorldSoapIn">
+    <wsdl:part name="parameters" element="tns:HelloWorld" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldSoapOut">
+    <wsdl:part name="parameters" element="tns:HelloWorldResponse" />
+  </wsdl:message>
+  <wsdl:message name="regSoapIn">
+    <wsdl:part name="parameters" element="tns:reg" />
+  </wsdl:message>
+  <wsdl:message name="regSoapOut">
+    <wsdl:part name="parameters" element="tns:regResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsUserPermittedSoapIn">
+    <wsdl:part name="parameters" element="tns:IsUserPermitted" />
+  </wsdl:message>
+  <wsdl:message name="IsUserPermittedSoapOut">
+    <wsdl:part name="parameters" element="tns:IsUserPermittedResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddEmptyUserSoapIn">
+    <wsdl:part name="parameters" element="tns:AddEmptyUser" />
+  </wsdl:message>
+  <wsdl:message name="AddEmptyUserSoapOut">
+    <wsdl:part name="parameters" element="tns:AddEmptyUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFullUserSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFullUser" />
+  </wsdl:message>
+  <wsdl:message name="GetFullUserSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFullUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateUserByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:updateUserById" />
+  </wsdl:message>
+  <wsdl:message name="updateUserByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:updateUserByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateUserByIdAdminSoapIn">
+    <wsdl:part name="parameters" element="tns:updateUserByIdAdmin" />
+  </wsdl:message>
+  <wsdl:message name="updateUserByIdAdminSoapOut">
+    <wsdl:part name="parameters" element="tns:updateUserByIdAdminResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateUserSoapIn">
+    <wsdl:part name="parameters" element="tns:updateUser" />
+  </wsdl:message>
+  <wsdl:message name="updateUserSoapOut">
+    <wsdl:part name="parameters" element="tns:updateUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteUserSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteUser" />
+  </wsdl:message>
+  <wsdl:message name="DeleteUserSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteUserAdminSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteUserAdmin" />
+  </wsdl:message>
+  <wsdl:message name="DeleteUserAdminSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteUserAdminResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsAdminSoapIn">
+    <wsdl:part name="parameters" element="tns:IsAdmin" />
+  </wsdl:message>
+  <wsdl:message name="IsAdminSoapOut">
+    <wsdl:part name="parameters" element="tns:IsAdminResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAdminUserTblSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAdminUserTbl" />
+  </wsdl:message>
+  <wsdl:message name="GetAdminUserTblSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAdminUserTblResponse" />
+  </wsdl:message>
+  <wsdl:message name="DoesEmailExistSoapIn">
+    <wsdl:part name="parameters" element="tns:DoesEmailExist" />
+  </wsdl:message>
+  <wsdl:message name="DoesEmailExistSoapOut">
+    <wsdl:part name="parameters" element="tns:DoesEmailExistResponse" />
+  </wsdl:message>
+  <wsdl:portType name="UserDBServSoap">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldSoapIn" />
+      <wsdl:output message="tns:HelloWorldSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="reg">
+      <wsdl:input message="tns:regSoapIn" />
+      <wsdl:output message="tns:regSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsUserPermitted">
+      <wsdl:input message="tns:IsUserPermittedSoapIn" />
+      <wsdl:output message="tns:IsUserPermittedSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddEmptyUser">
+      <wsdl:input message="tns:AddEmptyUserSoapIn" />
+      <wsdl:output message="tns:AddEmptyUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFullUser">
+      <wsdl:input message="tns:GetFullUserSoapIn" />
+      <wsdl:output message="tns:GetFullUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="updateUserById">
+      <wsdl:input message="tns:updateUserByIdSoapIn" />
+      <wsdl:output message="tns:updateUserByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="updateUserByIdAdmin">
+      <wsdl:input message="tns:updateUserByIdAdminSoapIn" />
+      <wsdl:output message="tns:updateUserByIdAdminSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="updateUser">
+      <wsdl:input message="tns:updateUserSoapIn" />
+      <wsdl:output message="tns:updateUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUser">
+      <wsdl:input message="tns:DeleteUserSoapIn" />
+      <wsdl:output message="tns:DeleteUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUserAdmin">
+      <wsdl:input message="tns:DeleteUserAdminSoapIn" />
+      <wsdl:output message="tns:DeleteUserAdminSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsAdmin">
+      <wsdl:input message="tns:IsAdminSoapIn" />
+      <wsdl:output message="tns:IsAdminSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAdminUserTbl">
+      <wsdl:input message="tns:GetAdminUserTblSoapIn" />
+      <wsdl:output message="tns:GetAdminUserTblSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DoesEmailExist">
+      <wsdl:input message="tns:DoesEmailExistSoapIn" />
+      <wsdl:output message="tns:DoesEmailExistSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="UserDBServSoap" type="tns:UserDBServSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="reg">
+      <soap:operation soapAction="http://tempuri.org/reg" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsUserPermitted">
+      <soap:operation soapAction="http://tempuri.org/IsUserPermitted" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddEmptyUser">
+      <soap:operation soapAction="http://tempuri.org/AddEmptyUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFullUser">
+      <soap:operation soapAction="http://tempuri.org/GetFullUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateUserById">
+      <soap:operation soapAction="http://tempuri.org/updateUserById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateUserByIdAdmin">
+      <soap:operation soapAction="http://tempuri.org/updateUserByIdAdmin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateUser">
+      <soap:operation soapAction="http://tempuri.org/updateUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUser">
+      <soap:operation soapAction="http://tempuri.org/DeleteUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUserAdmin">
+      <soap:operation soapAction="http://tempuri.org/DeleteUserAdmin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsAdmin">
+      <soap:operation soapAction="http://tempuri.org/IsAdmin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAdminUserTbl">
+      <soap:operation soapAction="http://tempuri.org/GetAdminUserTbl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DoesEmailExist">
+      <soap:operation soapAction="http://tempuri.org/DoesEmailExist" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="UserDBServSoap12" type="tns:UserDBServSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap12:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="reg">
+      <soap12:operation soapAction="http://tempuri.org/reg" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsUserPermitted">
+      <soap12:operation soapAction="http://tempuri.org/IsUserPermitted" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddEmptyUser">
+      <soap12:operation soapAction="http://tempuri.org/AddEmptyUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFullUser">
+      <soap12:operation soapAction="http://tempuri.org/GetFullUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateUserById">
+      <soap12:operation soapAction="http://tempuri.org/updateUserById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateUserByIdAdmin">
+      <soap12:operation soapAction="http://tempuri.org/updateUserByIdAdmin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateUser">
+      <soap12:operation soapAction="http://tempuri.org/updateUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUser">
+      <soap12:operation soapAction="http://tempuri.org/DeleteUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUserAdmin">
+      <soap12:operation soapAction="http://tempuri.org/DeleteUserAdmin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsAdmin">
+      <soap12:operation soapAction="http://tempuri.org/IsAdmin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAdminUserTbl">
+      <soap12:operation soapAction="http://tempuri.org/GetAdminUserTbl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DoesEmailExist">
+      <soap12:operation soapAction="http://tempuri.org/DoesEmailExist" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="UserDBServ">
+    <wsdl:port name="UserDBServSoap" binding="tns:UserDBServSoap">
+      <soap:address location="http://localhost:57628/UserDBServ.asmx" />
+    </wsdl:port>
+    <wsdl:port name="UserDBServSoap12" binding="tns:UserDBServSoap12">
+      <soap12:address location="http://localhost:57628/UserDBServ.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

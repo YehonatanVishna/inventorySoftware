@@ -48,6 +48,8 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -70,6 +72,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BorowwingsDB.asmx" />
+    <Content Include="Connected Services\UserServ\InventoryServ.UserServ.User.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Connected Services\UserServ\UserDBServ.disco" />
+    <None Include="Connected Services\UserServ\configuration91.svcinfo" />
+    <None Include="Connected Services\UserServ\configuration.svcinfo" />
+    <None Include="Connected Services\UserServ\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="InventoryFuncs.asmx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -79,6 +91,11 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Borrow.cs" />
+    <Compile Include="Connected Services\UserServ\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connection.cs" />
     <Compile Include="InventoryFuncs.asmx.cs">
       <DependentUpon>InventoryFuncs.asmx</DependentUpon>
@@ -88,13 +105,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Connected Services\UserServ\UserDBServ.wsdl" />
     <None Include="packages.config" />
+    <Content Include="Properties\DataSources\System.Data.DataTable.datasource" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\UserServ\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

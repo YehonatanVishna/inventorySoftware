@@ -22,38 +22,21 @@ namespace InventoryServ
     {
         public String constr = "Server = '"+ Dns.GetHostName() +"\\SQLEXPRESS'; Database = StorageSystem; Trusted_Connection = True; ";
         [WebMethod]
-        public string HelloWorld()
+        public DataTable GetInventoryUserDataTable(int userId, string email, string password)
         {
-            return "Hello Worlder";
-        }
-        [WebMethod]
-        public float CalcAmountOut(int itemId)
-        {
-            Connection con = new Connection(constr);
-            DataSet ds = con.GetDataSet("lands", "select Quantity from BorrowedItems where ItemId=" + itemId.ToString() + ";");
-            float amount = 0;
-            foreach (DataRow dr in ds.Tables[0].Rows) {
-                amount += float.Parse(dr[0].ToString());
+            var serv = new UserServ.UserDBServSoapClient();
+
+            var isAllowed = serv.IsUserPermitted(new UserServ.User() { Password = password, Email = email });
+            if (isAllowed)
+            {
+                Connection con = new Connection(constr);
+                con.openCon();
+                DataSet ds = con.GetDataSet("inventory", "Select * From inventory where OwnerUserId= " + userId);
+                DataTable dt = ds.Tables[0];
+                return dt;
             }
-            return amount;
-        }
-        [WebMethod]
-        public DataTable GetInventoryDataTable()
-        {
-            Connection con = new Connection(constr);
-            con.openCon();
-            DataSet ds = con.GetDataSet("inventory", "Select * From inventory");
-            DataTable dt = ds.Tables[0];
-            return dt;
-        }
-        [WebMethod]
-        public DataTable GetInventoryUserDataTable(int userId)
-        {
-            Connection con = new Connection(constr);
-            con.openCon();
-            DataSet ds = con.GetDataSet("inventory", "Select * From inventory where OwnerUserId= "+ userId);
-            DataTable dt = ds.Tables[0];
-            return dt;
+            return null;
+
         }
         [WebMethod]
         public bool changeInventoryRow(InventoryRow inventoryRow)
