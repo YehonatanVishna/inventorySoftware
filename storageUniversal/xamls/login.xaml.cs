@@ -69,15 +69,20 @@ namespace storageUniversal
             var a = await db.GetItemsAsync();
             if (a.Count > 0)
             {
-                ContentDialog getLandingDits = new ContentDialog()
+                //in case there is alredy content dialog up, using try to avoid erro
+                try
                 {
-                    Title = "do you wish to use saved user?",
-                    SecondaryButtonText = "yes",
-                    SecondaryButtonCommand = new logSavedUser(),
-                    SecondaryButtonCommandParameter = this,
-                    CloseButtonText = "no"
-                };
-                await getLandingDits.ShowAsync();
+                    ContentDialog getLandingDits = new ContentDialog()
+                    {
+                        Title = "do you wish to use saved user?",
+                        SecondaryButtonText = "yes",
+                        SecondaryButtonCommand = new logSavedUser(),
+                        SecondaryButtonCommandParameter = this,
+                        CloseButtonText = "no"
+                    };
+                    await getLandingDits.ShowAsync();
+                }
+                catch { }
             }
         }
         //tryes to log user in
