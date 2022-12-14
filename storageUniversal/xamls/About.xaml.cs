@@ -28,12 +28,35 @@ namespace storageUniversal.xamls
         public About()
         {
             this.InitializeComponent();
-            
+            //sets so links would be opened in browser instad of localy in the app
+            webview1.NavigationStarting += async (webViewSender, args) =>
+            {
+                // Cancel the navigation
+                args.Cancel = true;
+
+                // Get the URI of the link that was clicked
+                var uri = args.Uri;
+
+                // Open the link in the default external browser
+                var success = await Windows.System.Launcher.LaunchUriAsync(uri);
+
+                if (success)
+                {
+                    // The link was opened successfully
+                }
+                else
+                {
+                    // An error occurred, the link could not be opened
+                }
+            };
+
+
         }
         //Defines to where the user would 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(SentBy);
         }
+
     }
 }
