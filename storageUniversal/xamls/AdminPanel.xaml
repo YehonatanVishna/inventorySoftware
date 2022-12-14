@@ -26,6 +26,7 @@
             <Button Content="add user" Name="AddUser" Grid.Row="2" Click="AddUser_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             <Button Content="delete user" Name="deleteBut" Grid.Row="3" Click="DeleteBut_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </Grid>
+        <!--title bar for the table's colums-->
         <Grid Grid.Row="0" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -47,6 +48,7 @@
 
 
         </Grid>
+        <!--list of users avilible for edit and motifications-->
         <ListView Grid.Column="1" Grid.Row="1" Name="UsersTbl" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Top" >
             <ListView.ItemTemplate>
                 <DataTemplate x:Name="dataTemp" x:DataType="data:User" x:DefaultBindMode="TwoWay">
@@ -71,6 +73,7 @@
                 </DataTemplate>
 
             </ListView.ItemTemplate>
+            <!--setting some visual properties for the table to be strite-->
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment"  Value="Stretch"></Setter>

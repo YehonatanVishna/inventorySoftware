@@ -14,7 +14,7 @@ using storageUniversal.xamls;
 namespace storageUniversal
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// A basic main page that sends user to login or register
     /// </summary>
     public sealed partial class MainPage : Page
     {
@@ -22,24 +22,19 @@ namespace storageUniversal
         {
             this.InitializeComponent();
         }
-
+        //sends user to login
         private void Login_Click(object sender, RoutedEventArgs e)
         {
             login.SentFrom = typeof(MainPage);
             this.Frame.Navigate(typeof(login));
         }
-
+        //sends user to register
         private void Logon_Click(object sender, RoutedEventArgs e)
         {
             Register.SentFrom = typeof(MainPage);
             Frame.Navigate(typeof(Register));
         }
-
-        private void Inventory_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(InventoryView));
-        }
-
+        //sends user to about page
         private void About_Click(object sender, RoutedEventArgs e)
         {
             About.SentBy = typeof(MainPage);

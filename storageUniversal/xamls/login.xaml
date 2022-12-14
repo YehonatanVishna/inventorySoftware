@@ -26,10 +26,10 @@
         <Button Grid.Row="0" Grid.Column="0" Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
         <TextBox Name="email" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" HorizontalAlignment="Stretch"  PlaceholderText="email" VerticalAlignment="Center" />
         <PasswordBox  Name="password" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  PlaceholderText="password" />
-        <Button Grid.Column="3" Grid.Row="1" Click="SendEmailPass_Click" Name="sendEmailPass" Content="change personal info" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+        <Button Grid.Column="3" Grid.Row="1" Click="SendToDitailUpdate" Name="sendEmailPass" Content="change personal info" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
         <Button Grid.Column="4" Grid.Row="1" Content="Delete" Name="DelBot"  Click="DelBot_Click"  HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
         <TextBlock Visibility="Collapsed" Name="res"  Text="" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-        <Button Grid.Column="5" Grid.Row="1" Content="login" Name="sendToInventoryTbl" Click="SendToInventoryTbl_Click" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+        <Button Grid.Column="5" Grid.Row="1" Content="login" Name="sendToInventoryTbl" Click="LoginAndSendToInventoryList" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
         <CheckBox Grid.Column="6" Grid.Row="1" Name="rememberBox" Content="remenber for next time" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
 
     </Grid>

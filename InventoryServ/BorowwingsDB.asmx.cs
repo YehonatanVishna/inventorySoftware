@@ -89,29 +89,6 @@ namespace InventoryServ
             Connection con = new Connection(constr);
             DataSet ds = con.GetDataSet("lands", "select * from BorrowedItems where UserId=" + UserId.ToString() + ";");
             return ds.Tables["lands"];
-            //List<Borrow> borrows = new List<Borrow>();
-            //foreach(DataRow dr in ds.Tables["lands"].Rows)
-            //{
-            //    var bro = new Borrow();
-            //    bro.ItemId = int.Parse(dr["ItemId"].ToString());
-            //    bro.BorrowedBy = dr["BorrowedBy"].ToString();
-            //    bro.When = DateTime.Parse(dr["When"].ToString());
-            //    bro.Quantity = float.Parse(dr["Quantity"].ToString());
-            //    bro.UserId = int.Parse(dr["UserId"].ToString());
-            //    borrows.Add(bro);
-            //}
-            //var BorowDicts = new List<Dictionary<string, string>>();
-            //foreach (Borrow b in borrows)
-            //{
-            //    Dictionary<string, string> BorowDict = new Dictionary<string, string>();
-            //    BorowDict["ItemId"] = b.ItemId.ToString();
-            //    BorowDict["BorrowedBy"] = b.BorrowedBy.ToString();
-            //    BorowDict["When"] = b.When.ToString();
-            //    BorowDict["Quantity"] = b.Quantity.ToString();
-            //    BorowDict["UserId"] = b.UserId.ToString();
-            //    BorowDicts.Add(BorowDict);
-            //}
-            //return BorowDicts;
 
         }
         [WebMethod]

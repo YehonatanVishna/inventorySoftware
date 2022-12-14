@@ -30,6 +30,7 @@ namespace storageUniversal
             this.InitializeComponent();
             loadTbl();
         }
+        //loads all the user's active borrowings and inserts them into ListView
         private async void loadTbl()
         {
             var BDB = new BorowwDb.BorowwingsDBSoapClient();
@@ -48,19 +49,10 @@ namespace storageUniversal
             }
             LandsTbl.ItemsSource = borrows;
         }
-
+        //takes you back to previos page
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(senderPage);
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void AmountLant_KeyDown(object sender, KeyRoutedEventArgs e)
-        {
         }
     }
 }

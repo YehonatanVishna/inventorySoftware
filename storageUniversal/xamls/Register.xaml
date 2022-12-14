@@ -35,6 +35,7 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <TextBox Name="email" Grid.Row="1" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Center" PlaceholderText="email"/>
+            <!--a place for invalid password warning-->
             <TextBlock Name="IsEmailValidBlock" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" IsColorFontEnabled="True" Foreground="Red" Text=""/>
         </Grid>
         <Grid Grid.Column="6" Grid.Row="1">
@@ -44,6 +45,7 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <TextBox Name="pass" Grid.Row="1" TextWrapping="Wrap" PlaceholderText="password" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+            <!--a place for invalid password warning-->
             <TextBlock Name="IsPasswordValidBlock" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" IsColorFontEnabled="True" Foreground="Red" Text=""/>
         </Grid>
         <Button Name="regBot" Grid.Column="7" Grid.Row="1" Click="RegBot_Click" Content="register" HorizontalAlignment="Stretch" VerticalAlignment="Center" />

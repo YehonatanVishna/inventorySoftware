@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 namespace storageUniversal
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// this page allows the user to register (add his ditails db)
     /// </summary>
     public sealed partial class Register : Page
     {
@@ -30,6 +30,7 @@ namespace storageUniversal
             this.InitializeComponent();
 
         }
+        //checks whether the recived email is valid
         public bool isEmailValid(String email)
         {
             var trimmedEmail = email.Trim();
@@ -48,11 +49,13 @@ namespace storageUniversal
                 return false;
             }
         }
+        //checks whether the email alredy axists in db
         public async Task<bool> DoesEmailExistAlready(string email)
         {
             var UDBS = new UserDBServ.UserDBServSoapClient();
             return await UDBS.DoesEmailExistAsync(email);
         }
+        //responds to click on register button, registers user
         private async void RegBot_Click(object sender, RoutedEventArgs e)
         {
             UserDBServ.UserDBServSoapClient UDBS = new UserDBServ.UserDBServSoapClient();
@@ -79,7 +82,6 @@ namespace storageUniversal
             bool IsSuccess = bool.Parse(a.ToString());
             if (IsSuccess)
             {
-                //isDone.Text = "logon is successfull";
                 ContentDialog sucsessDialog = new ContentDialog()
                 {
                     Title = "regestration completed sucssesfully",
@@ -90,7 +92,6 @@ namespace storageUniversal
             }
             else
             {
-                //isDone.Text = "logon is unsuccessfull, try again";
                 ContentDialog FailDialog = new ContentDialog()
                 {
                     Title = "regestration failed, please try again",
@@ -101,7 +102,7 @@ namespace storageUniversal
 
 
         }
-
+        //go back to previus page
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(SentFrom);

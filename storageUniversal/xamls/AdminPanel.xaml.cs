@@ -24,9 +24,13 @@ namespace storageUniversal
     /// </summary>
     public sealed partial class AdminPanel : Page
     {
+        //the admin user
         public UserDBServ.User AdminUser = login.FullUser;
+        //user list as it is in the last refresh
         public List<User> UsersOriginal;
+        //users as they are after the changes the user made
         public List<User> UsersInTbl;
+        //the page to return to after clicking back button
         public static Type SentFrom;
         public AdminPanel()
         {
@@ -35,7 +39,7 @@ namespace storageUniversal
             loudTbl();
 
         }
-        //
+        //loads all users from db and inserts them to the table (ListView)
         public async void loudTbl()
         {
             UserDBServ.UserDBServSoapClient s = new UserDBServ.UserDBServSoapClient();
@@ -69,6 +73,7 @@ namespace storageUniversal
             Content = "The changes to users info where sucsussfully commited to database",
             CloseButtonText = "Ok"
         };
+        //converts local User type To User type in web service
         public UserDBServ.User LocalUserToWebUser(User user)
         {
             UserDBServ.User NewUser = new UserDBServ.User();
@@ -88,6 +93,7 @@ namespace storageUniversal
             NewUser.Password = user.Password;
             return NewUser;
         }
+        //a code for applying changes admin made to User's ditailes in db
         private async void Apply_Click(object sender, RoutedEventArgs e)
         {
             UserDBServ.UserDBServSoapClient s = new UserDBServ.UserDBServSoapClient();
@@ -115,7 +121,7 @@ namespace storageUniversal
             }
 
         }
-
+        //code to add a new row representing new user in tbl
         private async void AddUser_Click(object sender, RoutedEventArgs e)
         {
             UserDBServ.UserDBServSoapClient s = new UserDBServ.UserDBServSoapClient();
@@ -127,7 +133,7 @@ namespace storageUniversal
             UsersTbl.ItemsSource = null;
             UsersTbl.ItemsSource = UsersInTbl;
         }
-
+        //code for deleting selected user from table and db
         private async void DeleteBut_Click(object sender, RoutedEventArgs e)
         {
             int SelIn = UsersTbl.SelectedIndex;

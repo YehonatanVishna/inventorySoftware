@@ -21,7 +21,7 @@ using System.Threading;
 namespace storageUniversal
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// a page that allows user to update his personal details
     /// </summary>
     public sealed partial class updateUser : Page
     {
@@ -31,6 +31,7 @@ namespace storageUniversal
         public updateUser()
         {
             this.InitializeComponent();
+            //fills in user current data
             FN.Text = FullUser.Fname;
             LN.Text = FullUser.Lname;
             newemail.Text = FullUser.Email;
@@ -39,6 +40,7 @@ namespace storageUniversal
             compeny.Text = FullUser.Compeny;
             pass.Text = FullUser.Password;
         }
+        //sends motified data to web service
         private async void Update_Click(object sender, RoutedEventArgs e)
         {
             UserDBServ.User NewUser = new UserDBServ.User();
@@ -62,7 +64,7 @@ namespace storageUniversal
                 isDone.Text = "update failed";
             }
             }
-
+        //goes back to previus page
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(SentFrom);

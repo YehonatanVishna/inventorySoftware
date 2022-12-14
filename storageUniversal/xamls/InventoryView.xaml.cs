@@ -17,6 +17,7 @@ using System.Xml;
 using storageUniversal;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -24,14 +25,14 @@ using System.Windows.Input;
 namespace storageUniversal
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// a page where user can menege is current inventory 
     /// </summary>
     public sealed partial class InventoryView : Page
     {
-        public List<InventoryRow> inventories;// original inventory
-        public List<InventoryRow> InventoryRowes;
-        public static UserDBServ.User FullUser = login.FullUser;
-        public static Type SentFrom;
+        public List<InventoryRow> InventoryBeforeChange;// original inventory
+        public ObservableCollection<InventoryRow> InventoryRowesBindedToUser = new ObservableCollection<InventoryRow>();
+        public static UserDBServ.User FullUser = login.FullUser;//the user that activly uses the page;
+        public static Type SentFrom;//the page from which the user were sent
         public static InventoryRow LantItem;
         public InventoryView()
         {
@@ -49,6 +50,7 @@ namespace storageUniversal
         {
             LoadTblFunc();
         }
+
         private async void LoadTblFunc()
         {
             InventoryServ.InventoryFuncsSoapClient s = new InventoryServ.InventoryFuncsSoapClient();
@@ -58,53 +60,34 @@ namespace storageUniversal
             List<InventoryRow> inventoryRows = new List<InventoryRow>();
             foreach (DataRow dr in r.Rows) {
                 InventoryRow row = new InventoryRow();
-                row.Name = dr["Name"].ToString();
+                if (dr["Name"].ToString() != "")
+                    row.Name = dr["Name"].ToString();
                 row.ID = int.Parse(dr["ID"].ToString());
-                row.NeededQuantity = float.Parse(dr["NeededQuantity"].ToString());
+                if(dr["NeededQuantity"].ToString() != "")
+                    row.NeededQuantity = float.Parse(dr["NeededQuantity"].ToString());
                 row.OwnerUserId = int.Parse(dr["OwnerUserId"].ToString());
-                row.Quantity = float.Parse(dr["Quantity"].ToString());
-                row.Remarkes = dr["Remarkes"].ToString();
-                row.AmountOut = float.Parse(dr["AmountOut"].ToString());
+                if (dr["Quantity"].ToString() != "")
+                    row.Quantity = float.Parse(dr["Quantity"].ToString());
+                if (dr["Remarkes"].ToString() != "")
+                    row.Remarkes = dr["Remarkes"].ToString();
+                if (dr["AmountOut"].ToString() != "")
+                    row.AmountOut = float.Parse(dr["AmountOut"].ToString());
                 inventoryRows.Add(row);
             }
-            //XmlReader xr = r.Any1.CreateReader();
-            //XmlDocument document = new XmlDocument();
-            //document.Load(xr);
-            //XmlNodeList xml_items_list = document.GetElementsByTagName("inventory");
-            //foreach (XmlElement item in xml_items_list)
-            //{
-            //    row = new InventoryRow();
-            //    foreach (XmlNode node in item.ChildNodes)
-            //    {
-            //        switch (node.Name)
-            //        {
-            //            case "Name": row.Name = node.InnerText.ToString(); break;
-            //            case "ID": row.ID = int.Parse(node.InnerText); break;
-            //            case "Quantity": row.Quantity = float.Parse(node.InnerText); break;
-            //            case "NeededQuantity": row.NeededQuantity = float.Parse(node.InnerText); break;
-            //            case "Remarkes": row.Remarkes = node.InnerText; break;
-            //            case "AmountOut": row.AmountOut = float.Parse(node.InnerText); break;
-            //        }
-            //    }
-            //    inventoryRows.Add(row);
-
-            //}
-            InventoryRowes = inventoryRows;
-            InventoryTbl.ItemsSource = InventoryRowes;
-            inventories = new List<InventoryRow>();
+            foreach(InventoryRow Row in inventoryRows)
+            {
+                InventoryRowesBindedToUser.Add(Row);
+            }
+            InventoryTbl.ItemsSource = InventoryRowesBindedToUser;
+            InventoryBeforeChange = new List<InventoryRow>();
             foreach (InventoryRow Row in inventoryRows)
             {
-                inventories.Add(Row.copy());
+                InventoryBeforeChange.Add(Row.copy());
             }
             
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private async void UpdateDataFromTbl_Click(object sender, RoutedEventArgs e)
+        private void UpdateDataFromTbl_Click(object sender, RoutedEventArgs e)
         {
             UpdateDataToDB();
         }
@@ -129,7 +112,7 @@ namespace storageUniversal
             foreach (InventoryRow a in inventoryRows)
             {
                 InventoryServ.InventoryFuncsSoapClient s = new InventoryServ.InventoryFuncsSoapClient();
-                foreach (InventoryRow original in inventories)
+                foreach (InventoryRow original in InventoryBeforeChange)
                 {
                     if (a.ID == original.ID)
                     {
@@ -162,7 +145,7 @@ namespace storageUniversal
             bool res = await s.DeleteInventoryRowAsync(id);
             LoadTblFunc();
         }
-
+        //responds to click by adding item to ListView
         private async void AddItem_Click(object sender, RoutedEventArgs e)
         {
             InventoryServ.InventoryFuncsSoapClient s = new InventoryServ.InventoryFuncsSoapClient();
@@ -170,12 +153,11 @@ namespace storageUniversal
             var ItemId = await s.getNewItemIdAsync(FullUser.ID);
             NewRow.ID = int.Parse(ItemId.ToString());
             NewRow.OwnerUserId = FullUser.ID;
-            InventoryRowes.Add(NewRow);
-            InventoryTbl.ItemsSource = null;
-            InventoryTbl.ItemsSource = InventoryRowes;
-            inventories.Add(NewRow.copy());
+            InventoryRowesBindedToUser.Add(NewRow);
+            InventoryBeforeChange.Add(NewRow.copy());
 
         }
+        //rwcives a new InventoryRow and add new item to the ListView, and to db
         private async void addItemFunc(InventoryRow a)
         {
             InventoryServ.InventoryFuncsSoapClient s = new InventoryServ.InventoryFuncsSoapClient();
@@ -183,12 +165,12 @@ namespace storageUniversal
             var ItemId = await s.getNewItemIdAsync(FullUser.ID);
             NewRow.ID = int.Parse(ItemId.ToString());
             NewRow.OwnerUserId = FullUser.ID;
-            InventoryRowes.Add(NewRow);
+            InventoryRowesBindedToUser.Add(NewRow);
             InventoryTbl.ItemsSource = null;
-            InventoryTbl.ItemsSource = InventoryRowes;
-            inventories.Add(NewRow.copy());
+            InventoryTbl.ItemsSource = InventoryRowesBindedToUser;
+            InventoryBeforeChange.Add(NewRow.copy());
         }
-
+        //import inventory list from csv file
         private async void CsvImport_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -228,8 +210,6 @@ namespace storageUniversal
                 {
                     addItemFunc(row);
                 }
-
-                //string text = await Windows.Storage.FileIO.ReadTextAsync(file);
                 UpdateDataToDB();
             }
             catch { }
@@ -238,7 +218,7 @@ namespace storageUniversal
         {
             Frame.Navigate(SentFrom);
         }
-
+        //reviles add landing menu after clicking add landing button
         private async void LandButton_Click(object sender, RoutedEventArgs e)
         {
             Grid grid = new Grid();
@@ -260,26 +240,10 @@ namespace storageUniversal
                 SecondaryButtonCommandParameter= grid, SecondaryButtonCommand=new saveBtnCmd(),
                 CloseButtonText = "cancel"
             };
-            getLandingDits.KeyDown += GetLandingDits_KeyDown;
-            lentTo.KeyDown += GetLandingDits_KeyDown;
             await getLandingDits.ShowAsync();
             LoadTblFunc();
         }
-
-        private async void GetLandingDits_KeyDown(object sender, KeyRoutedEventArgs e)
-        {
-            //if(e.Key.ToString().Equals("Enter"))
-            //{
-            //    if (sender is ContentDialog)
-            //    {
-            //        new saveBtnCmd().Execute((sender as ContentDialog).Content);
-            //        (sender as ContentDialog).Hide();
-            //    }
-            //    if(sender is TextBox)
-            //        new saveBtnCmd().Execute((sender as TextBox).Parent);
-            //}
-        }
-
+        //reviles add landing button after right clicking an item
         private void Gridy_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
             if (InventoryTbl.SelectedItem != null)
@@ -297,6 +261,7 @@ namespace storageUniversal
 
 
         }
+        //the command for adding a landing
         class saveBtnCmd : ICommand
         {
             public event EventHandler CanExecuteChanged;
@@ -318,7 +283,7 @@ namespace storageUniversal
                 
             }
         }
-
+        //takes the user to a page where he can see all of his active landings
         private void SeeLandings_Click(object sender, RoutedEventArgs e)
         {
             BrowwingsAndDistractions.user = FullUser;

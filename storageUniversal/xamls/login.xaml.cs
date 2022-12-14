@@ -22,7 +22,7 @@ using Windows.UI.Xaml.Navigation;
 namespace storageUniversal
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// The page gets the users email and password and signs him in
     /// </summary>
 
     public sealed partial class login : Page
@@ -35,8 +35,8 @@ namespace storageUniversal
         {
             this.InitializeComponent();
             TryStartAutoLoging();
-
         }
+        //checking if the user has previusly signed in, if he did, offering him to use previus login info
         private async void TryStartAutoLoging()
         {
             var db = new UsersDatabase();
@@ -54,6 +54,7 @@ namespace storageUniversal
                 await getLandingDits.ShowAsync();
             }
         }
+        //tryes to log user in
         public static async void logAutoCheck(Frame frame, TextBlock res)
         {
             var db = new UsersDatabase();
@@ -64,6 +65,7 @@ namespace storageUniversal
             }
             catch { }
         }
+        //logs in user autologin
         public static async void autoLogin(User user, Frame frame, TextBlock res)
         {
             var UDBS = new UserDBServ.UserDBServSoapClient();
@@ -85,6 +87,7 @@ namespace storageUniversal
                 res.Text = "email or password are wrong, try again";
             }
         }
+        //the command that passes user data to next page from auto login menu
         public class logSavedUser : ICommand
         {
             public event EventHandler CanExecuteChanged;
@@ -104,8 +107,8 @@ namespace storageUniversal
 
 
         
-
-        private async void SendEmailPass_Click(object sender, RoutedEventArgs e)
+        //logs in user and sends him to change his personal info
+        private async void SendToDitailUpdate(object sender, RoutedEventArgs e)
         {
             
             usr.Password = password.Password;
@@ -135,37 +138,7 @@ namespace storageUniversal
                 this.Frame.Navigate(typeof(AdminPanel));
             }
         }
-
-        //private async void Update_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (usr != null) {
-
-        //        UserDBServ.User NewUser = new UserDBServ.User();
-        //        var date = BDate.Date;
-        //        DateTime time = date.Value.DateTime;
-        //        NewUser.BDate = time;
-        //        NewUser.Fname = FN.Text;
-        //        NewUser.Lname = LN.Text;
-        //        NewUser.Email = newemail.Text;
-        //        NewUser.Password = pass.Text;
-        //        NewUser.Compeny = compeny.Text;
-        //        UserDBServ.updateUserResponse resTemp = await UDBS.updateUserAsync(usr, NewUser);
-        //        bool res = resTemp.Body.updateUserResult;
-        //        if (res) {
-        //            isDone.Text = "update complete sucssfuly";
-        //        }
-        //        else
-        //        {
-        //            isDone.Text = "update failed";
-        //        }
-        //    }
-        //}
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
+        //deletes user from system
         private async void DelBot_Click(object sender, RoutedEventArgs e)
         {
             usr.Password = password.Password;
@@ -174,8 +147,8 @@ namespace storageUniversal
             bool b = bool.Parse(a.ToString());
 
         }
-
-        private async void SendToInventoryTbl_Click(object sender, RoutedEventArgs e)
+        //logs in user and sends him to his invntory list
+        private async void LoginAndSendToInventoryList(object sender, RoutedEventArgs e)
         {
             usr.Password = password.Password;
             usr.Email = email.Text;
@@ -201,7 +174,7 @@ namespace storageUniversal
                 res.Text = "email or password are wrong, try again";
             }
         }
-
+        //send user back to previus page
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(SentFrom);
