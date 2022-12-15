@@ -16,7 +16,7 @@ namespace InventoryServ
         private float borrowingId;
         private int userId;
         public Borrow() { }
-
+        // because of the desine and the relation of the tables, a qury to the inventory table must be made in order to get the item's name.
         public string ItemName {
             get
             {

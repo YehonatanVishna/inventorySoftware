@@ -101,7 +101,8 @@ namespace storageUniversal
                     row.AmountOut = float.Parse(dr["AmountOut"].ToString());
                 inventoryRows.Add(row);
             }
-            foreach(InventoryRow Row in inventoryRows)
+            InventoryRowesBindedToUser.Clear();
+            foreach (InventoryRow Row in inventoryRows)
             {
                 InventoryRowesBindedToUser.Add(Row);
             }
@@ -163,21 +164,21 @@ namespace storageUniversal
 
             }
         }
-
+        //deletes the selected item when delete button is clicked
         private async void Delete_Click(object sender, RoutedEventArgs e)
         {
             InventoryServ.InventoryFuncsSoapClient s = new InventoryServ.InventoryFuncsSoapClient();
             int index = InventoryTbl.SelectedIndex;
             int id = ((InventoryRow)InventoryTbl.Items[index]).ID;
-            bool res = await s.DeleteInventoryRowAsync(id);
-            LoadTblFunc();
+            var HadWorked = await s.DeleteInventoryRowAsync(id, FullUser.Email, FullUser.Password);
+            InventoryRowesBindedToUser.Remove(InventoryRowesBindedToUser[InventoryTbl.SelectedIndex]);
         }
         //responds to click by adding item to ListView
         private async void AddItem_Click(object sender, RoutedEventArgs e)
         {
             InventoryServ.InventoryFuncsSoapClient s = new InventoryServ.InventoryFuncsSoapClient();
             InventoryRow NewRow = new InventoryRow();
-            var ItemId = await s.getNewItemIdAsync(FullUser.ID);
+            var ItemId = await s.getNewItemIdAsync(FullUser.ID, FullUser.Email, FullUser.Password);
             NewRow.ID = int.Parse(ItemId.ToString());
             NewRow.OwnerUserId = FullUser.ID;
             InventoryRowesBindedToUser.Add(NewRow);
@@ -189,7 +190,7 @@ namespace storageUniversal
         {
             InventoryServ.InventoryFuncsSoapClient s = new InventoryServ.InventoryFuncsSoapClient();
             InventoryRow NewRow = a;
-            var ItemId = await s.getNewItemIdAsync(FullUser.ID);
+            var ItemId = await s.getNewItemIdAsync(FullUser.ID, FullUser.Email, FullUser.Password);
             NewRow.ID = int.Parse(ItemId.ToString());
             NewRow.OwnerUserId = FullUser.ID;
             InventoryRowesBindedToUser.Add(NewRow);

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace InventoryServ
 {
     public class InventoryRow
     {
+        //defines some properies
         private int id;
         private string name;
         private float quantity;
@@ -15,19 +15,22 @@ namespace InventoryServ
         private float amountOut;
         private string remarks;
         public InventoryRow() { }
-        public InventoryRow(int id, string name, int q, int nq, int oui) {
+        public InventoryRow(int id, string name, int q, int nq, int oui)
+        {
             this.id = id;
             this.name = name;
             this.quantity = q;
             this.neededQuantity = nq;
             this.ownerUserId = oui;
         }
+        //getters and setters for all the properties listed above
         public int ID
         {
             get { return this.id; }
             set { this.id = value; }
         }
-        public string Name {
+        public string Name
+        {
             get { return this.name; }
             set { this.name = value; }
         }
@@ -56,6 +59,7 @@ namespace InventoryServ
             get { return this.remarks; }
             set { this.remarks = value; }
         }
+        // a fution that creatates another InventoryRow obj identical to this one
         public InventoryRow copy()
         {
             InventoryRow a = new InventoryRow();
@@ -67,6 +71,7 @@ namespace InventoryServ
             a.Remarkes = this.remarks;
             return a;
         }
+        // a function that returns wether another InventoryRow object is identical to this one
         public bool Equal(InventoryRow row)
         {
             bool IdSame = this.id == row.ID;

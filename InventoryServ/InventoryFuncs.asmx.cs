@@ -11,7 +11,7 @@ using System.Net;
 namespace InventoryServ
 {
     /// <summary>
-    /// Summary description for InventoryFuncs
+    /// a collection of functions to inteact with inventory items in db
     /// </summary>
     [WebService(Namespace = "http://tempuri.org/")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
@@ -22,6 +22,9 @@ namespace InventoryServ
     {
         public String constr = "Server = '"+ Dns.GetHostName() +"\\SQLEXPRESS'; Database = StorageSystem; Trusted_Connection = True; ";
         [WebMethod]
+        /// <summary>
+        /// returns a DataTable Contaning all the inventory items that belongs to the user. For sequrity user needs to be authenticated with email and password.
+        /// </summary>
         public DataTable GetInventoryUserDataTable(int userId, string email, string password)
         {
             var serv = new UserServ.UserDBServSoapClient();
@@ -39,6 +42,9 @@ namespace InventoryServ
 
         }
         [WebMethod]
+        ///<summery>
+        ///takes a motifyed InventoryRow item, the function applyes motifications to the item's coresponding row in db and returns wether the motifications were secsussfull.
+        ///</summery>
         public bool changeInventoryRow(InventoryRow inventoryRow)
         {
             Connection con = new Connection(constr);
@@ -52,28 +58,56 @@ namespace InventoryServ
             return a;
         }
         [WebMethod]
-        public bool DeleteInventoryRow(int id)
+        ///<summery>
+        ///Takes an ItemId and deletes the coresponding item from db. for sequrity perpose, email and password are reqired.
+        ///</summery>
+        public bool DeleteInventoryRow(int id, string email, string password)
+        {
+            var serv = new UserServ.UserDBServSoapClient();
+
+            var isAllowed = serv.GetFullUser(new UserServ.User() {Email= email, Password= password }).ID == GetOwnerID(id);
+            if (isAllowed)
+            {
+                Connection con = new Connection(constr);
+                con.openCon();
+                bool a = con.ExequteNoneQury("Delete from Inventory where id = " + id + ";");
+                con.CloseCon();
+                return a;
+            }
+            else { return false; }
+        }
+        //returns the user that owns the item with the given itemId
+        private int GetOwnerID(int ItemId)
         {
             Connection con = new Connection(constr);
             con.openCon();
-            bool a = con.ExequteNoneQury("Delete from Inventory where id = " + id + ";");
-            con.CloseCon();
-            return a;
+            var ds = con.GetDataSet("Tbl", "Select OwnerUserId from Inventory where id =" + ItemId + ";");
+            return int.Parse(ds.Tables[0].Rows[0][0].ToString());
         }
         [WebMethod]
-        public int getNewItemId(int UserId)
+        ///<summery>
+        ///creates a new empty item, returns the new item's id. For sequrity, email and password are reqiured.
+        /// </summery>
+        public int getNewItemId(int UserId, string email, string password)
         {
-            Connection con = new Connection(constr);
-            DataSet ds = con.GetDataSet("inventory", "select * from inventory");
-            DataRow dr = ds.Tables[0].NewRow();
-            dr[4] = UserId;
-            con.InsertDataRow(dr);
-            con.openCon();
-            DataSet dataSet = con.GetDataSet("inventory", "select * from Inventory where OwnerUserId =" + UserId.ToString() + ";");
-            int lastIndex = dataSet.Tables["inventory"].Rows.Count -1;
-            DataRow lastRow = dataSet.Tables["inventory"].Rows[lastIndex];
-            con.CloseCon();
-            return int.Parse(lastRow[0].ToString());
+            var serv = new UserServ.UserDBServSoapClient();
+
+            var isAllowed = serv.IsUserPermitted(new UserServ.User() { Password = password, Email = email });
+            if (isAllowed)
+            {
+                Connection con = new Connection(constr);
+                DataSet ds = con.GetDataSet("inventory", "select * from inventory");
+                DataRow dr = ds.Tables[0].NewRow();
+                dr[4] = UserId;
+                con.InsertDataRow(dr);
+                con.openCon();
+                DataSet dataSet = con.GetDataSet("inventory", "select * from Inventory where OwnerUserId =" + UserId.ToString() + ";");
+                int lastIndex = dataSet.Tables["inventory"].Rows.Count - 1;
+                DataRow lastRow = dataSet.Tables["inventory"].Rows[lastIndex];
+                con.CloseCon();
+                return int.Parse(lastRow[0].ToString());
+            }
+            else { return int.MinValue; }
         }
 
     }

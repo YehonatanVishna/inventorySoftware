@@ -52,3 +52,4 @@ C:\Users\yehonatan\Source\Repos\inventorySoftware2\InventoryServ\obj\Release\Inv
 C:\Users\yehonatan\Source\Repos\inventorySoftware2\InventoryServ\obj\Release\InventoryServ.csproj.CopyComplete
 C:\Users\yehonatan\Source\Repos\inventorySoftware2\InventoryServ\obj\Release\InventoryServ.dll
 C:\Users\yehonatan\Source\Repos\inventorySoftware2\InventoryServ\obj\Release\InventoryServ.pdb
+C:\Users\yehonatan\Source\Repos\inventorySoftware2\InventoryServ\obj\Release\InventoryServ.csprojAssemblyReference.cache

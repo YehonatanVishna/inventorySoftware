@@ -29,11 +29,11 @@ namespace storageUniversal.InventoryServ {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DeleteInventoryRow", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<bool> DeleteInventoryRowAsync(int id);
+        System.Threading.Tasks.Task<bool> DeleteInventoryRowAsync(int id, string email, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/getNewItemId", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<int> getNewItemIdAsync(int UserId);
+        System.Threading.Tasks.Task<int> getNewItemIdAsync(int UserId, string email, string password);
     }
     
     /// <remarks/>
@@ -201,12 +201,12 @@ namespace storageUniversal.InventoryServ {
             return base.Channel.changeInventoryRowAsync(inventoryRow);
         }
         
-        public System.Threading.Tasks.Task<bool> DeleteInventoryRowAsync(int id) {
-            return base.Channel.DeleteInventoryRowAsync(id);
+        public System.Threading.Tasks.Task<bool> DeleteInventoryRowAsync(int id, string email, string password) {
+            return base.Channel.DeleteInventoryRowAsync(id, email, password);
         }
         
-        public System.Threading.Tasks.Task<int> getNewItemIdAsync(int UserId) {
-            return base.Channel.getNewItemIdAsync(UserId);
+        public System.Threading.Tasks.Task<int> getNewItemIdAsync(int UserId, string email, string password) {
+            return base.Channel.getNewItemIdAsync(UserId, email, password);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync() {

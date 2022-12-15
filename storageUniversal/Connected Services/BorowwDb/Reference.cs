@@ -19,10 +19,6 @@ namespace storageUniversal.BorowwDb {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="BorowwDb.BorowwingsDBSoap")]
     public interface BorowwingsDBSoap {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/HelloWorld", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<string> HelloWorldAsync();
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CalcAmountOut", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Threading.Tasks.Task<float> CalcAmountOutAsync(int itemId);
@@ -89,10 +85,6 @@ namespace storageUniversal.BorowwDb {
         
         public BorowwingsDBSoapClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
-        }
-        
-        public System.Threading.Tasks.Task<string> HelloWorldAsync() {
-            return base.Channel.HelloWorldAsync();
         }
         
         public System.Threading.Tasks.Task<float> CalcAmountOutAsync(int itemId) {
