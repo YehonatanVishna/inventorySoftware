@@ -193,10 +193,8 @@ namespace storageUniversal
             var ItemId = await s.getNewItemIdAsync(FullUser.ID, FullUser.Email, FullUser.Password);
             NewRow.ID = int.Parse(ItemId.ToString());
             NewRow.OwnerUserId = FullUser.ID;
+            var IsOk = await s.changeInventoryRowAsync(new InventoryServ.InventoryRow() { OwnerUserId = NewRow.OwnerUserId, ID = NewRow.ID, AmountOut= NewRow.AmountOut, Name = NewRow.Name, NeededQuantity = NewRow.NeededQuantity, Quantity = NewRow.Quantity, Remarkes = NewRow.Remarkes });
             InventoryRowesBindedToUser.Add(NewRow);
-            InventoryTbl.ItemsSource = null;
-            InventoryTbl.ItemsSource = InventoryRowesBindedToUser;
-            InventoryBeforeChange.Add(NewRow.copy());
         }
         //import inventory list from csv file
         private async void CsvImport_Click(object sender, RoutedEventArgs e)
@@ -238,7 +236,6 @@ namespace storageUniversal
                 {
                     addItemFunc(row);
                 }
-                UpdateDataToDB();
             }
             catch { }
         }
