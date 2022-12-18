@@ -22,10 +22,12 @@ namespace storageUniversal
         {
             this.InitializeComponent();
             // some code to handle mouse back + forward buttons
+            // קוד להוספת פונקציית קדימה ואחורה לכפתורי העכבר
             Window.Current.Activate();
             Window.Current.CoreWindow.PointerPressed += CoreWindow_PointerPressed;
         }
         // some code to handle mouse back + forward buttons
+        // קוד להוספת פונקציית קדימה ואחורה לכפתורי העכבר
         private void CoreWindow_PointerPressed(CoreWindow sender, PointerEventArgs args)
         {
             if (args.CurrentPoint.Properties.IsXButton1Pressed)
@@ -49,18 +51,21 @@ namespace storageUniversal
             }
         }
         //sends user to login
+        //שולח את המשתמש לעמוד הכניסה
         private void Login_Click(object sender, RoutedEventArgs e)
         {
             login.SentFrom = typeof(MainPage);
             this.Frame.Navigate(typeof(login));
         }
         //sends user to register
+        //שולח את המשתמש לעמוד הרשמה
         private void Logon_Click(object sender, RoutedEventArgs e)
         {
             Register.SentFrom = typeof(MainPage);
             Frame.Navigate(typeof(Register));
         }
         //sends user to about page
+        //שולח את המשתמש לעמוד אודות
         private void About_Click(object sender, RoutedEventArgs e)
         {
             About.SentBy = typeof(MainPage);

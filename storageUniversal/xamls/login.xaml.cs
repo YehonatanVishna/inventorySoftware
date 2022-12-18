@@ -36,10 +36,12 @@ namespace storageUniversal
             this.InitializeComponent();
             TryStartAutoLoging();
             // some code to handle mouse back + forward buttons
+            // קוד להוספת פונקציית קדימה ואחורה לכפתורי העכבר
             Window.Current.Activate();
             Window.Current.CoreWindow.PointerPressed += CoreWindow_PointerPressed;
         }
         // some code to handle mouse back + forward buttons
+        // קוד להוספת פונקציית קדימה ואחורה לכפתורי העכבר
         private void CoreWindow_PointerPressed(CoreWindow sender, PointerEventArgs args)
         {
             if (args.CurrentPoint.Properties.IsXButton1Pressed)
@@ -63,6 +65,7 @@ namespace storageUniversal
             }
         }
         //checking if the user has previusly signed in, if he did, offering him to use previus login info
+        //בודק האם המשתמש כבר נכנס בעבר ממחשב זה,אם כן מציע לו להשתמש בחיבור לפי הפרטים שנשמרו
         private async void TryStartAutoLoging()
         {
             var db = new UsersDatabase();
@@ -72,6 +75,7 @@ namespace storageUniversal
                 //in case there is alredy content dialog up, using try to avoid erro
                 try
                 {
+                    //הודעת ההצעה
                     ContentDialog getLandingDits = new ContentDialog()
                     {
                         Title = "do you wish to use saved user?",
@@ -86,6 +90,7 @@ namespace storageUniversal
             }
         }
         //tryes to log user in
+        // מנסה לחבר את המשתמש אוטומטית, כך שאם לא מצליח לא מעלה שגיאה
         public static async void logAutoCheck(Frame frame, TextBlock res)
         {
             var db = new UsersDatabase();
@@ -97,6 +102,7 @@ namespace storageUniversal
             catch { }
         }
         //logs in user autologin
+        // מכניס את המשתמש בכניסה אוטומטית לפי הפרטים השמורים
         public static async void autoLogin(User user, Frame frame, TextBlock res)
         {
             var UDBS = new UserDBServ.UserDBServSoapClient();
@@ -119,6 +125,7 @@ namespace storageUniversal
             }
         }
         //the command that passes user data to next page from auto login menu
+        //הקומנד שיפעל ברגע שהמשתמש יבחר שהוא רוצה להתחבר עם הפרטים השמורים
         public class logSavedUser : ICommand
         {
             public event EventHandler CanExecuteChanged;
@@ -139,6 +146,7 @@ namespace storageUniversal
 
         
         //logs in user and sends him to change his personal info
+        //שולח את המשתמש לשנות את פרטיו האישיים
         private async void SendToDitailUpdate(object sender, RoutedEventArgs e)
         {
             
@@ -171,6 +179,7 @@ namespace storageUniversal
             }
         }
         //deletes user from system
+        //מוחק את המשתמש
         private async void DelBot_Click(object sender, RoutedEventArgs e)
         {
             usr.Password = password.Password;
@@ -180,6 +189,7 @@ namespace storageUniversal
 
         }
         //logs in user and sends him to his invntory list
+        // מחבר את המשתמש, ושולח אותו לרשימת המלאי שלו
         private async void LoginAndSendToInventoryList(object sender, RoutedEventArgs e)
         {
             usr.Password = password.Password;
@@ -207,6 +217,7 @@ namespace storageUniversal
             }
         }
         //send user back to previus page
+        //כפתור אחורה- שולח את המשתמש לעמוד הקודם
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             Frame frame = Window.Current.Content as Frame;

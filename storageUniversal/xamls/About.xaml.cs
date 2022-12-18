@@ -30,6 +30,7 @@ namespace storageUniversal.xamls
         {
             this.InitializeComponent();
             //sets so links would be opened in browser instad of localy in the app
+            // מגדיר את ההצגה כך שקישורים חיצוניים יפתחו בדפדפן ולא בתוך הפקד
             webview1.NavigationStarting += async (webViewSender, args) =>
             {
                 // Cancel the navigation
@@ -51,9 +52,11 @@ namespace storageUniversal.xamls
                 }
             };
             // some code to handle mouse back + forward buttons
+            // קוד להוספת פונקציית קדימה ואחורה לכפתורי העכבר
             Window.Current.Activate();
             Window.Current.CoreWindow.PointerPressed += CoreWindow_PointerPressed;
         }
+        // קוד להוספת פונקציית קדימה ואחורה לכפתורי העכבר
         // some code to handle mouse back + forward buttons
         private void CoreWindow_PointerPressed(CoreWindow sender, PointerEventArgs args)
         {
@@ -77,7 +80,8 @@ namespace storageUniversal.xamls
                 }
             }
         }
-        //Defines to where the user would 
+        //Back button
+        //קוד לכפתור אחורה- שולח את המשתמש לעמוד הקודם
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             Frame frame = Window.Current.Content as Frame;
