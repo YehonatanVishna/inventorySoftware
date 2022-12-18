@@ -36,7 +36,7 @@ namespace storageUniversal
             FN.Text = FullUser.Fname;
             LN.Text = FullUser.Lname;
             newemail.Text = FullUser.Email;
-            DateTime time = FullUser.BDate;
+            DateTime time = FullUser.BDate.Value;
             BDate.Date = time.Date;
             compeny.Text = FullUser.Compeny;
             pass.Text = FullUser.Password;

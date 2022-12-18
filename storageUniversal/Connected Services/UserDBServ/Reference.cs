@@ -19,10 +19,6 @@ namespace storageUniversal.UserDBServ {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="UserDBServ.UserDBServSoap")]
     public interface UserDBServSoap {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/HelloWorld", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<string> HelloWorldAsync();
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/reg", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Threading.Tasks.Task<bool> regAsync(storageUniversal.UserDBServ.User usr);
@@ -39,9 +35,9 @@ namespace storageUniversal.UserDBServ {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Threading.Tasks.Task<storageUniversal.UserDBServ.User> GetFullUserAsync(storageUniversal.UserDBServ.User usr);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/updateUserById", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetFullUserDits", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<bool> updateUserByIdAsync(storageUniversal.UserDBServ.User OldUsr, storageUniversal.UserDBServ.User NewUsr, int id);
+        System.Threading.Tasks.Task<string[]> GetFullUserDitsAsync(storageUniversal.UserDBServ.User usr);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/updateUserByIdAdmin", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -84,7 +80,7 @@ namespace storageUniversal.UserDBServ {
         
         private string lnameField;
         
-        private System.DateTime bDateField;
+        private System.Nullable<System.DateTime> bDateField;
         
         private string compenyField;
         
@@ -129,8 +125,8 @@ namespace storageUniversal.UserDBServ {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
-        public System.DateTime BDate {
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=3)]
+        public System.Nullable<System.DateTime> BDate {
             get {
                 return this.bDateField;
             }
@@ -229,10 +225,6 @@ namespace storageUniversal.UserDBServ {
                 base(binding, remoteAddress) {
         }
         
-        public System.Threading.Tasks.Task<string> HelloWorldAsync() {
-            return base.Channel.HelloWorldAsync();
-        }
-        
         public System.Threading.Tasks.Task<bool> regAsync(storageUniversal.UserDBServ.User usr) {
             return base.Channel.regAsync(usr);
         }
@@ -249,8 +241,8 @@ namespace storageUniversal.UserDBServ {
             return base.Channel.GetFullUserAsync(usr);
         }
         
-        public System.Threading.Tasks.Task<bool> updateUserByIdAsync(storageUniversal.UserDBServ.User OldUsr, storageUniversal.UserDBServ.User NewUsr, int id) {
-            return base.Channel.updateUserByIdAsync(OldUsr, NewUsr, id);
+        public System.Threading.Tasks.Task<string[]> GetFullUserDitsAsync(storageUniversal.UserDBServ.User usr) {
+            return base.Channel.GetFullUserDitsAsync(usr);
         }
         
         public System.Threading.Tasks.Task<bool> updateUserByIdAdminAsync(int id, storageUniversal.UserDBServ.User Admin, storageUniversal.UserDBServ.User NewUsr) {

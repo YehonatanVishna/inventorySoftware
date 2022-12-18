@@ -144,6 +144,7 @@ namespace storageUniversal
             
             usr.Password = password.Password;
             usr.Email = email.Text;
+            usr.BDate = DateTime.Now;
             var a = await  UDBS.IsUserPermittedAsync(usr);
             bool b = bool.Parse(a.ToString());
             bool isAdmin = await UDBS.IsAdminAsync(usr);
@@ -195,7 +196,7 @@ namespace storageUniversal
                 {
                     var db = new UsersDatabase();
                     await db.DeleteAll();
-                    await db.InsertItemAsync(new User() { ID = FullUser.ID, Email = FullUser.Email, Password = FullUser.Password , BDate = FullUser.BDate, Compeny = FullUser.Compeny, Fname = FullUser.Fname, Lname = FullUser.Lname});
+                    await db.InsertItemAsync(new User() { ID = FullUser.ID, Email = FullUser.Email, Password = FullUser.Password , BDate = FullUser.BDate.Value, Compeny = FullUser.Compeny, Fname = FullUser.Fname, Lname = FullUser.Lname});
                 }
                 InventoryView.SentFrom = typeof(login);
                 this.Frame.Navigate(typeof(InventoryView));

@@ -31,7 +31,7 @@ namespace WebServ1
         {
                 Connection con = new Connection(constr);
                 con.openCon();
-                string b = "Insert into [StorageSystem].[dbo].[Users] (FName, LName, BDate, compeny, email, password) Values (N'" + usr.Fname + "', N'" + usr.Lname + "' , " + "CAST(N'" + usr.BDate.ToShortDateString() + "' AS DateTime)" + " , N'" + usr.Compeny + "', N'" + usr.Email + "' , N'" + usr.Password + "');";
+                string b = "Insert into [StorageSystem].[dbo].[Users] (FName, LName, BDate, compeny, email, password) Values (N'" + usr.Fname + "', N'" + usr.Lname + "' , " + "CAST(N'" + (usr.BDate.GetValueOrDefault()).ToShortDateString() + "' AS DateTime)" + " , N'" + usr.Compeny + "', N'" + usr.Email + "' , N'" + usr.Password + "');";
                 bool a = con.ExequteNoneQury(b);
                 con.CloseCon();
                 return a;
@@ -90,6 +90,29 @@ namespace WebServ1
                 user.Password = ds.Tables["logged"].Rows[0]["Password"].ToString();
             }
             return user;
+        }
+        [WebMethod]
+        ///<summary>
+        ///takes a basic user with only email and passwor. returns a full user with all the user details as they are in the db.
+        /// </summary>
+        public String[] GetFullUserDits(User usr)
+        {
+            User user = new User();
+            if (IsUserPermitted(usr))
+            {
+                Connection con = new Connection(constr);
+                DataSet ds = con.GetDataSet("logged", "select * from users where email = '" + usr.Email + "' AND password= '" + usr.Password + "';");
+                user.ID = int.Parse(ds.Tables["logged"].Rows[0]["ID"].ToString());
+                user.Fname = ds.Tables["logged"].Rows[0]["FName"].ToString();
+                user.Lname = ds.Tables["logged"].Rows[0]["LName"].ToString();
+                user.BDate = DateTime.Parse(ds.Tables["logged"].Rows[0]["BDate"].ToString());
+                user.Compeny = ds.Tables["logged"].Rows[0]["compeny"].ToString();
+                user.Email = ds.Tables["logged"].Rows[0]["email"].ToString();
+                user.Password = ds.Tables["logged"].Rows[0]["Password"].ToString();
+            }
+            var d = new string[7];
+            d[0] = user.Email;
+            return d;
         }
         [WebMethod]
         ///<summary>

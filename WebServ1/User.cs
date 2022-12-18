@@ -7,7 +7,7 @@ namespace WebServ1
         private int id;
         private string fname;
         private string lname;
-        private DateTime bdate;
+        private DateTime? bdate;
         private string compeny;
         private string email;
         private string password;
@@ -60,21 +60,21 @@ namespace WebServ1
             get { return this.lname; }
             set { this.lname = value; }
         }
-        public DateTime BDate
+        public DateTime? BDate
         {
             get { return this.bdate; }
             set { this.bdate = value; }
         }
-        //In order to display BDate in standard CalendarDatePicker I had to write a property that would return BDate as a nullable DateTimeOffset
-        public DateTimeOffset? BDateTimeOffset
-        {
-            get
-            {
-                try { return DateTimeOffset.Parse(this.BDate.ToString()); }
-                catch { return null; }
-            }
-            set { this.bdate = DateTime.Parse(value.ToString()); }
-        }
+        ////In order to display BDate in standard CalendarDatePicker I had to write a property that would return BDate as a nullable DateTimeOffset
+        //public DateTimeOffset? BDateTimeOffset
+        //{
+        //    get
+        //    {
+        //        try { return DateTimeOffset.Parse(this.BDate.ToString()); }
+        //        catch { return null; }
+        //    }
+        //    set { this.bdate = DateTime.Parse(value.ToString()); }
+        //}
         public string Compeny
         {
             get { return this.compeny; }

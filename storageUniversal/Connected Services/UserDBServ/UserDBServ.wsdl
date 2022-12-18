@@ -2,16 +2,6 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
-      <s:element name="HelloWorld">
-        <s:complexType />
-      </s:element>
-      <s:element name="HelloWorldResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="HelloWorldResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="reg">
         <s:complexType>
           <s:sequence>
@@ -24,7 +14,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="ID" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Fname" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Lname" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="BDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="BDate" nillable="true" type="s:dateTime" />
           <s:element minOccurs="0" maxOccurs="1" name="Compeny" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
@@ -75,22 +65,25 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="updateUserById">
+      <s:element name="GetFullUserDits">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="OldUsr" type="tns:User" />
-            <s:element minOccurs="0" maxOccurs="1" name="NewUsr" type="tns:User" />
-            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usr" type="tns:User" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="updateUserByIdResponse">
+      <s:element name="GetFullUserDitsResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="updateUserByIdResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetFullUserDitsResult" type="tns:ArrayOfString" />
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="updateUserByIdAdmin">
         <s:complexType>
           <s:sequence>
@@ -202,12 +195,6 @@
       </s:element>
     </s:schema>
   </wsdl:types>
-  <wsdl:message name="HelloWorldSoapIn">
-    <wsdl:part name="parameters" element="tns:HelloWorld" />
-  </wsdl:message>
-  <wsdl:message name="HelloWorldSoapOut">
-    <wsdl:part name="parameters" element="tns:HelloWorldResponse" />
-  </wsdl:message>
   <wsdl:message name="regSoapIn">
     <wsdl:part name="parameters" element="tns:reg" />
   </wsdl:message>
@@ -232,11 +219,11 @@
   <wsdl:message name="GetFullUserSoapOut">
     <wsdl:part name="parameters" element="tns:GetFullUserResponse" />
   </wsdl:message>
-  <wsdl:message name="updateUserByIdSoapIn">
-    <wsdl:part name="parameters" element="tns:updateUserById" />
+  <wsdl:message name="GetFullUserDitsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFullUserDits" />
   </wsdl:message>
-  <wsdl:message name="updateUserByIdSoapOut">
-    <wsdl:part name="parameters" element="tns:updateUserByIdResponse" />
+  <wsdl:message name="GetFullUserDitsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFullUserDitsResponse" />
   </wsdl:message>
   <wsdl:message name="updateUserByIdAdminSoapIn">
     <wsdl:part name="parameters" element="tns:updateUserByIdAdmin" />
@@ -281,10 +268,6 @@
     <wsdl:part name="parameters" element="tns:DoesEmailExistResponse" />
   </wsdl:message>
   <wsdl:portType name="UserDBServSoap">
-    <wsdl:operation name="HelloWorld">
-      <wsdl:input message="tns:HelloWorldSoapIn" />
-      <wsdl:output message="tns:HelloWorldSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="reg">
       <wsdl:input message="tns:regSoapIn" />
       <wsdl:output message="tns:regSoapOut" />
@@ -301,9 +284,9 @@
       <wsdl:input message="tns:GetFullUserSoapIn" />
       <wsdl:output message="tns:GetFullUserSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="updateUserById">
-      <wsdl:input message="tns:updateUserByIdSoapIn" />
-      <wsdl:output message="tns:updateUserByIdSoapOut" />
+    <wsdl:operation name="GetFullUserDits">
+      <wsdl:input message="tns:GetFullUserDitsSoapIn" />
+      <wsdl:output message="tns:GetFullUserDitsSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="updateUserByIdAdmin">
       <wsdl:input message="tns:updateUserByIdAdminSoapIn" />
@@ -336,15 +319,6 @@
   </wsdl:portType>
   <wsdl:binding name="UserDBServSoap" type="tns:UserDBServSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="HelloWorld">
-      <soap:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="reg">
       <soap:operation soapAction="http://tempuri.org/reg" style="document" />
       <wsdl:input>
@@ -381,8 +355,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="updateUserById">
-      <soap:operation soapAction="http://tempuri.org/updateUserById" style="document" />
+    <wsdl:operation name="GetFullUserDits">
+      <soap:operation soapAction="http://tempuri.org/GetFullUserDits" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -456,15 +430,6 @@
   </wsdl:binding>
   <wsdl:binding name="UserDBServSoap12" type="tns:UserDBServSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="HelloWorld">
-      <soap12:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="reg">
       <soap12:operation soapAction="http://tempuri.org/reg" style="document" />
       <wsdl:input>
@@ -501,8 +466,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="updateUserById">
-      <soap12:operation soapAction="http://tempuri.org/updateUserById" style="document" />
+    <wsdl:operation name="GetFullUserDits">
+      <soap12:operation soapAction="http://tempuri.org/GetFullUserDits" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
