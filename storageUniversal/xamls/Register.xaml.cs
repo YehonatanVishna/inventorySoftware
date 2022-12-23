@@ -29,10 +29,12 @@ namespace storageUniversal
         public Register()
         {
             this.InitializeComponent();
+            //קוד לניווט אחורה וקדימה עם כפטורי הניווט של העכבר
             // some code to handle mouse back + forward buttons
             Window.Current.Activate();
             Window.Current.CoreWindow.PointerPressed += CoreWindow_PointerPressed; 
         }
+        //קוד לניווט אחורה וקדימה עם כפטורי הניווט של העכבר
         // some code to handle mouse back + forward buttons
         private void CoreWindow_PointerPressed(CoreWindow sender, PointerEventArgs args)
         {
@@ -56,6 +58,7 @@ namespace storageUniversal
                 }
             }
         }
+        //בודק האם האימייל שהתקבל תקין בתחביר שלו
         //checks whether the recived email is valid
         public bool isEmailValid(String email)
         {
@@ -75,12 +78,14 @@ namespace storageUniversal
                 return false;
             }
         }
+        // בודק האם האימייל שהתקבל כבר בשימוש במסד הנתונים
         //checks whether the email alredy axists in db
         public async Task<bool> DoesEmailExistAlready(string email)
         {
             var UDBS = new UserDBServ.UserDBServSoapClient();
             return await UDBS.DoesEmailExistAsync(email);
         }
+        //מגיב ללחיצה על כפתור ההרשמה, רושם את המשתמש לשירות
         //responds to click on register button, registers user
         private async void RegBot_Click(object sender, RoutedEventArgs e)
         {
@@ -106,6 +111,8 @@ namespace storageUniversal
             usr.Compeny = compeny.Text;
             var a = await UDBS.regAsync(usr);
             bool IsSuccess = bool.Parse(a.ToString());
+            //מעלה למשתמש הודעה- האם ההרשמה הסתיימה בהצלחה או לא
+            // raises a popup for the user- tells him wether the regestation was completed sucsessfully
             if (IsSuccess)
             {
                 ContentDialog sucsessDialog = new ContentDialog()
@@ -128,6 +135,7 @@ namespace storageUniversal
 
 
         }
+        // מגיב ללחיצה על כפתור החזרה, מחזיר את המשתמש למסך הקודם
         //go back to previus page
         private void Back_Click(object sender, RoutedEventArgs e)
         {

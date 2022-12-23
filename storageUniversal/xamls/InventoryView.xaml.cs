@@ -39,10 +39,12 @@ namespace storageUniversal
         {
             this.InitializeComponent();
             LoadTblFunc();
+            //קוד לניווט אחורה וקדימה עם כפטורי הניווט של העכבר
             // some code to handle mouse back + forward buttons
             Window.Current.Activate();
             Window.Current.CoreWindow.PointerPressed += CoreWindow_PointerPressed;
         }
+        //קוד לניווט אחורה וקדימה עם כפטורי הניווט של העכבר
         // some code to handle mouse back + forward buttons
         private void CoreWindow_PointerPressed(CoreWindow sender, PointerEventArgs args)
         {
@@ -72,12 +74,14 @@ namespace storageUniversal
 
 
         }
-
+        //מרענן את הטבלה בלחיצה על הכפתור
+        //loades the table at a click on the button
         private void LoadTbl_Click(object sender, RoutedEventArgs e)
         {
             LoadTblFunc();
         }
-
+        //פונקציה שמכניסה לטבלה את המידע העדכני המופיע במסד הנתונים
+        //a function that inserts into the table the current data in the db
         private async void LoadTblFunc()
         {
             InventoryServ.InventoryFuncsSoapClient s = new InventoryServ.InventoryFuncsSoapClient();
@@ -114,11 +118,14 @@ namespace storageUniversal
             }
             
         }
-
+        //מפנה לפונקציה שמעדכנת את השינויים שנעשו בידי המשתמש במסד הנתונים. מופע בלחיצה על כפתור העידכון
+        //updates the data in db according to the changes made by the user (directs to a diffrent function). Treiggered at the click on the update button.
         private void UpdateDataFromTbl_Click(object sender, RoutedEventArgs e)
         {
             UpdateDataToDB();
         }
+        // הפונקציה בודקת אלו שינויים נעשו בידי המשתמש בטבלה, ומעדכנת את שינויים אלו בטבלה
+        //checks what have been changed in the table by the user and updates the changes to db.
         private async void UpdateDataToDB()
         {
             InventoryRow sel = (InventoryRow)InventoryTbl.SelectedItem;
@@ -164,6 +171,7 @@ namespace storageUniversal
 
             }
         }
+        //מוחק את הרשומה המסומנת בלחיצה על כפתור המחיקה
         //deletes the selected item when delete button is clicked
         private async void Delete_Click(object sender, RoutedEventArgs e)
         {
@@ -173,6 +181,7 @@ namespace storageUniversal
             var HadWorked = await s.DeleteInventoryRowAsync(id, FullUser.Email, FullUser.Password);
             InventoryRowesBindedToUser.Remove(InventoryRowesBindedToUser[InventoryTbl.SelectedIndex]);
         }
+        //מגיב ללחיצה על כתור ההוספה בהוספת רשומה ריקה לטבלה ולמסד הנתונים
         //responds to click by adding item to ListView
         private async void AddItem_Click(object sender, RoutedEventArgs e)
         {
@@ -185,6 +194,7 @@ namespace storageUniversal
             InventoryBeforeChange.Add(NewRow.copy());
 
         }
+        //הפונקציה מקבלת עצם, ומוסיפה אותו למסד הנתונים תחת המשתמש הנוכחי
         //rwcives a new InventoryRow and add new item to the ListView, and to db
         private async void addItemFunc(InventoryRow a)
         {
@@ -196,6 +206,7 @@ namespace storageUniversal
             var IsOk = await s.changeInventoryRowAsync(new InventoryServ.InventoryRow() { OwnerUserId = NewRow.OwnerUserId, ID = NewRow.ID, AmountOut= NewRow.AmountOut, Name = NewRow.Name, NeededQuantity = NewRow.NeededQuantity, Quantity = NewRow.Quantity, Remarkes = NewRow.Remarkes });
             InventoryRowesBindedToUser.Add(NewRow);
         }
+        //מייבא רשימת מלאי של פריטים מקובץ סי.אס.וי
         //import inventory list from csv file
         private async void CsvImport_Click(object sender, RoutedEventArgs e)
         {
@@ -239,6 +250,8 @@ namespace storageUniversal
             }
             catch { }
         }
+        // שולח את המשתמש לעמוד האחרון בו היה בלחיצה על כפתור החזרה
+        //triggered at a click on the back button. Sendes the user back to the previus page.
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             Frame frame = Window.Current.Content as Frame;
@@ -247,6 +260,7 @@ namespace storageUniversal
                 frame.GoBack();
             }
         }
+        //מעלה תפריט פופאפ למילוא פרטי השאלה בידי המשתמש בלחיצה על כפתור הוספת ההשאלה בתפריט הקליק הימני של הפריט
         //reviles add landing menu after clicking add landing button
         private async void LandButton_Click(object sender, RoutedEventArgs e)
         {
@@ -272,6 +286,7 @@ namespace storageUniversal
             await getLandingDits.ShowAsync();
             LoadTblFunc();
         }
+        //מעלה כפטור הוספת השאלה בחיצה על פריט בטבלה
         //reviles add landing button after right clicking an item
         private void Gridy_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
@@ -290,6 +305,7 @@ namespace storageUniversal
 
 
         }
+        //הפקודה להוספת השאלה למסד הנתונים
         //the command for adding a landing
         class saveBtnCmd : ICommand
         {
@@ -312,6 +328,7 @@ namespace storageUniversal
                 
             }
         }
+        //לוקח את המשתמש לעמוד בו הוא יכול לראות את כל ההשאלות הנוכחיות מן הרשימה שלו
         //takes the user to a page where he can see all of his active landings
         private void SeeLandings_Click(object sender, RoutedEventArgs e)
         {

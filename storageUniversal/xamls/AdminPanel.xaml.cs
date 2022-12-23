@@ -21,27 +21,33 @@ using Windows.UI.Core;
 namespace storageUniversal
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// This is a page for the admin to update the personal detailes of all existing users
     /// </summary>
     public sealed partial class AdminPanel : Page
     {
+        //משתנה המכיל את פרטי ההתחברות של המנהל
         //the admin user
         public UserDBServ.User AdminUser = login.FullUser;
+
+        public static Type SentFrom { get; internal set; }
+
+        //רשימה המכילה את כל המשתמשים כפי שהיו אחרי העדכון האחרון
         //user list as it is in the last refresh
         public List<User> UsersOriginal;
+        //רשימה של כל המשתמשים כפי שהם כעת בטבלה
         //users as they are after the changes the user made
-        public List<User> UsersInTbl;
-        //the page to return to after clicking back button
-        public static Type SentFrom;
+        public List<User> BinedUsersInTbl;
         public AdminPanel()
         {
             this.InitializeComponent();
-            UsersTbl.Margin = new Thickness(0, back.Height, 0, 0);
+            //UsersTbl.Margin = new Thickness(0, back.Height, 0, 0);
             loudTbl();
+            //קוד לניווט אחורה וקדימה עם כפטורי הניווט של העכבר
             // some code to handle mouse back + forward buttons
             Window.Current.Activate();
             Window.Current.CoreWindow.PointerPressed += CoreWindow_PointerPressed;
         }
+        //קוד לניווט אחורה וקדימה עם כפטורי הניווט של העכבר
         // some code to handle mouse back + forward buttons
         private void CoreWindow_PointerPressed(CoreWindow sender, PointerEventArgs args)
         {
@@ -65,6 +71,7 @@ namespace storageUniversal
                 }
             }
         }
+        //מכניס את כל המשתמשים במערכת לטבלה
         //loads all users from db and inserts them to the table (ListView)
         public async void loudTbl()
         {
@@ -84,7 +91,7 @@ namespace storageUniversal
                 Users.Add(row);
             }
             UsersTbl.ItemsSource = Users;
-            UsersInTbl = Users;
+            BinedUsersInTbl = Users;
             UsersOriginal = new List<User>();
             foreach (User Row in Users)
             {
@@ -119,6 +126,7 @@ namespace storageUniversal
             NewUser.Password = user.Password;
             return NewUser;
         }
+        //בלחיצה על כפתור העידכון, מעדכן את פרטי המשתמשים במסד נתונים לפי השינויים שעשה המנהל
         //a code for applying changes admin made to User's ditailes in db
         private async void Apply_Click(object sender, RoutedEventArgs e)
         {
@@ -147,6 +155,7 @@ namespace storageUniversal
             }
 
         }
+        //בחיצה על הכפור, מוסיף לטבלה ולמסד הנתונים משתמש ריק
         //code to add a new row representing new user in tbl
         private async void AddUser_Click(object sender, RoutedEventArgs e)
         {
@@ -154,11 +163,12 @@ namespace storageUniversal
             User NewUser = new User();
             var id = await s.AddEmptyUserAsync();
             NewUser.ID = id;
-            UsersInTbl.Add(NewUser);
+            BinedUsersInTbl.Add(NewUser);
             UsersOriginal.Add(NewUser);
             UsersTbl.ItemsSource = null;
-            UsersTbl.ItemsSource = UsersInTbl;
+            UsersTbl.ItemsSource = BinedUsersInTbl;
         }
+        //בלחיצה על כפתור המחיקה מוחק את המשתמש המסומן
         //code for deleting selected user from table and db
         private async void DeleteBut_Click(object sender, RoutedEventArgs e)
         {
@@ -170,6 +180,8 @@ namespace storageUniversal
             UsersTbl.ItemsSource = null;
             loudTbl();
         }
+        //מחזיר את המשתמש למסך הקודם בלחיצה על כפתור החזרה
+        //back button click
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             Frame frame = Window.Current.Content as Frame;

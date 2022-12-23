@@ -32,6 +32,7 @@ namespace storageUniversal
         public updateUser()
         {
             this.InitializeComponent();
+            //מכניס לשדות את הנתונים הנוחכיים של המשתמש
             //fills in user current data
             FN.Text = FullUser.Fname;
             LN.Text = FullUser.Lname;
@@ -41,9 +42,11 @@ namespace storageUniversal
             compeny.Text = FullUser.Compeny;
             pass.Text = FullUser.Password;
             // some code to handle mouse back + forward buttons
+            //קוד לניווט אחורה וקדימה עם כפטורי הניווט של העכבר
             Window.Current.Activate();
             Window.Current.CoreWindow.PointerPressed += CoreWindow_PointerPressed;
         }
+        //קוד לניווט אחורה וקדימה עם כפטורי הניווט של העכבר
         // some code to handle mouse back + forward buttons
         private void CoreWindow_PointerPressed(CoreWindow sender, PointerEventArgs args)
         {
@@ -67,6 +70,7 @@ namespace storageUniversal
                 }
             }
         }
+        //שולח לשירות הרשת את הנתונים העדכניים של המשתמש
         //sends motified data to web service
         private async void Update_Click(object sender, RoutedEventArgs e)
         {
@@ -91,6 +95,7 @@ namespace storageUniversal
                 isDone.Text = "update failed";
             }
             }
+        //מחזיר את המשתמש לעמוד הקודם
         //goes back to previus page
         private void Back_Click(object sender, RoutedEventArgs e)
         {

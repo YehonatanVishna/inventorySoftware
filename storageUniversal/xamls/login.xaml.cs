@@ -108,7 +108,7 @@ namespace storageUniversal
             var UDBS = new UserDBServ.UserDBServSoapClient();
             usr.Password = user.Password;
             usr.Email = user.Email;
-            var a = await UDBS.IsUserPermittedAsync(usr);
+            var a = await UDBS.IsUserPermittedAsync(new UserDBServ.User() {Password= usr.Password, Email = usr.Email });
             bool b = bool.Parse(a.ToString());
             if (b)
             {
@@ -152,7 +152,7 @@ namespace storageUniversal
             
             usr.Password = password.Password;
             usr.Email = email.Text;
-            usr.BDate = DateTime.Now;
+            //usr.BDate = DateTime.Now;
             var a = await  UDBS.IsUserPermittedAsync(usr);
             bool b = bool.Parse(a.ToString());
             bool isAdmin = await UDBS.IsAdminAsync(usr);
@@ -174,7 +174,6 @@ namespace storageUniversal
             else
             {
                 FullUser = usr;
-                AdminPanel.SentFrom = typeof(login);
                 this.Frame.Navigate(typeof(AdminPanel));
             }
         }
