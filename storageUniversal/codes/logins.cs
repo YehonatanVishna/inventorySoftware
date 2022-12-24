@@ -1,7 +1,0 @@
-﻿namespace storageUniversal
-{
-    class logins
-    {
-
-    }
-}

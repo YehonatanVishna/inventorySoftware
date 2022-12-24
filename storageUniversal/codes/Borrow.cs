@@ -9,6 +9,7 @@ namespace storageUniversal.codes
 {
     public class Borrow
     {
+        //תכונות של טיפוס השאלה
         // Fields
         private int itemId;
         private string borrowedBy;
@@ -18,65 +19,67 @@ namespace storageUniversal.codes
         private int userId;
         private string name;
 
+        //הבנאי הראשי
         // Default constructor
         public Borrow() { }
 
+        //בנאי שמקבל מספר זהות
         // Constructor with item ID parameter
         private Borrow(int id)
         {
             // Set the item ID
             this.ItemId = id;
         }
-
-        // Property for the item ID
+        //פעולות גט וסט לכל התכונות
+        // getters and setters to all properties
         public int ItemId
         {
             get { return itemId; }
             set { this.itemId = value; }
         }
 
-        // Property for the borrower's name
+
         public string BorrowedBy
         {
             get => borrowedBy;
             set => borrowedBy = value;
         }
 
-        // Property for the date and time the item was borrowed
+
         public DateTime When
         {
             get => when;
             set => when = value;
         }
 
-        // Property for the quantity of the item borrowed
+
         public float Quantity
         {
             get => quantity;
             set => quantity = value;
         }
 
-        // Property for the ID of the borrowing
+
         public float BorrowingId
         {
             get => borrowingId;
             set => borrowingId = value;
         }
 
-        // Property for the ID of the user
+
         public int UserId
         {
             get => userId;
             set => userId = value;
         }
 
-        // Property for the name of the user
         public string Name
         {
             get => name;
             set => name = value;
         }
-
+        //בשל הקשרים בטבלה אין בטבלה של ההשאלות את שם הפריט
+        //מטרת פעולה זו היא להשיג משירות הרשת את שם הפריט ולשים אותו בתוך העצם
         // Method to set the name of the user based on their ID
         public async Task<string> SetName(int id)
         {
@@ -90,5 +93,4 @@ namespace storageUniversal.codes
             return name;
         }
     }
-
 }

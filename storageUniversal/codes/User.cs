@@ -3,6 +3,7 @@ namespace storageUniversal
 {
     public class User
     {
+        //תכונות בסיסיות של המשתמש
         //defining basic properties
         private int id;
         private string fname;
@@ -11,33 +12,13 @@ namespace storageUniversal
         private string compeny;
         private string email;
         private string password;
+        //בנאי ריק
         // empty constractor
         public User()
         {
 
         }
-        // a constaractor that gets all properties at create
-        public User(string compeny, string Fname, string Lname, DateTime BDate, string email, string password)
-        {
-            this.compeny = compeny;
-            this.fname = Fname;
-            this.lname = Lname;
-            this.bdate = BDate;
-            this.email = email;
-            this.password = password;
-        }
-        //made by yehonatan vishna
-        public User(int Id, string compeny, int tz, string Fname, string Lname, DateTime BDate, string email, string password)
-        {
-            this.id = Id;
-            this.compeny = compeny;
-            this.fname = Fname;
-            this.lname = Lname;
-            this.bdate = BDate;
-            this.email = email;
-            this.password = password;
-        }
-
+        //גטרים וסטרים לכל התכונות
         //getters + setters for properties
         public int ID
         {
@@ -65,6 +46,8 @@ namespace storageUniversal
             get { return this.bdate; }
             set { this.bdate = value; }
         }
+        //על מנת להציג את תכונת תאריך הלידה בפקד סטנדרטי יש צורך להוציא את המידע בצורת סוג דייטטיימאופסט עם יכולת להיות תכונה ריקה
+        // מטרת תכונה זו היא להמיר את תאריך הלידה לסוג זה ולהיתממשק עם פקד בחירת התאריך
         //In order to display BDate in standard CalendarDatePicker I had to write a property that would return BDate as a nullable DateTimeOffset
         public DateTimeOffset? BDateTimeOffset
         {
@@ -88,10 +71,7 @@ namespace storageUniversal
             get { return this.password; }
             set { this.password = value; }
         }
-        public string insertQury(string tableN)
-        {
-            return "Insert INTO " + tableN + " (Fname, LName, BDate, City, email, password) VALUES " + "(" + ",'" + this.fname + "','" + this.lname + "','" + this.bdate.ToString() + "','" + this.email + "','" + this.password + "');";
-        }
+        //פעולה שיוצרת עצם חדש עם אותם תכונות כמו עצם זה
         // a fution that creatates another User obj identical to this one
         public User copy() {
             User a = new User();
@@ -104,6 +84,7 @@ namespace storageUniversal
             a.password = this.password;
             return a;
         }
+        //תכונה הבודקת האם משתמש אחר זהה בכל פרטיו למשתמש זה
         // a function that returns wether another User object is identical to this one
         public bool IsSame(User user)
         {

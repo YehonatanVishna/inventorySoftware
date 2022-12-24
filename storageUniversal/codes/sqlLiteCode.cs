@@ -15,6 +15,8 @@ namespace storageUniversal
         public UsersDatabase()
         {
         }
+        //מוודא שמסד הנתונים מאותחל אם לא מאתחל אותו
+        //makes shure the db is initilized
         async Task Init()
         {
             // Return if the database has already been initialized
@@ -28,6 +30,7 @@ namespace storageUniversal
             Database.Open();
 
             // Create the table command string with the specified columns and data types
+            //שאילתה שיוצרת את מסד הנתונים אם הוא לא כבר קיים
             String tableCommand = "CREATE TABLE IF NOT " +
         "EXISTS Users ( [ID][int] IDENTITY NOT NULL," +
         "[FName] [nchar] (20) NULL," +
@@ -44,7 +47,8 @@ namespace storageUniversal
             createTable.ExecuteReader();
         }
 
-
+        //מחזיר רשימה של כל המשתמשים במסד הנתונים המקומי
+        //returns a User list of all users in db
         public async Task<List<User>> GetItemsAsync()
         {
             // Initialize the database
@@ -87,8 +91,8 @@ namespace storageUniversal
             // Return the list of users
             return users;
         }
-
-
+        //מקבל עצם של משתמש ומכניס את המידע המוכל בעצם למסד הנתונים
+        //takes a user object and inserts it into the db
         public async Task<bool> InsertItemAsync(User item)
         {
             // Initialize the database
@@ -109,7 +113,8 @@ namespace storageUniversal
             // Return a value indicating whether the insertion was successful
             return a > 0;
         }
-
+        //מוחק את כל המשתמשים במסד הנתונים
+        //deletes all users in db
         public async Task<bool> DeleteAll()
         {
             // Initialize the database

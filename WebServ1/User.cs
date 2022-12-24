@@ -90,10 +90,6 @@ namespace WebServ1
             get { return this.password; }
             set { this.password = value; }
         }
-        public string insertQury(string tableN)
-        {
-            return "Insert INTO " + tableN + " (Fname, LName, BDate, City, email, password) VALUES " + "(" + ",'" + this.fname + "','" + this.lname + "','" + this.bdate.ToString() + "','" + this.email + "','" + this.password + "');";
-        }
         // a fution that creatates another User obj identical to this one
         public User copy()
         {

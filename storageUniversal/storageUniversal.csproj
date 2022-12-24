@@ -117,9 +117,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="codes\Borrow.cs" />
-    <Compile Include="codes\CodeFile1.cs" />
+    <Compile Include="codes\sqlLiteCode.cs" />
     <Compile Include="codes\Constants.cs" />
-    <Compile Include="codes\logins.cs" />
     <Compile Include="xamls\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>

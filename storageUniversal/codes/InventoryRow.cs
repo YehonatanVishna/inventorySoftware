@@ -6,6 +6,7 @@ namespace storageUniversal
 {
     public class InventoryRow
     {
+        //מגדיר את התכונות של העצם
         //defines some properies
         private int id;
         private string name;
@@ -14,6 +15,8 @@ namespace storageUniversal
         private int ownerUserId;
         private float amountOut;
         private string remarks;
+        //פעולות בונות
+        //constractores
         public InventoryRow() { }
         public InventoryRow(int id, string name, int q, int nq, int oui)
         {
@@ -23,6 +26,7 @@ namespace storageUniversal
             this.neededQuantity = nq;
             this.ownerUserId = oui;
         }
+        //גטרים וסטרים לכל התכונות
         //getters and setters for all the properties listed above
         public int ID
         {
@@ -59,6 +63,7 @@ namespace storageUniversal
             get { return this.remarks; }
             set { this.remarks = value; }
         }
+        //פונקציה שיוצרת עצם שורת מלאי זהה עם אותם תכונות
         // a fution that creatates another InventoryRow obj identical to this one
         public InventoryRow copy()
         {
@@ -71,6 +76,7 @@ namespace storageUniversal
             a.Remarkes = this.remarks;
             return a;
         }
+        //פונקציה שבודקת האם עצם רשימת מלאי אחר זהה לעצם זה בכל תכונותיו
         // a function that returns wether another InventoryRow object is identical to this one
         public bool Equal(InventoryRow row)
         {
