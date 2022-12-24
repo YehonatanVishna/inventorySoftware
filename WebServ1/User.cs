@@ -3,6 +3,7 @@ namespace WebServ1
 {
     public class User
     {
+        //תכונות בסיסיות של המשתמש
         //defining basic properties
         private int id;
         private string fname;
@@ -11,33 +12,13 @@ namespace WebServ1
         private string compeny;
         private string email;
         private string password;
+        //בנאי ריק
         // empty constractor
         public User()
         {
 
         }
-        // a constaractor that gets all properties at create
-        public User(string compeny, string Fname, string Lname, DateTime BDate, string email, string password)
-        {
-            this.compeny = compeny;
-            this.fname = Fname;
-            this.lname = Lname;
-            this.bdate = BDate;
-            this.email = email;
-            this.password = password;
-        }
-        //made by yehonatan vishna
-        public User(int Id, string compeny, int tz, string Fname, string Lname, DateTime BDate, string email, string password)
-        {
-            this.id = Id;
-            this.compeny = compeny;
-            this.fname = Fname;
-            this.lname = Lname;
-            this.bdate = BDate;
-            this.email = email;
-            this.password = password;
-        }
-
+        //גטרים וסטרים לכל התכונות
         //getters + setters for properties
         public int ID
         {
@@ -65,16 +46,6 @@ namespace WebServ1
             get { return this.bdate; }
             set { this.bdate = value; }
         }
-        ////In order to display BDate in standard CalendarDatePicker I had to write a property that would return BDate as a nullable DateTimeOffset
-        //public DateTimeOffset? BDateTimeOffset
-        //{
-        //    get
-        //    {
-        //        try { return DateTimeOffset.Parse(this.BDate.ToString()); }
-        //        catch { return null; }
-        //    }
-        //    set { this.bdate = DateTime.Parse(value.ToString()); }
-        //}
         public string Compeny
         {
             get { return this.compeny; }
@@ -90,6 +61,7 @@ namespace WebServ1
             get { return this.password; }
             set { this.password = value; }
         }
+        //פעולה שיוצרת עצם חדש עם אותם תכונות כמו עצם זה
         // a fution that creatates another User obj identical to this one
         public User copy()
         {
@@ -103,6 +75,7 @@ namespace WebServ1
             a.password = this.password;
             return a;
         }
+        //תכונה הבודקת האם משתמש אחר זהה בכל פרטיו למשתמש זה
         // a function that returns wether another User object is identical to this one
         public bool IsSame(User user)
         {

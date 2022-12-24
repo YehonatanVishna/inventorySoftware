@@ -24,6 +24,7 @@ namespace InventoryServ
         [WebMethod]
         /// <summary>
         /// returns a DataTable Contaning all the inventory items that belongs to the user. For sequrity user needs to be authenticated with email and password.
+        /// מחזיר טבלת מידע עם כל הפריטים ברשימת המלאי של המשתמש
         /// </summary>
         public DataTable GetInventoryUserDataTable(int userId, string email, string password)
         {
@@ -44,7 +45,8 @@ namespace InventoryServ
         [WebMethod]
         ///<summery>
         ///takes a motifyed InventoryRow item, the function applyes motifications to the item's coresponding row in db and returns wether the motifications were secsussfull.
-        ///</summery>
+        ///מקבל שורת מלאי שעברה שינויים ומכיל את השינויים לשורות המתאימות במסד הנתונים
+        /// </summery>
         public bool changeInventoryRow(InventoryRow inventoryRow)
         {
             Connection con = new Connection(constr);
@@ -60,7 +62,8 @@ namespace InventoryServ
         [WebMethod]
         ///<summery>
         ///Takes an ItemId and deletes the coresponding item from db. for sequrity perpose, email and password are reqired.
-        ///</summery>
+        ///מקבל פרטי משתמש ומספר מזהה של שורת מלאי ומוחק את שורת המלאי בהנחה שהיא שייכת למשתמש שאת פרטיו הכניסו
+        /// </summery>
         public bool DeleteInventoryRow(int id, string email, string password)
         {
             var serv = new UserServ.UserDBServSoapClient();
@@ -77,6 +80,7 @@ namespace InventoryServ
             else { return false; }
         }
         //returns the user that owns the item with the given itemId
+        //מחזיר את מספר המשתמש שבבעלותו נמצא הפריט בעל מספר הפריט שהוכנס
         private int GetOwnerID(int ItemId)
         {
             Connection con = new Connection(constr);
@@ -87,6 +91,7 @@ namespace InventoryServ
         [WebMethod]
         ///<summery>
         ///creates a new empty item, returns the new item's id. For sequrity, email and password are reqiured.
+        ///יוצר פריט ריק חדש ברשימת המלאי של המשתמש שאת פריטיו הכניסו ומחזיר את המספר המזהה של הפריט שנוצר
         /// </summery>
         public int getNewItemId(int UserId, string email, string password)
         {

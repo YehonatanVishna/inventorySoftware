@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows.Input;
 using Windows.ApplicationModel.Core;
@@ -152,7 +153,11 @@ namespace storageUniversal
             
             usr.Password = password.Password;
             usr.Email = email.Text;
-            //usr.BDate = DateTime.Now;
+            if (!isEmailValid(usr.Email))
+            {
+                IsEmailValidBlock.Text = "email address isn't valid";
+                return;
+            }
             var a = await  UDBS.IsUserPermittedAsync(usr);
             bool b = bool.Parse(a.ToString());
             bool isAdmin = await UDBS.IsAdminAsync(usr);
@@ -183,6 +188,11 @@ namespace storageUniversal
         {
             usr.Password = password.Password;
             usr.Email = email.Text;
+            if (!isEmailValid(usr.Email))
+            {
+                IsEmailValidBlock.Text = "email address isn't valid";
+                return;
+            }
             var a = await UDBS.DeleteUserAsync(usr);
             bool b = bool.Parse(a.ToString());
 
@@ -193,12 +203,20 @@ namespace storageUniversal
         {
             usr.Password = password.Password;
             usr.Email = email.Text;
+            if (!isEmailValid(usr.Email))
+            {
+                IsEmailValidBlock.Text = "email address isn't valid";
+                return;
+            }
             var a = await UDBS.IsUserPermittedAsync(usr);
+            var isval = isEmailValid(usr.Email);
             bool b = bool.Parse(a.ToString());
             if (b)
             {
-
-                res.Text = "user exists, data should be showen";
+                //raises sucsess popup
+                //מעלה הודעת הצלחה
+                var sucsess = new ContentDialog() { Title = "user exists, data should be showen", CloseButtonText="ok" };
+                await sucsess.ShowAsync();
                 var TempFullUsr = await UDBS.GetFullUserAsync(usr);
                 FullUser = TempFullUsr;
                 if (rememberBox.IsChecked.Value)
@@ -212,7 +230,31 @@ namespace storageUniversal
             }
             else
             {
-                res.Text = "email or password are wrong, try again";
+                //raises failiur popup
+                //מעלה הודעת שגיאה
+                var fail = new ContentDialog() { Title = "email or password are wrong, try again", CloseButtonText = "ok" };
+                await fail.ShowAsync();
+            }
+        }
+        //בודק האם האימייל שהתקבל תקין בתחביר שלו
+        //checks whether the recived email is valid
+        public bool isEmailValid(String emailaddress)
+        {
+            try
+            {
+                MailAddress m = new MailAddress(emailaddress);
+                foreach(char a in emailaddress.ToList())
+                {
+                    if (a < 32 || a>122)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
             }
         }
         //send user back to previus page

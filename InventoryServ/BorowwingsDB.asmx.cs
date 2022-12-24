@@ -10,7 +10,7 @@ using System.Data;
 namespace InventoryServ
 {
     /// <summary>
-    /// Summary description for BorowwingsDB
+    ///contains a few methods to interact with all active landings
     /// </summary>
     [WebService(Namespace = "http://tempuri.org/")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
@@ -20,7 +20,10 @@ namespace InventoryServ
     public class BorowwingsDB : System.Web.Services.WebService
     {
         public static String constr = "Server = '" + Dns.GetHostName() + "\\SQLEXPRESS'; Database = StorageSystem; Trusted_Connection = True; ";
-        //calculates the amount of items borrowed of a given item id
+        /// <summary>
+        /// calculates the amount of items borrowed of a given item id
+        /// מחשב את כמות הפריטים המושאלים מעצם בעל מספר מזהה נתון לפי סכימת השאלותיו בטבלת ההשאלות
+        /// </summary>
         [WebMethod]
         public float CalcAmountOut(int itemId)
         {
@@ -34,7 +37,10 @@ namespace InventoryServ
             return amount;
         }
         [WebMethod]
-        //take an item id and updates this item amount out in db according to sum of his landings
+        ///<summary>
+        ///take an item id and updates this item amount out in db according to sum of his landings
+        ///מעדכן את כמות הפריטים המושאלים מעצם מסויים ברשומה שלו במסד הנתונים לפי סכימת השאלותיו בטבלת ההשאלות
+        ///</summary>
         public bool UpdateAmountOut(int itemId)
         {
             Connection con = new Connection(constr);
@@ -51,7 +57,10 @@ namespace InventoryServ
             return a;
         }
         [WebMethod]
-        //update user's item's amount out in db acoording to each item's landings in db.
+        ///<summary>
+        ///update user's item's amount out in db acoording to each item's landings in db.
+        ///מעדכן את כמות הפריטים המושאלים מכל פריט ברשימת המלאי של משתמש בעל מספר זיהוי נתון לפי סכימת השאלותיו של כל פריט בטבלת ההשאלות
+        ///</summary>
         public bool UpdateUserAmountOut(int UserId)
         {
             Connection con = new Connection(constr);
@@ -64,7 +73,10 @@ namespace InventoryServ
             return isOk;
         }
         [WebMethod]
-        //adds landing with given properties and adds it to db
+        ///<summary>
+        ///adds landing with given properties and adds it to db
+        ///מוסיף השאלה בעלת התכונות המתקבלות מהמשתמש למסד הנתונים
+        ///</summary>
         public int AddLending(int itemId, string lentForWho, DateTime whenBorowwed, float amountBorowwed, int userId)
         {
             Connection con = new Connection(constr);
@@ -83,7 +95,10 @@ namespace InventoryServ
             return id;
         }
         [WebMethod]
-        //returns datatable of all of the user's active landings
+        ///<summary>
+        ///returns datatable of all of the user's active landings
+        ///מחזיר טבלת מידע עם כל ההשאלות הפעילות של המשוייכות למשתמש
+        ///</summary>
         public DataTable GetLandings(int UserId)
         {
             Connection con = new Connection(constr);
@@ -92,7 +107,10 @@ namespace InventoryServ
 
         }
         [WebMethod]
-        //returns a item with a given item id name in db
+        ///<summary>
+        ///returns a item with a given item id name in db
+        ///מחזיר את שמו של הפריט מרשימת המלאי בעל מספר מזהה נתון
+        ///</summary>
         public string getName(int itemId) {
             var con = new Connection(BorowwingsDB.constr);
             con.openCon();

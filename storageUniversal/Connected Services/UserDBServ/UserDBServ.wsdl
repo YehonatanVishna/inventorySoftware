@@ -65,25 +65,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetFullUserDits">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usr" type="tns:User" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetFullUserDitsResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetFullUserDitsResult" type="tns:ArrayOfString" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="ArrayOfString">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="updateUserByIdAdmin">
         <s:complexType>
           <s:sequence>
@@ -219,12 +200,6 @@
   <wsdl:message name="GetFullUserSoapOut">
     <wsdl:part name="parameters" element="tns:GetFullUserResponse" />
   </wsdl:message>
-  <wsdl:message name="GetFullUserDitsSoapIn">
-    <wsdl:part name="parameters" element="tns:GetFullUserDits" />
-  </wsdl:message>
-  <wsdl:message name="GetFullUserDitsSoapOut">
-    <wsdl:part name="parameters" element="tns:GetFullUserDitsResponse" />
-  </wsdl:message>
   <wsdl:message name="updateUserByIdAdminSoapIn">
     <wsdl:part name="parameters" element="tns:updateUserByIdAdmin" />
   </wsdl:message>
@@ -283,10 +258,6 @@
     <wsdl:operation name="GetFullUser">
       <wsdl:input message="tns:GetFullUserSoapIn" />
       <wsdl:output message="tns:GetFullUserSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetFullUserDits">
-      <wsdl:input message="tns:GetFullUserDitsSoapIn" />
-      <wsdl:output message="tns:GetFullUserDitsSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="updateUserByIdAdmin">
       <wsdl:input message="tns:updateUserByIdAdminSoapIn" />
@@ -348,15 +319,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetFullUser">
       <soap:operation soapAction="http://tempuri.org/GetFullUser" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetFullUserDits">
-      <soap:operation soapAction="http://tempuri.org/GetFullUserDits" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -459,15 +421,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetFullUser">
       <soap12:operation soapAction="http://tempuri.org/GetFullUser" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetFullUserDits">
-      <soap12:operation soapAction="http://tempuri.org/GetFullUserDits" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

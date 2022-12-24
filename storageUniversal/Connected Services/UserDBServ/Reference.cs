@@ -35,10 +35,6 @@ namespace storageUniversal.UserDBServ {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Threading.Tasks.Task<storageUniversal.UserDBServ.User> GetFullUserAsync(storageUniversal.UserDBServ.User usr);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetFullUserDits", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<string[]> GetFullUserDitsAsync(storageUniversal.UserDBServ.User usr);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/updateUserByIdAdmin", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Threading.Tasks.Task<bool> updateUserByIdAdminAsync(int id, storageUniversal.UserDBServ.User Admin, storageUniversal.UserDBServ.User NewUsr);
@@ -239,10 +235,6 @@ namespace storageUniversal.UserDBServ {
         
         public System.Threading.Tasks.Task<storageUniversal.UserDBServ.User> GetFullUserAsync(storageUniversal.UserDBServ.User usr) {
             return base.Channel.GetFullUserAsync(usr);
-        }
-        
-        public System.Threading.Tasks.Task<string[]> GetFullUserDitsAsync(storageUniversal.UserDBServ.User usr) {
-            return base.Channel.GetFullUserDitsAsync(usr);
         }
         
         public System.Threading.Tasks.Task<bool> updateUserByIdAdminAsync(int id, storageUniversal.UserDBServ.User Admin, storageUniversal.UserDBServ.User NewUsr) {
