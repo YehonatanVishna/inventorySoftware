@@ -336,5 +336,15 @@ namespace storageUniversal
             BrowwingsAndDistractions.senderPage = typeof(InventoryView);
             Frame.Navigate(typeof(BrowwingsAndDistractions));
         }
+
+        private void CsvImport_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+
+        }
+
+        private void CsvImport_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+
+        }
     }
 }

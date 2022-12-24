@@ -11,7 +11,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <!--made by yehonatan vishna-->
     <!--a page where user can menege is current inventory-->
-    <Grid HorizontalAlignment="Stretch" Margin="0,0,0,-18" VerticalAlignment="Stretch">
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.ColumnDefinitions >
             <ColumnDefinition Width="100"></ColumnDefinition>
             <ColumnDefinition ></ColumnDefinition>
@@ -80,21 +80,27 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Button Grid.Row="0" Name="LoadTbl" Click="LoadTbl_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="WrapWholeWords" Text="load table"></TextBlock>
+                <!--<TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="WrapWholeWords" Text="load table"></TextBlock>-->
+                <SymbolIcon Symbol="Refresh"></SymbolIcon>
             </Button>
             <Button Grid.Row="1" Name="updateDataFromTbl" Click="UpdateDataFromTbl_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="WrapWholeWords" Text="update Data"></TextBlock>
+                <!--<TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="WrapWholeWords" Text="update Data"></TextBlock>-->
+                <SymbolIcon Symbol="Save"></SymbolIcon>
             </Button>
             <Button Grid.Row="2" Name="addItem" Click="AddItem_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="WrapWholeWords" Text="add item"></TextBlock>
+                <!--<TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="WrapWholeWords" Text="add item"></TextBlock>-->
+                <SymbolIcon Symbol="Add"></SymbolIcon>
             </Button>
 
             <Button Grid.Row="3" Name="Delete" Click="Delete_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="WrapWholeWords" Text="delete selected item"></TextBlock>
+                <!--<TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="WrapWholeWords" Text="delete selected item"></TextBlock>-->
+                <SymbolIcon Symbol="Delete"></SymbolIcon>
             </Button>
 
-            <Button Grid.Row="4" Name="CsvImport" Click="CsvImport_Click"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="WrapWholeWords" Text="import from csv"></TextBlock></Button>
+            <Button Grid.Row="4" PointerEntered="CsvImport_PointerEntered" PointerExited="CsvImport_PointerExited" Name="CsvImport" Click="CsvImport_Click"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <SymbolIcon Symbol="Import"></SymbolIcon>
+                <!--<TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="WrapWholeWords" Text="import from csv"></TextBlock>-->
+            </Button>
             <Button Grid.Row="5" Name="seeLandings" Click="SeeLandings_Click"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="WrapWholeWords" Text="see all active landings"></TextBlock>
             </Button>
