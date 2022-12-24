@@ -20,7 +20,7 @@ using Windows.UI.Core;
 namespace storageUniversal
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// This page allowes the user to menege his active landings
     /// </summary>
     public sealed partial class BrowwingsAndDistractions : Page
     {
@@ -30,10 +30,12 @@ namespace storageUniversal
         {
             this.InitializeComponent();
             loadTbl();
+            //קוד לניווט אחורה וקדימה עם כפטורי הניווט של העכבר
             // some code to handle mouse back + forward buttons
             Window.Current.Activate();
             Window.Current.CoreWindow.PointerPressed += CoreWindow_PointerPressed;
         }
+        //קוד לניווט אחורה וקדימה עם כפטורי הניווט של העכבר
         // some code to handle mouse back + forward buttons
         private void CoreWindow_PointerPressed(CoreWindow sender, PointerEventArgs args)
         {
@@ -57,6 +59,7 @@ namespace storageUniversal
                 }
             }
         }
+        //מעלה את כל ההשאלות הפעילות של המשתמש ומכניס אותם לטבלה
         //loads all the user's active borrowings and inserts them into ListView
         private async void loadTbl()
         {
@@ -76,6 +79,7 @@ namespace storageUniversal
             }
             LandsTbl.ItemsSource = borrows;
         }
+        //מחזיר את המשתמש לעמוד הקודם
         //takes you back to previos page
         private void Back_Click(object sender, RoutedEventArgs e)
         {

@@ -87,19 +87,33 @@ namespace storageUniversal
             bool res = resTemp;
             if (res)
             {
-                isDone.Text = "update complete sucssfuly";
+                var secsussPop = new ContentDialog()
+                {
+                    Title = "Detailes Update Have Been Sucsussfully Completed", CloseButtonText="ok"
+                };
+                await secsussPop.ShowAsync();
+                FullUser = NewUser;
                 Frame.Navigate(typeof(login));
             }
             else
             {
-                isDone.Text = "update failed";
+                var failPop = new ContentDialog()
+                {
+                    Title = "Detailes Update Have Been Unsecsussfull", Content = "Please try again.",
+                    CloseButtonText = "ok"
+                };
+                await failPop.ShowAsync();
             }
             }
         //מחזיר את המשתמש לעמוד הקודם
         //goes back to previus page
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(SentFrom);
+            Frame frame = Window.Current.Content as Frame;
+            if (frame.CanGoBack)
+            {
+                frame.GoBack();
+            }
         }
     }
     }

@@ -9,14 +9,35 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Button Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
-        <TextBox Name="FN" HorizontalAlignment="Left" Margin="92,238,0,0" Text="first name" VerticalAlignment="Top" Width="Auto"/>
-        <TextBox Name="LN" HorizontalAlignment="Left" Margin="220,238,0,0" Text="Last Name" VerticalAlignment="Top"/>
-        <CalendarDatePicker Name="BDate"  HorizontalAlignment="Left" Margin="346,238,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="compeny" HorizontalAlignment="Left" Margin="512,238,0,0" Text="compeny" VerticalAlignment="Top"/>
-        <TextBox Name="newemail" HorizontalAlignment="Left" Margin="625,238,0,0" Text="email" VerticalAlignment="Top"/>
-        <TextBox Name="pass" Text="password" HorizontalAlignment="Left" Margin="728,238,0,0" VerticalAlignment="Top"/>
-        <Button Name="UpdateUsr" Click="Update_Click"  Content="updateDits" HorizontalAlignment="Left" Margin="407,375,0,0" VerticalAlignment="Top" Height="75" Width="152"/>
-        <TextBlock Name ="isDone"  HorizontalAlignment="Left" Margin="263,341,0,0" Text="" VerticalAlignment="Top"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button Name="back" Grid.Column="0" Grid.Row="0" Click="Back_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
+        <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBox Name="FN" Grid.Column="0" PlaceholderText="first name" VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+            <TextBox Name="LN" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  PlaceholderText="Last Name"/>
+            <CalendarDatePicker Name="BDate" Grid.Column="2" PlaceholderText="this is your birthday" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+            <TextBox Name="compeny" Grid.Column="3" PlaceholderText="compeny" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+            <TextBox Name="newemail" Grid.Column="4" PlaceholderText="email" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+            <TextBox Name="pass" Grid.Column="5" PlaceholderText="password" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+            <Button Name="UpdateUsr" Grid.Column="6" Click="Update_Click"  HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                <SymbolIcon Symbol="Accept" HorizontalAlignment="Stretch"></SymbolIcon>
+            </Button>
+        </Grid>
     </Grid>
+    
 </Page>
