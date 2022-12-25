@@ -25,8 +25,20 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Button Name="back" Grid.Row="0" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
-            <Button Content="apply changes" Name="Apply" Grid.Row="1" Click="Apply_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"></ColumnDefinition>
+                    <ColumnDefinition Width="40"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Name="back" Grid.Column="0" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
+                <Button Name="refreshBut" Grid.Column="1" Click="RefreshBut_Click" HorizontalAlignment="Left" VerticalAlignment="Stretch" Background="Black" BorderThickness="0" IsHoldingEnabled="False">
+                    <SymbolIcon Symbol="Refresh"></SymbolIcon>
+                </Button>
+            </Grid>
+            <Button Name="Apply" Grid.Row="1" Click="Apply_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <SymbolIcon Symbol="Upload"></SymbolIcon>
+            </Button>
             <Button Content="add user" Name="AddUser" Grid.Row="2" Click="AddUser_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             <Button Content="delete user" Name="deleteBut" Grid.Row="3" Click="DeleteBut_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </Grid>

@@ -116,6 +116,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="codes\addHover.cs" />
     <Compile Include="codes\Borrow.cs" />
     <Compile Include="codes\sqlLiteCode.cs" />
     <Compile Include="codes\Constants.cs" />

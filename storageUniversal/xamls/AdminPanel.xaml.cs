@@ -15,6 +15,8 @@ using Windows.UI.Xaml.Navigation;
 using System.Xml;
 using System.Data;
 using Windows.UI.Core;
+using System.Collections.ObjectModel;
+using storageUniversal.codes;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -36,11 +38,11 @@ namespace storageUniversal
         public List<User> UsersOriginal;
         //רשימה של כל המשתמשים כפי שהם כעת בטבלה
         //users as they are after the changes the user made
-        public List<User> BinedUsersInTbl;
+        public ObservableCollection<User> BinedUsersInTbl = new ObservableCollection<User>();
         public AdminPanel()
         {
             this.InitializeComponent();
-            //UsersTbl.Margin = new Thickness(0, back.Height, 0, 0);
+            var hov = new addHoverControlElement(Apply as ContentControl, "apply changes made to users to db");
             loudTbl();
             //קוד לניווט אחורה וקדימה עם כפטורי הניווט של העכבר
             // some code to handle mouse back + forward buttons
@@ -90,8 +92,14 @@ namespace storageUniversal
                 row.Password = a["password"].ToString();
                 Users.Add(row);
             }
-            UsersTbl.ItemsSource = Users;
-            BinedUsersInTbl = Users;
+            if(BinedUsersInTbl.ToList().Count > 0) { 
+                BinedUsersInTbl.Clear();
+            }
+            foreach (User row in Users)
+            {
+                BinedUsersInTbl.Add(row);
+            }
+            UsersTbl.ItemsSource = BinedUsersInTbl;
             UsersOriginal = new List<User>();
             foreach (User Row in Users)
             {
@@ -165,8 +173,6 @@ namespace storageUniversal
             NewUser.ID = id;
             BinedUsersInTbl.Add(NewUser);
             UsersOriginal.Add(NewUser);
-            UsersTbl.ItemsSource = null;
-            UsersTbl.ItemsSource = BinedUsersInTbl;
         }
         //בלחיצה על כפתור המחיקה מוחק את המשתמש המסומן
         //code for deleting selected user from table and db
@@ -177,8 +183,7 @@ namespace storageUniversal
             int id = SelectedUser.ID;
             UserDBServ.UserDBServSoapClient r = new UserDBServ.UserDBServSoapClient();
             bool hasWorked = await r.DeleteUserAdminAsync(AdminUser,id);
-            UsersTbl.ItemsSource = null;
-            loudTbl();
+            BinedUsersInTbl.Remove(SelectedUser);
         }
         //מחזיר את המשתמש למסך הקודם בלחיצה על כפתור החזרה
         //back button click
@@ -190,6 +195,15 @@ namespace storageUniversal
                 frame.GoBack();
             }
         }
+        //מגיב ללחיצה על כפתור הריענון
+        //respondes to click on refresh button
+        private void RefreshBut_Click(object sender, RoutedEventArgs e)
+        {
+            loudTbl();
+        }
+
+
+
     }
 }
 

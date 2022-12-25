@@ -339,12 +339,15 @@ namespace storageUniversal
 
         private void CsvImport_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
+            var b  = new TextWrapping();
+
+            (sender as Button).Content = new TextBlock() { Text = "import your existing inventory from csv file", TextWrapping = b };
 
         }
 
         private void CsvImport_PointerExited(object sender, PointerRoutedEventArgs e)
         {
-
+            (sender as Button).Content = new SymbolIcon(Symbol.Import);
         }
     }
 }
