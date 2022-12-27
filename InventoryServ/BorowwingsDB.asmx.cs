@@ -6,6 +6,7 @@ using System.Web.Services;
 using System.Net;
 using WpfApp1;
 using System.Data;
+using InventoryServ;
 
 namespace InventoryServ
 {
@@ -117,6 +118,16 @@ namespace InventoryServ
             var ds = con.GetDataSet("item name", "select Name from Inventory where ID = " + itemId + ";");
             con.CloseCon();
             return ds.Tables["item name"].Rows[0]["Name"].ToString();
+        }
+        [WebMethod]
+        ///<summary>
+        ///deletets a lending, returns wethwe the operation secusseded
+        ///מוחק השאלה מחזיר האם הפעולה הצליחה
+        /// </summary>
+        public bool DeleteLanding(int landId, string email, string password)
+        {
+            var s = new UserServ.UserDBServSoapClient();
+            s.
         }
     }
 }
