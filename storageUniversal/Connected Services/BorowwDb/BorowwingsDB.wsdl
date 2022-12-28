@@ -97,6 +97,32 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="DeleteLanding">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="borrow" type="tns:Borrow" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Borrow">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ItemId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="BorrowedBy" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="When" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Quantity" type="s:float" />
+          <s:element minOccurs="1" maxOccurs="1" name="BorrowingId" type="s:float" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserId" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DeleteLandingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DeleteLandingResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="CalcAmountOutSoapIn">
@@ -135,6 +161,12 @@
   <wsdl:message name="getNameSoapOut">
     <wsdl:part name="parameters" element="tns:getNameResponse" />
   </wsdl:message>
+  <wsdl:message name="DeleteLandingSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteLanding" />
+  </wsdl:message>
+  <wsdl:message name="DeleteLandingSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteLandingResponse" />
+  </wsdl:message>
   <wsdl:portType name="BorowwingsDBSoap">
     <wsdl:operation name="CalcAmountOut">
       <wsdl:input message="tns:CalcAmountOutSoapIn" />
@@ -159,6 +191,10 @@
     <wsdl:operation name="getName">
       <wsdl:input message="tns:getNameSoapIn" />
       <wsdl:output message="tns:getNameSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteLanding">
+      <wsdl:input message="tns:DeleteLandingSoapIn" />
+      <wsdl:output message="tns:DeleteLandingSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BorowwingsDBSoap" type="tns:BorowwingsDBSoap">
@@ -217,6 +253,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="DeleteLanding">
+      <soap:operation soapAction="http://tempuri.org/DeleteLanding" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="BorowwingsDBSoap12" type="tns:BorowwingsDBSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -267,6 +312,15 @@
     </wsdl:operation>
     <wsdl:operation name="getName">
       <soap12:operation soapAction="http://tempuri.org/getName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteLanding">
+      <soap12:operation soapAction="http://tempuri.org/DeleteLanding" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

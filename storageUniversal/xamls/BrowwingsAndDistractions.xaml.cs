@@ -89,5 +89,30 @@ namespace storageUniversal
                 frame.GoBack();
             }
         }
+
+        private void Grid_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            
+            codes.Borrow clickedItem;
+            int borrowid = int. Parse(((sender as Grid).Children.Last() as TextBlock).Text);
+            foreach(codes.Borrow a in LandsTbl.Items)
+            {
+                if(a.BorrowingId == borrowid)
+                {
+                    clickedItem = a;
+                }
+            }
+            LandsTbl.SelectedIndex = 5;
+            //LandsTbl.SelectRange(new ItemIndexRange(clickedIndex, 1));
+            //clickedItem = LandsTbl.Items[LandsTbl.item] as InventoryRow;
+            //MenuFlyout rightClick = new MenuFlyout();
+            //MenuFlyoutItem firstItem = new MenuFlyoutItem { Text = "land out" };
+            //firstItem.Click += LandButton_Click;
+            //rightClick.Items.Add(firstItem);
+            //UIElement b = sender as UIElement;
+            //b.ContextFlyout = rightClick;
+            //Point point = new Point(e.GetPosition(b).X, e.GetPosition(b).Y);
+            //rightClick.ShowAt(b, point);
+        }
     }
 }

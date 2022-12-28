@@ -18,6 +18,7 @@ namespace storageUniversal.codes
         private float borrowingId;
         private int userId;
         private string name;
+         private bool _isSelected;
 
         //הבנאי הראשי
         // Default constructor
@@ -77,6 +78,11 @@ namespace storageUniversal.codes
         {
             get => name;
             set => name = value;
+        }
+        public bool IsSelected
+        {
+            get { return _isSelected; }
+            set { _isSelected = value;}
         }
         //בשל הקשרים בטבלה אין בטבלה של ההשאלות את שם הפריט
         //מטרת פעולה זו היא להשיג משירות הרשת את שם הפריט ולשים אותו בתוך העצם

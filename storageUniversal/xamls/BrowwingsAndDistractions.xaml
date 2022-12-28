@@ -37,7 +37,7 @@
             </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate  x:Name="dataTemp" x:DataType="data:Borrow" >
-                    <Grid HorizontalAlignment="Stretch">
+                    <Grid HorizontalAlignment="Stretch" RightTapped="Grid_RightTapped">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
@@ -47,6 +47,7 @@
                         <TextBlock HorizontalAlignment="Stretch" Grid.Column="0" Name="itemName" Text="{Binding Name, Mode=TwoWay}"></TextBlock>
                         <TextBox HorizontalAlignment="Stretch" Grid.Column="1" Name="amount" Text="{Binding Quantity}"></TextBox>
                         <TextBox HorizontalAlignment="Stretch" Grid.Column="2" Name="takenBy" Text="{Binding BorrowedBy}"></TextBox>
+                        <TextBlock Visibility="Collapsed" Name="ID" Text="{Binding BorrowingId}"></TextBlock>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

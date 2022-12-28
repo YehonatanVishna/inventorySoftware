@@ -42,6 +42,110 @@ namespace storageUniversal.BorowwDb {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/getName", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Threading.Tasks.Task<string> getNameAsync(int itemId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DeleteLanding", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Threading.Tasks.Task<bool> DeleteLandingAsync(storageUniversal.BorowwDb.Borrow borrow, string email, string password);
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class Borrow : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private int itemIdField;
+        
+        private string borrowedByField;
+        
+        private System.DateTime whenField;
+        
+        private float quantityField;
+        
+        private float borrowingIdField;
+        
+        private int userIdField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public int ItemId {
+            get {
+                return this.itemIdField;
+            }
+            set {
+                this.itemIdField = value;
+                this.RaisePropertyChanged("ItemId");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public string BorrowedBy {
+            get {
+                return this.borrowedByField;
+            }
+            set {
+                this.borrowedByField = value;
+                this.RaisePropertyChanged("BorrowedBy");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public System.DateTime When {
+            get {
+                return this.whenField;
+            }
+            set {
+                this.whenField = value;
+                this.RaisePropertyChanged("When");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public float Quantity {
+            get {
+                return this.quantityField;
+            }
+            set {
+                this.quantityField = value;
+                this.RaisePropertyChanged("Quantity");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
+        public float BorrowingId {
+            get {
+                return this.borrowingIdField;
+            }
+            set {
+                this.borrowingIdField = value;
+                this.RaisePropertyChanged("BorrowingId");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
+        public int UserId {
+            get {
+                return this.userIdField;
+            }
+            set {
+                this.userIdField = value;
+                this.RaisePropertyChanged("UserId");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -109,6 +213,10 @@ namespace storageUniversal.BorowwDb {
         
         public System.Threading.Tasks.Task<string> getNameAsync(int itemId) {
             return base.Channel.getNameAsync(itemId);
+        }
+        
+        public System.Threading.Tasks.Task<bool> DeleteLandingAsync(storageUniversal.BorowwDb.Borrow borrow, string email, string password) {
+            return base.Channel.DeleteLandingAsync(borrow, email, password);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync() {

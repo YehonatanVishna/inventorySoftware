@@ -119,15 +119,34 @@ namespace InventoryServ
             con.CloseCon();
             return ds.Tables["item name"].Rows[0]["Name"].ToString();
         }
+        //מחזיר את מספר המשתמש שבבעלותו נמצא הפריט בעל מספר הפריט שהוכנס
+        public int GetOwnerID(int ItemId)
+        {
+            Connection con = new Connection(constr);
+            con.openCon();
+            var ds = con.GetDataSet("Tbl", "Select OwnerUserId from Inventory where id =" + ItemId + ";");
+            return int.Parse(ds.Tables[0].Rows[0][0].ToString());
+        }
         [WebMethod]
         ///<summary>
         ///deletets a lending, returns wethwe the operation secusseded
         ///מוחק השאלה מחזיר האם הפעולה הצליחה
         /// </summary>
-        public bool DeleteLanding(int landId, string email, string password)
+        public bool DeleteLanding(Borrow borrow, string email, string password)
         {
             var s = new UserServ.UserDBServSoapClient();
-            s.
+             GetOwnerID(borrow.ItemId);
+            var FullUser = s.GetFullUser(new UserServ.User() { Email = email, Password = password });
+            if(FullUser.ID == GetOwnerID(borrow.ItemId))
+            {
+                try
+                {
+                    var con = new Connection(constr);
+                    return con.ExequteNoneQury("DELETE FROM BorrowedItems WHERE BorrowingId = " + borrow.ItemId + ";");
+                }
+                catch { return false; }
+            }
+            else { return false; }
         }
     }
 }
