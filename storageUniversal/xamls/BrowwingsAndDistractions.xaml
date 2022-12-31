@@ -21,7 +21,7 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Button Grid.Column="0" Grid.Row="0" Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
-        <ListView Grid.Column="1" Grid.Row="1" Name="LandsTbl" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch">
+        <ListView Grid.Column="1" Grid.Row="1" Name="LandsTbl" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" IsMultiSelectCheckBoxEnabled="False" SelectionMode="Extended">
             <ListView.Header>
                 <Grid HorizontalAlignment="Stretch">
                     <Grid.ColumnDefinitions>

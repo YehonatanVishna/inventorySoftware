@@ -38,7 +38,15 @@ namespace WpfApp1
             return con;
         }
         //exequte a qury in a connected method
-        public Boolean ExequteNoneQury(string noneQury) {
+        public async Task<bool> ExequteNoneQuryAsync(string noneQury)
+        {
+            SqlCommand comd = new SqlCommand(noneQury, con);
+            int a = await comd.ExecuteNonQueryAsync();
+            comd.Dispose();
+            return a > 0;
+        }
+        //exequte a qury in a connected method
+        public bool ExequteNoneQury(string noneQury) {
             SqlCommand comd = new SqlCommand(noneQury, con);
             int a =comd.ExecuteNonQuery();
             comd.Dispose();

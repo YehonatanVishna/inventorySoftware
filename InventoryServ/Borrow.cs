@@ -26,7 +26,11 @@ namespace InventoryServ
                 return ds.Tables["item name"].Rows[0]["Name"].ToString();
             }
         }
-        public int ItemId { get => ItemId; set => ItemId = value; }
+        public int ItemId
+        {
+            get { return itemId; }
+            set { itemId = value; }
+        }
         public string BorrowedBy { get => borrowedBy; set => borrowedBy = value; }
         public DateTime When { get => when; set => when = value; }
         public float Quantity { get => quantity; set => quantity = value; }

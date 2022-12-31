@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Core;
+using System.Collections.ObjectModel;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -26,6 +27,9 @@ namespace storageUniversal
     {
         public static UserDBServ.User user;
         public static Type senderPage;
+        //a collection of all the borrows binded in the table
+        //אוסף של כל העצמים המוצגים בטבלה
+        public static ObservableCollection<codes.Borrow> borrows = new ObservableCollection<codes.Borrow>();
         public BrowwingsAndDistractions()
         {
             this.InitializeComponent();
@@ -65,7 +69,7 @@ namespace storageUniversal
         {
             var BDB = new BorowwDb.BorowwingsDBSoapClient();
             var DataTbl = await BDB.GetLandingsAsync(user.ID);
-            var borrows = new List<codes.Borrow>();
+            borrows.Clear();
             foreach(DataRow dr in DataTbl.Rows)
             {
                 var bro = new codes.Borrow();
@@ -74,6 +78,7 @@ namespace storageUniversal
                 bro.When = DateTime.Parse(dr["When"].ToString());
                 bro.Quantity = float.Parse(dr["Quantity"].ToString());
                 bro.UserId = int.Parse(dr["UserId"].ToString());
+                bro.BorrowingId = int.Parse(dr["BorrowingId"].ToString());
                 await bro.SetName(bro.ItemId);
                 borrows.Add(bro);
             }
@@ -89,30 +94,52 @@ namespace storageUniversal
                 frame.GoBack();
             }
         }
-
+        private List<codes.Borrow> selectedItems = new List<codes.Borrow>();
         private void Grid_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
-            
-            codes.Borrow clickedItem;
-            int borrowid = int. Parse(((sender as Grid).Children.Last() as TextBlock).Text);
-            foreach(codes.Borrow a in LandsTbl.Items)
+
+            //codes.Borrow clickedItem;
+            //int borrowid = int.Parse(((sender as Grid).Children.Last() as TextBlock).Text);
+            //foreach (codes.Borrow a in LandsTbl.Items)
+            //{
+            //    if (a.BorrowingId == borrowid)
+            //    {
+            //        clickedItem = a;
+            //    }
+            //}
+            //LandsTbl.SelectedIndex = 5;
+            selectedItems.Clear();
+            foreach (ItemIndexRange range in LandsTbl.SelectedRanges.ToList())
             {
-                if(a.BorrowingId == borrowid)
+                for(int i=range.FirstIndex; i<=range.LastIndex; i++)
                 {
-                    clickedItem = a;
+                    selectedItems.Add(LandsTbl.Items[i] as codes.Borrow);
                 }
             }
-            LandsTbl.SelectedIndex = 5;
             //LandsTbl.SelectRange(new ItemIndexRange(clickedIndex, 1));
             //clickedItem = LandsTbl.Items[LandsTbl.item] as InventoryRow;
-            //MenuFlyout rightClick = new MenuFlyout();
-            //MenuFlyoutItem firstItem = new MenuFlyoutItem { Text = "land out" };
-            //firstItem.Click += LandButton_Click;
-            //rightClick.Items.Add(firstItem);
-            //UIElement b = sender as UIElement;
-            //b.ContextFlyout = rightClick;
-            //Point point = new Point(e.GetPosition(b).X, e.GetPosition(b).Y);
-            //rightClick.ShowAt(b, point);
+            MenuFlyout rightClick = new MenuFlyout();
+            var icon = new SymbolIcon() { Symbol = Symbol.Delete };
+            MenuFlyoutItem deleteOption = new MenuFlyoutItem {Icon = icon ,Text = "delete", FontFamily= new FontFamily("Segoe MDL2 Assets") };
+            deleteOption.Click += DeleteOption_Click;
+            rightClick.Items.Add(deleteOption);
+            UIElement b = sender as UIElement;
+            b.ContextFlyout = rightClick;
+            Point point = new Point(e.GetPosition(b).X, e.GetPosition(b).Y);
+            rightClick.ShowAt(b, point);
+        }
+
+        private async void DeleteOption_Click(object sender, RoutedEventArgs e)
+        {
+            var curs = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Wait, 1);
+            Window.Current.CoreWindow.PointerCursor = curs;
+            var BorServ = new BorowwDb.BorowwingsDBSoapClient();
+            foreach(codes.Borrow br in selectedItems)
+            {
+                var bs = new BorowwDb.Borrow() { BorrowingId = br.BorrowingId, BorrowedBy= br.BorrowedBy, ItemId = br.ItemId, Quantity = br.Quantity, UserId = br.UserId, When = br.When };
+                var isok =await BorServ.DeleteLandingAsync(bs, user.Email, user.Password);
+            }
+            Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 1);
         }
     }
 }

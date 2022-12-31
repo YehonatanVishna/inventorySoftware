@@ -135,18 +135,24 @@ namespace InventoryServ
         public bool DeleteLanding(Borrow borrow, string email, string password)
         {
             var s = new UserServ.UserDBServSoapClient();
-             GetOwnerID(borrow.ItemId);
             var FullUser = s.GetFullUser(new UserServ.User() { Email = email, Password = password });
             if(FullUser.ID == GetOwnerID(borrow.ItemId))
             {
-                try
-                {
                     var con = new Connection(constr);
-                    return con.ExequteNoneQury("DELETE FROM BorrowedItems WHERE BorrowingId = " + borrow.ItemId + ";");
-                }
-                catch { return false; }
+                    con.openCon();
+                    var qury = "DELETE FROM BorrowedItems WHERE BorrowingId = " + borrow.BorrowingId + ";";
+                    return con.ExequteNoneQury(qury);
             }
             else { return false; }
+        }
+        [WebMethod]
+        ///<summary>
+        ///deletets a lending, returns wethwe the operation secusseded
+        ///מוחק השאלה מחזיר האם הפעולה הצליחה
+        /// </summary>
+        public bool TestDeleteLanding()
+        {
+            return DeleteLanding(new Borrow() { BorrowingId = 8, Quantity=33, UserId=27, ItemId=396, BorrowedBy="me"}, "yoyo@yyy.com                  ", "123456789           ");
         }
     }
 }
