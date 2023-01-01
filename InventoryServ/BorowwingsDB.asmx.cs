@@ -138,21 +138,41 @@ namespace InventoryServ
             var FullUser = s.GetFullUser(new UserServ.User() { Email = email, Password = password });
             if(FullUser.ID == GetOwnerID(borrow.ItemId))
             {
-                    var con = new Connection(constr);
-                    con.openCon();
-                    var qury = "DELETE FROM BorrowedItems WHERE BorrowingId = " + borrow.BorrowingId + ";";
-                    return con.ExequteNoneQury(qury);
+                var con = new Connection(constr);
+                con.openCon();
+                var qury = "DELETE FROM BorrowedItems WHERE BorrowingId = " + borrow.BorrowingId + ";";
+                bool isok = con.ExequteNoneQury(qury);
+                if (isok) {
+                    UpdateAmountOut(borrow.ItemId);
+                    return isok;
+                }
+                return isok;
             }
             else { return false; }
         }
         [WebMethod]
         ///<summary>
-        ///deletets a lending, returns wethwe the operation secusseded
-        ///מוחק השאלה מחזיר האם הפעולה הצליחה
+        ///updates a landing ditailes
+        ///מעדכן את פרטי ההשאלה מחזיר האם העדכון עבד
         /// </summary>
-        public bool TestDeleteLanding()
+        public bool updateBorrow(Borrow oldborrow, Borrow newBorrow, string email, string password)
         {
-            return DeleteLanding(new Borrow() { BorrowingId = 8, Quantity=33, UserId=27, ItemId=396, BorrowedBy="me"}, "yoyo@yyy.com                  ", "123456789           ");
+            var s = new UserServ.UserDBServSoapClient();
+            var FullUser = s.GetFullUser(new UserServ.User() { Email = email, Password = password });
+            if (FullUser.ID == GetOwnerID(oldborrow.ItemId))
+            {
+                Connection con = new Connection(constr);
+                DataSet ds = con.GetDataSet("lands", "select * from BorrowedItems where BorrowingId =" + oldborrow.BorrowingId + ";");
+                DataRow dr = ds.Tables[0].Rows[0];
+                dr["ItemId"] = newBorrow.ItemId;
+                dr["BorrowedBy"] = newBorrow.BorrowedBy;
+                dr["When"] = newBorrow.When;
+                dr["Quantity"] = newBorrow.Quantity;
+                dr["UserId"] = newBorrow.UserId;
+                con.Update(ds);
+                return true;
+            }
+            else { return false; }
         }
     }
 }

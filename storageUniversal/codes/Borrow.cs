@@ -84,6 +84,10 @@ namespace storageUniversal.codes
             get { return _isSelected; }
             set { _isSelected = value;}
         }
+        public Borrow copy()
+        {
+            return new Borrow() { };
+        }
         //בשל הקשרים בטבלה אין בטבלה של ההשאלות את שם הפריט
         //מטרת פעולה זו היא להשיג משירות הרשת את שם הפריט ולשים אותו בתוך העצם
         // Method to set the name of the user based on their ID

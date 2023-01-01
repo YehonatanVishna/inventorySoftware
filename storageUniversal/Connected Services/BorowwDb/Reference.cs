@@ -46,10 +46,14 @@ namespace storageUniversal.BorowwDb {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DeleteLanding", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Threading.Tasks.Task<bool> DeleteLandingAsync(storageUniversal.BorowwDb.Borrow borrow, string email, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/updateBorrow", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Threading.Tasks.Task<bool> updateBorrowAsync(storageUniversal.BorowwDb.Borrow oldborrow, storageUniversal.BorowwDb.Borrow newBorrow, string email, string password);
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public partial class Borrow : object, System.ComponentModel.INotifyPropertyChanged {
@@ -217,6 +221,10 @@ namespace storageUniversal.BorowwDb {
         
         public System.Threading.Tasks.Task<bool> DeleteLandingAsync(storageUniversal.BorowwDb.Borrow borrow, string email, string password) {
             return base.Channel.DeleteLandingAsync(borrow, email, password);
+        }
+        
+        public System.Threading.Tasks.Task<bool> updateBorrowAsync(storageUniversal.BorowwDb.Borrow oldborrow, storageUniversal.BorowwDb.Borrow newBorrow, string email, string password) {
+            return base.Channel.updateBorrowAsync(oldborrow, newBorrow, email, password);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync() {

@@ -20,7 +20,22 @@
             <RowDefinition Height="40"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
+        
         <Button Grid.Column="0" Grid.Row="0" Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
+        <Grid Grid.Column="1" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40"></ColumnDefinition>
+                <ColumnDefinition Width="40"></ColumnDefinition>
+                <ColumnDefinition Width="40"></ColumnDefinition>
+                <ColumnDefinition Width="40"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Name="refresh" Click="Refresh_Click">
+                <SymbolIcon Symbol="Refresh"/>
+            </Button>
+            <Button Grid.Column="1" Name="syncButton" Click="SyncButton_Click" ToolTipService.ToolTip="sync changes to database">
+                <SymbolIcon Symbol="Sync"></SymbolIcon>
+            </Button>
+        </Grid>
         <ListView Grid.Column="1" Grid.Row="1" Name="LandsTbl" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" IsMultiSelectCheckBoxEnabled="False" SelectionMode="Extended">
             <ListView.Header>
                 <Grid HorizontalAlignment="Stretch">
