@@ -91,6 +91,7 @@ namespace storageUniversal
         {
             UserDBServ.UserDBServSoapClient UDBS = new UserDBServ.UserDBServSoapClient();
             UserDBServ.User usr = new UserDBServ.User();
+            //בודק האם האימיל והססמה תקינים ולא קיימים במערכת
             if (!isEmailValid(email.Text)) {
                 IsEmailValidBlock.Text = "email is not valid";
                 return;
@@ -100,15 +101,43 @@ namespace storageUniversal
             {
                 IsEmailValidBlock.Text = "user with this email already exists, use another email adress"; return;
             }
-            
+            if (!pass.Password.Equals(passAgain.Password))
+            {
+                IsPasswordValidBlock.Text = "passwords don't match, try again"; return;
+            }
             var date = BDate.Date;
-            DateTime time = date.Value.DateTime;
-            usr.BDate = time;
+            if (date != null)
+            {
+                DateTime time = date.Value.DateTime;
+                usr.BDate = time;
+                //בודק שהמשתמש לא צעיר מידי
+                var age = DateTime.Now - time;
+                if(age.TotalDays < ((int)(365.25 * 10)))
+                {
+                    ContentDialog AgeDialog = new ContentDialog()
+                    {
+                        Title = "you must be 10 or older to use this service",
+                        CloseButtonText = "ok"
+                    };
+                    await AgeDialog.ShowAsync();
+                    return;
+                }
+            }
+
             usr.Fname = FN.Text;
             usr.Lname = LN.Text;
             usr.Email = email.Text;
-            usr.Password = pass.Text;
+            usr.Password = pass.Password;
             usr.Compeny = compeny.Text;
+            //בודק האם כל השדות מלאים
+            if(!date.HasValue || usr.Fname == ""|| usr.Lname == ""|| usr.Email == ""|| usr.Password == ""|| usr.Compeny == "") {
+                ContentDialog fail = new ContentDialog()
+                {
+                    Title = "Make sure you fill out all the fileds",
+                    CloseButtonText = "ok"
+                };
+                await fail.ShowAsync();
+                return; }
             var a = await UDBS.regAsync(usr);
             bool IsSuccess = bool.Parse(a.ToString());
             //מעלה למשתמש הודעה- האם ההרשמה הסתיימה בהצלחה או לא

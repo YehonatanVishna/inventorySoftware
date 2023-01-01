@@ -29,10 +29,10 @@
                 <ColumnDefinition Width="40"></ColumnDefinition>
                 <ColumnDefinition Width="40"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Name="refresh" Click="Refresh_Click">
+            <Button Grid.Column="0" Name="refresh" Background="Black" BorderBrush="DarkGray" BorderThickness="0" Click="Refresh_Click" Height="40" Width="40" ToolTipService.ToolTip="refresh the items in the table">
                 <SymbolIcon Symbol="Refresh"/>
             </Button>
-            <Button Grid.Column="1" Name="syncButton" Click="SyncButton_Click" ToolTipService.ToolTip="sync changes to database">
+            <Button Grid.Column="1" Name="syncButton" Background="Black" BorderBrush="DarkGray" BorderThickness="0" Click="SyncButton_Click" ToolTipService.ToolTip="sync changes to database" Height="40" Width="40">
                 <SymbolIcon Symbol="Sync"></SymbolIcon>
             </Button>
         </Grid>
@@ -60,8 +60,8 @@
 
                         </Grid.ColumnDefinitions>
                         <TextBlock HorizontalAlignment="Stretch" Grid.Column="0" Name="itemName" Text="{Binding Name, Mode=TwoWay}"></TextBlock>
-                        <TextBox HorizontalAlignment="Stretch" Grid.Column="1" Name="amount" Text="{Binding Quantity}"></TextBox>
-                        <TextBox HorizontalAlignment="Stretch" Grid.Column="2" Name="takenBy" Text="{Binding BorrowedBy}"></TextBox>
+                        <TextBox HorizontalAlignment="Stretch" Grid.Column="1" Name="amount" Text="{Binding Quantity, Mode=TwoWay}"></TextBox>
+                        <TextBox HorizontalAlignment="Stretch" Grid.Column="2" Name="takenBy" Text="{Binding BorrowedBy, Mode=TwoWay}"></TextBox>
                         <TextBlock Visibility="Collapsed" Name="ID" Text="{Binding BorrowingId}"></TextBlock>
                     </Grid>
                 </DataTemplate>

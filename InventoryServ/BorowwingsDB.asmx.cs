@@ -174,5 +174,10 @@ namespace InventoryServ
             }
             else { return false; }
         }
+        [WebMethod]
+        public void updateBorrowTest()
+        {
+            updateBorrow(new Borrow() { ItemId = 368, UserId = 20, BorrowingId = 28 }, new Borrow() { ItemId = 368, UserId = 20, BorrowedBy = "meme", BorrowingId = 28, Quantity = 99, When = DateTime.Now }, "yv@v.com                      ", "123456789           ");
+        }
     }
 }

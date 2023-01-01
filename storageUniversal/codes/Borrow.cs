@@ -79,14 +79,10 @@ namespace storageUniversal.codes
             get => name;
             set => name = value;
         }
-        public bool IsSelected
-        {
-            get { return _isSelected; }
-            set { _isSelected = value;}
-        }
+
         public Borrow copy()
         {
-            return new Borrow() { };
+            return new Borrow() {itemId= this.itemId, BorrowedBy= this.BorrowedBy, BorrowingId = this.BorrowingId, Name= this.Name, Quantity=this.Quantity, When= this.when, UserId= this.UserId };
         }
         //בשל הקשרים בטבלה אין בטבלה של ההשאלות את שם הפריט
         //מטרת פעולה זו היא להשיג משירות הרשת את שם הפריט ולשים אותו בתוך העצם

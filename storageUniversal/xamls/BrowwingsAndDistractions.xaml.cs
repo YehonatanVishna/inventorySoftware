@@ -85,7 +85,7 @@ namespace storageUniversal
             }
             foreach(codes.Borrow a in borrows)
             {
-                borroesUnTouched.Add(a.co)
+                borroesUnTouched.Add(a.copy());
             }
             LandsTbl.ItemsSource = borrows;
         }
@@ -138,15 +138,16 @@ namespace storageUniversal
 
         private async void DeleteOption_Click(object sender, RoutedEventArgs e)
         {
-            var curs = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Wait, 1);
-            Window.Current.CoreWindow.PointerCursor = curs;
+            Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Wait, 1);
             var BorServ = new BorowwDb.BorowwingsDBSoapClient();
             foreach(codes.Borrow br in selectedItems)
             {
                 var bs = new BorowwDb.Borrow() { BorrowingId = br.BorrowingId, BorrowedBy= br.BorrowedBy, ItemId = br.ItemId, Quantity = br.Quantity, UserId = br.UserId, When = br.When };
                 var isok =await BorServ.DeleteLandingAsync(bs, user.Email, user.Password);
             }
+            loadTbl();
             Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 1);
+
         }
 
         private void Refresh_Click(object sender, RoutedEventArgs e)
@@ -154,17 +155,24 @@ namespace storageUniversal
             loadTbl();
         }
 
-        private void SyncButton_Click(object sender, RoutedEventArgs e)
+        private async void SyncButton_Click(object sender, RoutedEventArgs e)
         {
-
+            syncToDataBase();
+        }
+        public BorowwDb.Borrow convert(codes.Borrow borrow)
+        {
+            return new BorowwDb.Borrow() { BorrowedBy = borrow.BorrowedBy, BorrowingId = borrow.BorrowingId, ItemId = borrow.ItemId, Quantity = borrow.Quantity, UserId = borrow.UserId, When = borrow.When};
         }
         public async void syncToDataBase()
         {
+            Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Wait, 1);
             var bdb = new BorowwDb.BorowwingsDBSoapClient();
-            foreach(codes.Borrow a in borrows)
+            for(int i=0; i<borrows.Count; i++)
             {
-
+                var old = borroesUnTouched[i];
+                await bdb.updateBorrowAsync(convert(old), convert(LandsTbl.Items[i] as codes.Borrow), user.Email, user.Password);
             }
+            Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 1);
         }
     }
 }

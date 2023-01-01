@@ -44,7 +44,8 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <TextBox Name="pass" Grid.Row="1" TextWrapping="Wrap" PlaceholderText="password" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+            <PasswordBox Name="pass" Grid.Row="1" PlaceholderText="password" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+            <PasswordBox Name="passAgain" Grid.Row="2" PlaceholderText="enter password again" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
             <!--a place for invalid password warning-->
             <TextBlock Name="IsPasswordValidBlock" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" IsColorFontEnabled="True" Foreground="Red" Text=""/>
         </Grid>
