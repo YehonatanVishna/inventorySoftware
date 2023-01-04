@@ -105,6 +105,15 @@ namespace storageUniversal
                 await failPop.ShowAsync();
             }
             }
+        //deletes user from system
+        //מוחק את המשתמש
+        private async void DelBot_Click(object sender, RoutedEventArgs e)
+        {
+            var usr = login.FullUser;
+            var a = await UDBS.DeleteUserAsync(usr);
+            bool b = bool.Parse(a.ToString());
+
+        }
         //מחזיר את המשתמש לעמוד הקודם
         //goes back to previus page
         private void Back_Click(object sender, RoutedEventArgs e)

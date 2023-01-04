@@ -120,6 +120,11 @@
     <Compile Include="codes\Borrow.cs" />
     <Compile Include="codes\sqlLiteCode.cs" />
     <Compile Include="codes\Constants.cs" />
+    <Compile Include="Connected Services\SubUserServ\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="xamls\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
@@ -165,6 +170,9 @@
       <DependentUpon>updateUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="codes\User.cs" />
+    <Compile Include="xamls\UpperUserHomePage.xaml.cs">
+      <DependentUpon>UpperUserHomePage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -172,6 +180,10 @@
     </AppxManifest>
     <None Include="Connected Services\BorowwDb\BorowwingsDB.wsdl" />
     <None Include="Connected Services\InventoryServ\InventoryFuncs.wsdl" />
+    <None Include="Connected Services\SubUserServ\storageUniversal.SubUserServ.createSubUserResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\SubUserServ\SubUsersServ.wsdl" />
     <None Include="Connected Services\UserDBServ\storageUniversal.UserDBServ.User.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -204,6 +216,13 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <Content Include="about.html" />
+    <None Include="Connected Services\SubUserServ\SubUsersServ.disco" />
+    <None Include="Connected Services\SubUserServ\configuration91.svcinfo" />
+    <None Include="Connected Services\SubUserServ\configuration.svcinfo" />
+    <None Include="Connected Services\SubUserServ\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -250,6 +269,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="xamls\UpperUserHomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.Sqlite">
@@ -271,6 +294,7 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\BorowwDb\" />
     <WCFMetadataStorage Include="Connected Services\InventoryServ\" />
+    <WCFMetadataStorage Include="Connected Services\SubUserServ\" />
     <WCFMetadataStorage Include="Connected Services\UserDBServ\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

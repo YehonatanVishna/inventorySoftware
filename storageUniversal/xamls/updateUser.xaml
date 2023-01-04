@@ -27,6 +27,7 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TextBox Name="FN" Grid.Column="0" PlaceholderText="first name" VerticalAlignment="Center" HorizontalAlignment="Stretch" />
             <TextBox Name="LN" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  PlaceholderText="Last Name"/>
@@ -36,6 +37,9 @@
             <TextBox Name="pass" Grid.Column="5" PlaceholderText="password" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
             <Button Name="UpdateUsr" Grid.Column="6" Click="Update_Click"  HorizontalAlignment="Stretch" VerticalAlignment="Center">
                 <SymbolIcon Symbol="Accept" HorizontalAlignment="Stretch"></SymbolIcon>
+            </Button>
+            <Button Grid.Column="7" Name="DelBot" ToolTipService.ToolTip="this button would delete your user from this service" Click="DelBot_Click"  HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                <SymbolIcon Symbol="Delete"></SymbolIcon>
             </Button>
         </Grid>
     </Grid>

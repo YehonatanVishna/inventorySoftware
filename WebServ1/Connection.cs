@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 /// <summary>
 /// Represents a connection to a SQL database.
 /// </summary>
-namespace WpfApp1
+namespace WebServ1
 {
     public class Connection
     {

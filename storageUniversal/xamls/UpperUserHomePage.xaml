@@ -1,0 +1,29 @@
+﻿<Page
+    x:Class="storageUniversal.xamls.UpperUserHomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:storageUniversal.xamls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid ColumnSpacing="50">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button x:Name="back" Grid.Column="0" Grid.Row="0" Click="Back_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
+        <Button  Grid.Column="1" Grid.Row="1" Name="sendToInventoryTbl" ToolTipService.ToolTip="this button sends you to see your inventory table" Click="LoginAndSendToInventoryList" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8AD;" />
+        </Button>
+        <Button x:Name="ManegeSubUsers" Grid.Column="2" Grid.Row="1" Click="ManegeSubUsers_Click" HorizontalAlignment="Stretch">manege you users</Button>
+        <Button x:Name="GoToChangeDitailes" Grid.Column="3" Grid.Row="1" Click="GoToChangeDitailes_Click" HorizontalAlignment="Stretch">change your personal ditailes</Button>
+    </Grid>
+</Page>

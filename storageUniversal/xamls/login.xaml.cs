@@ -118,8 +118,7 @@ namespace storageUniversal
                 res.Text = "user exists, data should be showen";
                 var TempFullUsr = await UDBS.GetFullUserAsync(usr);
                 FullUser = TempFullUsr;
-                InventoryView.SentFrom = typeof(login);
-                frame.Navigate(typeof(InventoryView));
+                frame.Navigate(typeof(xamls.UpperUserHomePage));
             }
             else
             {
@@ -145,62 +144,9 @@ namespace storageUniversal
 
         }
 
-
-        
-        //logs in user and sends him to change his personal info
-        //שולח את המשתמש לשנות את פרטיו האישיים
-        private async void SendToDitailUpdate(object sender, RoutedEventArgs e)
-        {
-            
-            usr.Password = password.Password;
-            usr.Email = email.Text;
-            if (!isEmailValid(usr.Email))
-            {
-                IsEmailValidBlock.Text = "email address isn't valid";
-                return;
-            }
-            var a = await  UDBS.IsUserPermittedAsync(usr);
-            bool b = bool.Parse(a.ToString());
-            bool isAdmin = await UDBS.IsAdminAsync(usr);
-            if (!isAdmin)
-            {
-                if (b)
-                {
-                    res.Text = "user exists, data should be showen";
-                    var TempFullUsr = await UDBS.GetFullUserAsync(usr);
-                    FullUser = TempFullUsr;
-                    updateUser.SentFrom = typeof(login);
-                    this.Frame.Navigate(typeof(updateUser));
-                }
-                else
-                {
-                    res.Text = "email or password are wrong, try again";
-                }
-            }
-            else
-            {
-                FullUser = usr;
-                this.Frame.Navigate(typeof(AdminPanel));
-            }
-        }
-        //deletes user from system
-        //מוחק את המשתמש
-        private async void DelBot_Click(object sender, RoutedEventArgs e)
-        {
-            usr.Password = password.Password;
-            usr.Email = email.Text;
-            if (!isEmailValid(usr.Email))
-            {
-                IsEmailValidBlock.Text = "email address isn't valid";
-                return;
-            }
-            var a = await UDBS.DeleteUserAsync(usr);
-            bool b = bool.Parse(a.ToString());
-
-        }
-        //logs in user and sends him to his invntory list
-        // מחבר את המשתמש, ושולח אותו לרשימת המלאי שלו
-        private async void LoginAndSendToInventoryList(object sender, RoutedEventArgs e)
+        //logs in user and sends him to his home page
+        // מחבר את המשתמש, ושולח אותו לדף הבית
+        private async void LoginAndSendToHome(object sender, RoutedEventArgs e)
         {
             usr.Password = password.Password;
             usr.Email = email.Text;
@@ -226,8 +172,7 @@ namespace storageUniversal
                     await db.DeleteAll();
                     await db.InsertItemAsync(new User() { ID = FullUser.ID, Email = FullUser.Email, Password = FullUser.Password , BDate = FullUser.BDate.Value, Compeny = FullUser.Compeny, Fname = FullUser.Fname, Lname = FullUser.Lname});
                 }
-                InventoryView.SentFrom = typeof(login);
-                this.Frame.Navigate(typeof(InventoryView));
+                this.Frame.Navigate(typeof(xamls.UpperUserHomePage));
             }
             else
             {
@@ -253,7 +198,7 @@ namespace storageUniversal
                 }
                 return true;
             }
-            catch (FormatException)
+            catch
             {
                 return false;
             }

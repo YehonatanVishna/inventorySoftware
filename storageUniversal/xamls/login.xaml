@@ -26,8 +26,6 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
@@ -39,15 +37,11 @@
                 <TextBlock Name="IsEmailValidBlock" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" IsColorFontEnabled="True" Foreground="Red" Text=""/>
             </Grid>
             <PasswordBox  Name="password" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  PlaceholderText="password" />
-            <Button Grid.Column="2" Click="SendToDitailUpdate" Name="sendEmailPass" Content="change personal info" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-            <Button Grid.Column="3" Name="DelBot" ToolTipService.ToolTip="this button would delete your user from this service" Click="DelBot_Click"  HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                <SymbolIcon Symbol="Delete"></SymbolIcon>
-            </Button>
             <TextBlock Visibility="Collapsed" Name="res"  Text="" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-            <Button  Grid.Column="4" Name="sendToInventoryTbl" ToolTipService.ToolTip="this button sends you to see your inventory table" Click="LoginAndSendToInventoryList" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+            <Button  Grid.Column="2" Name="sendToInventoryTbl" ToolTipService.ToolTip="this button sends you to see your inventory table" Click="LoginAndSendToHome" HorizontalAlignment="Stretch" VerticalAlignment="Center">
                 <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8AD;" />
             </Button>
-            <CheckBox Grid.Column="5" Name="rememberBox" Content="remenber for next time" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+            <CheckBox Grid.Column="3" Name="rememberBox" Content="remenber for next time" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
         </Grid>
     </Grid>
 </Page>
