@@ -1,0 +1,64 @@
+﻿<Page
+    x:Class="storageUniversal.xamls.SubUsersManegment"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:storageUniversal.xamls"
+    xmlns:data="using:storageUniversal"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Button Grid.Row="0" Grid.Column="0" Name="back" Click="Back_Click"  VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
+        <ListView Grid.Column="1" Grid.Row="1" Name="SubUsersTbl" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" SelectionMode="Extended">
+            <ListView.Header>
+                <Grid HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0">User First Name</TextBlock>
+                    <TextBlock Grid.Column="1">User Last Name</TextBlock>
+                    <TextBlock Grid.Column="2">Role</TextBlock>
+                    <TextBlock Grid.Column="3">Email</TextBlock>
+                    <TextBlock Grid.Column="4">Password</TextBlock>
+
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate  x:Name="dataTemp" x:DataType="data:SubUser" >
+                    <Grid HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox HorizontalAlignment="Stretch" Grid.Column="0" Name="FN" Text="{Binding FName, Mode=TwoWay}"></TextBox>
+                        <TextBox HorizontalAlignment="Stretch" Grid.Column="1" Name="LN" Text="{Binding LName, Mode=TwoWay}"></TextBox>
+                        <TextBox HorizontalAlignment="Stretch" Grid.Column="2" Name="Role" Text="{Binding Role, Mode=TwoWay}"></TextBox>
+                        <TextBox HorizontalAlignment="Stretch" Grid.Column="3" Name="Email" Text="{Binding Email, Mode=TwoWay}"></TextBox>
+                        <!--<PasswordBox HorizontalAlignment="Stretch" Grid.Column="4" Name="Password" Password="{Binding Role, Mode=TwoWay}" PasswordRevealMode ="Peek" IsPasswordRevealButtonEnabled="True"/>-->
+                        <data:Template Grid.Column="4" Password="{Binding Password, Mode=TwoWay}"></data:Template>
+                        <TextBlock Visibility="Collapsed" Name="ID" Text="{Binding BorrowingId}"></TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment"  Value="Stretch"></Setter>
+                    <Setter Property="HorizontalAlignment"  Value="Stretch"></Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+    </Grid>
+</Page>

@@ -39,6 +39,27 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="getYourSubUsers">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpperUser" type="tns:User" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getYourSubUsersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getYourSubUsersResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="createSubUserSoapIn">
@@ -47,10 +68,20 @@
   <wsdl:message name="createSubUserSoapOut">
     <wsdl:part name="parameters" element="tns:createSubUserResponse" />
   </wsdl:message>
+  <wsdl:message name="getYourSubUsersSoapIn">
+    <wsdl:part name="parameters" element="tns:getYourSubUsers" />
+  </wsdl:message>
+  <wsdl:message name="getYourSubUsersSoapOut">
+    <wsdl:part name="parameters" element="tns:getYourSubUsersResponse" />
+  </wsdl:message>
   <wsdl:portType name="SubUsersServSoap">
     <wsdl:operation name="createSubUser">
       <wsdl:input message="tns:createSubUserSoapIn" />
       <wsdl:output message="tns:createSubUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getYourSubUsers">
+      <wsdl:input message="tns:getYourSubUsersSoapIn" />
+      <wsdl:output message="tns:getYourSubUsersSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="SubUsersServSoap" type="tns:SubUsersServSoap">
@@ -64,11 +95,29 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="getYourSubUsers">
+      <soap:operation soapAction="http://tempuri.org/getYourSubUsers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="SubUsersServSoap12" type="tns:SubUsersServSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="createSubUser">
       <soap12:operation soapAction="http://tempuri.org/createSubUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getYourSubUsers">
+      <soap12:operation soapAction="http://tempuri.org/getYourSubUsers" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

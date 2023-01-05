@@ -66,7 +66,7 @@ namespace storageUniversal.xamls
         //הכפטור שולח את המשתמש לנהל את המשתמשים שמשוייכים אליו
         private void ManegeSubUsers_Click(object sender, RoutedEventArgs e)
         {
-
+            Frame.Navigate(typeof(SubUsersManegment));
         }
         //the button sends the user to edit his ditailes
         //הכפטור שולח את המשתמש לערוך את פרטיו האישיים

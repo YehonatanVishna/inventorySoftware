@@ -120,10 +120,14 @@
     <Compile Include="codes\Borrow.cs" />
     <Compile Include="codes\sqlLiteCode.cs" />
     <Compile Include="codes\Constants.cs" />
+    <Compile Include="codes\SubUser.cs" />
     <Compile Include="Connected Services\SubUserServ\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Template.xaml.cs">
+      <DependentUpon>Template.xaml</DependentUpon>
     </Compile>
     <Compile Include="xamls\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
@@ -166,6 +170,9 @@
     <Compile Include="xamls\Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
     </Compile>
+    <Compile Include="xamls\SubUsersManegment.xaml.cs">
+      <DependentUpon>SubUsersManegment.xaml</DependentUpon>
+    </Compile>
     <Compile Include="xamls\updateUser.xaml.cs">
       <DependentUpon>updateUser.xaml</DependentUpon>
     </Compile>
@@ -180,9 +187,6 @@
     </AppxManifest>
     <None Include="Connected Services\BorowwDb\BorowwingsDB.wsdl" />
     <None Include="Connected Services\InventoryServ\InventoryFuncs.wsdl" />
-    <None Include="Connected Services\SubUserServ\storageUniversal.SubUserServ.createSubUserResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Connected Services\SubUserServ\SubUsersServ.wsdl" />
     <None Include="Connected Services\UserDBServ\storageUniversal.UserDBServ.User.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -237,6 +241,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Template.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="xamls\About.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -262,6 +270,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="xamls\Register.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="xamls\SubUsersManegment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
