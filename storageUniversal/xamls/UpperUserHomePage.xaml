@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
         <Button x:Name="back" Grid.Column="0" Grid.Row="0" Click="Back_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
         <Button  Grid.Column="1" Grid.Row="1" Name="sendToInventoryTbl" ToolTipService.ToolTip="this button sends you to see your inventory table" Click="LoginAndSendToInventoryList" HorizontalAlignment="Stretch" VerticalAlignment="Center">
-            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8AD;" />
+            <SymbolIcon Symbol="List"/>
         </Button>
         <Button x:Name="ManegeSubUsers" Grid.Column="2" Grid.Row="1" Click="ManegeSubUsers_Click" HorizontalAlignment="Stretch">manege you users</Button>
         <Button x:Name="GoToChangeDitailes" Grid.Column="3" Grid.Row="1" Click="GoToChangeDitailes_Click" HorizontalAlignment="Stretch">change your personal ditailes</Button>
