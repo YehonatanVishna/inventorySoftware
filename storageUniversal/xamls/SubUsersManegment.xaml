@@ -14,7 +14,28 @@
             <ColumnDefinition Width="40"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button Grid.Row="0" Grid.Column="0" Name="back" Click="Back_Click"  VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" Name="back" Click="Back_Click"  VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
+            <Button Grid.Row="1" Name="addUser" Click="AddUser_Click" VerticalAlignment="Top" ToolTipService.ToolTip="add user">
+                <SymbolIcon Symbol="Add"/>
+            </Button>
+            <Button Grid.Row="2" Name="refresh" Click="Refresh_Click" VerticalAlignment="Top" ToolTipService.ToolTip="refresh">
+                <SymbolIcon Symbol="Refresh"></SymbolIcon>
+            </Button>
+            <Button Grid.Row="3" Name="sync" Click="Sync_Click" VerticalAlignment="Top" ToolTipService.ToolTip="sync">
+                <SymbolIcon Symbol="Sync"></SymbolIcon>
+            </Button>
+        </Grid>
+        
         <ListView Grid.Column="1" Grid.Row="1" Name="SubUsersTbl" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" SelectionMode="Extended">
             <ListView.Header>
                 <Grid HorizontalAlignment="Stretch">
@@ -25,11 +46,11 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0">User First Name</TextBlock>
-                    <TextBlock Grid.Column="1">User Last Name</TextBlock>
-                    <TextBlock Grid.Column="2">Role</TextBlock>
-                    <TextBlock Grid.Column="3">Email</TextBlock>
-                    <TextBlock Grid.Column="4">Password</TextBlock>
+                    <TextBlock Grid.Column="0" HorizontalTextAlignment="Center">User First Name</TextBlock>
+                    <TextBlock Grid.Column="1" HorizontalTextAlignment="Center">User Last Name</TextBlock>
+                    <TextBlock Grid.Column="2" HorizontalTextAlignment="Center">Role</TextBlock>
+                    <TextBlock Grid.Column="3" HorizontalTextAlignment="Center">Email</TextBlock>
+                    <TextBlock Grid.Column="4" HorizontalTextAlignment="Center">Password</TextBlock>
 
                 </Grid>
             </ListView.Header>
@@ -48,7 +69,7 @@
                         <TextBox HorizontalAlignment="Stretch" Grid.Column="2" Name="Role" Text="{Binding Role, Mode=TwoWay}"></TextBox>
                         <TextBox HorizontalAlignment="Stretch" Grid.Column="3" Name="Email" Text="{Binding Email, Mode=TwoWay}"></TextBox>
                         <!--<PasswordBox HorizontalAlignment="Stretch" Grid.Column="4" Name="Password" Password="{Binding Role, Mode=TwoWay}" PasswordRevealMode ="Peek" IsPasswordRevealButtonEnabled="True"/>-->
-                        <data:Template Grid.Column="4" Password="{Binding Password, Mode=TwoWay}"></data:Template>
+                        <data:PasswordWithCheck Grid.Column="4" Text="{Binding Password, Mode=TwoWay}"></data:PasswordWithCheck>
                         <TextBlock Visibility="Collapsed" Name="ID" Text="{Binding BorrowingId}"></TextBlock>
                     </Grid>
                 </DataTemplate>

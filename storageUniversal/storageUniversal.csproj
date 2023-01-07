@@ -126,8 +126,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Template.xaml.cs">
-      <DependentUpon>Template.xaml</DependentUpon>
+    <Compile Include="PasswordWithCheck.xaml.cs">
+      <DependentUpon>PasswordWithCheck.xaml</DependentUpon>
     </Compile>
     <Compile Include="xamls\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
@@ -241,7 +241,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Template.xaml">
+    <Page Include="PasswordWithCheck.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

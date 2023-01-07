@@ -34,5 +34,23 @@ namespace storageUniversal
         {
             return new SubUser() { Id = this.id, BelongsToUpperUser = this.BelongsToUpperUser, FName = this.FName, LName = this.LName, Role = this.Role };
         }
+        public bool IsSame(SubUser user)
+        {
+            try
+            {
+                bool idS = this.Id == user.Id;
+                bool FnameS = this.FName.Equals(user.FName);
+                bool LnameS = this.LName.Equals(user.LName);
+                bool EmailS = this.email.Equals(user.Email);
+                bool PassS = this.password.Equals(user.Password);
+                bool belS = this.BelongsToUpperUser.Equals(user.BelongsToUpperUser);
+                bool roleS = this.Role.Equals(user.Role);
+                return idS && FnameS && LnameS && EmailS && PassS && belS && roleS;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

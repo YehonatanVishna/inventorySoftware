@@ -86,5 +86,41 @@ namespace storageUniversal.xamls
                 frame.GoBack();
             }
         }
+
+        private void AddUser_Click(object sender, RoutedEventArgs e)
+        {
+            addUserF();
+        }
+        private async void addUserF()
+        {
+            var sub = new SubUserServ.SubUsersServSoapClient();
+            var usr = new SubUserServ.SubUser() { BelongsToUpperUser = login.FullUser.ID };
+            var id = await sub.createSubUserAsync(usr, new SubUserServ.User() { Email = login.FullUser.Email, Password = login.FullUser.Password });
+            var localUsr = new SubUser() { BelongsToUpperUser = login.FullUser.ID, Id = id };
+            BinedUsersInTbl.Add(localUsr);
+            UsersOriginal.Add(localUsr.Copy());
+        }
+
+        private void Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            loudTbl();
+        }
+
+        private void Sync_Click(object sender, RoutedEventArgs e)
+        {
+            var s = new SubUserServ.SubUsersServSoapClient();
+            for(int i=0; i< BinedUsersInTbl.Count; i++)
+            {
+                if (!BinedUsersInTbl.ToList()[i].IsSame(UsersOriginal[i]))
+                {
+                    s.updateSubAsync(conv(BinedUsersInTbl[i]), new SubUserServ.User() { Password = login.FullUser.Password, Email = login.FullUser.Email, ID = login.FullUser.ID });
+                }
+            }
+        }
+
+        private SubUserServ.SubUser conv(SubUser a)
+        {
+            return new SubUserServ.SubUser() { BelongsToUpperUser = a.BelongsToUpperUser, Email = a.Email, FName = a.FName, Id = a.Id, LName = a.LName, Password = a.Password, Role = a.Role };
+        }
     }
 }

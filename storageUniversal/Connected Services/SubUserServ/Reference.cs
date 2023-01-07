@@ -21,11 +21,15 @@ namespace storageUniversal.SubUserServ {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/createSubUser", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<bool> createSubUserAsync(storageUniversal.SubUserServ.SubUser subUser, storageUniversal.SubUserServ.User UpperUser);
+        System.Threading.Tasks.Task<int> createSubUserAsync(storageUniversal.SubUserServ.SubUser subUser, storageUniversal.SubUserServ.User UpperUser);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/getYourSubUsers", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Threading.Tasks.Task<System.Data.DataTable> getYourSubUsersAsync(storageUniversal.SubUserServ.User UpperUser);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/updateSub", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Threading.Tasks.Task<bool> updateSubAsync(storageUniversal.SubUserServ.SubUser subUser, storageUniversal.SubUserServ.User user);
     }
     
     /// <remarks/>
@@ -299,12 +303,16 @@ namespace storageUniversal.SubUserServ {
                 base(binding, remoteAddress) {
         }
         
-        public System.Threading.Tasks.Task<bool> createSubUserAsync(storageUniversal.SubUserServ.SubUser subUser, storageUniversal.SubUserServ.User UpperUser) {
+        public System.Threading.Tasks.Task<int> createSubUserAsync(storageUniversal.SubUserServ.SubUser subUser, storageUniversal.SubUserServ.User UpperUser) {
             return base.Channel.createSubUserAsync(subUser, UpperUser);
         }
         
         public System.Threading.Tasks.Task<System.Data.DataTable> getYourSubUsersAsync(storageUniversal.SubUserServ.User UpperUser) {
             return base.Channel.getYourSubUsersAsync(UpperUser);
+        }
+        
+        public System.Threading.Tasks.Task<bool> updateSubAsync(storageUniversal.SubUserServ.SubUser subUser, storageUniversal.SubUserServ.User user) {
+            return base.Channel.updateSubAsync(subUser, user);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync() {

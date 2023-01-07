@@ -27,7 +27,7 @@ namespace WebServ1
         ///מקבל עצם משתמש תחתון ומכניס משתמש מתאים למסד הנתונים
         ///creates a new sub user in db from a subuser object
         /// </summary>
-        public bool createSubUser(SubUser subUser, User UpperUser)
+        public int createSubUser(SubUser subUser, User UpperUser)
         {
             var usdb = new UserDBServ();
             if (usdb.IsUserPermitted(UpperUser))
@@ -37,11 +37,13 @@ namespace WebServ1
                 String nqury = "Insert into SubUsers (BelongsToUpperUser, FName, LName, Role, Email, Password) Values (" + subUser.BelongsToUpperUser + ", '" + subUser.FName + "', '" + subUser.LName + "', '" + subUser.Role + "', '" + subUser.Email + "', '" + subUser.Password + "' );";
                 bool isok = con.ExequteNoneQury(nqury);
                 con.CloseCon();
-                return isok;
+                var ds = con.GetDataSet("usr", "select * from SubUsers where BelongsToUpperUser = " + subUser.BelongsToUpperUser + ";");
+                var id = int.Parse(ds.Tables[0].Rows[ds.Tables[0].Rows.Count - 1]["ID"].ToString());
+                return id;
             }
             else
             {
-                return false;
+                return -1;
             }
         }
         [WebMethod]
@@ -61,6 +63,34 @@ namespace WebServ1
                 return ds.Tables[0];
             }
             return null;
+        }
+        [WebMethod]
+        ///<summary>
+        ///מעדכן את פרטי משתמש קיים
+        ///updates a subusers
+        /// </summary>
+        public bool updateSub(SubUser subUser, User user)
+        {
+            var usdb = new UserDBServ();
+            if (usdb.IsUserPermitted(user))
+            {
+                var con = new Connection(constr);
+                con.openCon();
+                var ds = con.GetDataSet("p", "Select * from SubUsers where ID = " + subUser.Id + ";");
+                var sequreUser = usdb.GetFullUser(user);
+                if (int.Parse(ds.Tables[0].Rows[0]["BelongsToUpperUser"].ToString()) == sequreUser.ID)
+                {
+                    ds.Tables[0].Rows[0]["BelongsToUpperUser"] = subUser.BelongsToUpperUser;
+                    ds.Tables[0].Rows[0]["FName"] = subUser.FName;
+                    ds.Tables[0].Rows[0]["LName"] = subUser.LName;
+                    ds.Tables[0].Rows[0]["Role"] = subUser.Role;
+                    ds.Tables[0].Rows[0]["Email"] = subUser.Email;
+                    ds.Tables[0].Rows[0]["Password"] = subUser.Password;
+                    con.Update(ds);
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
