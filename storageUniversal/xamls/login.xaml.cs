@@ -156,6 +156,12 @@ namespace storageUniversal
                 return;
             }
             var a = await UDBS.IsUserPermittedAsync(usr);
+            if(await UDBS.IsAdminAsync(usr))
+            {
+                FullUser = new UserDBServ.User() { Email = usr.Email, Password = usr.Password };
+                Frame.Navigate(typeof(AdminPanel));
+                return;
+            }
             var isval = isEmailValid(usr.Email);
             bool b = bool.Parse(a.ToString());
             if (b)

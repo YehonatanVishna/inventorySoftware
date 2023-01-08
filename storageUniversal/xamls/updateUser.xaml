@@ -34,7 +34,7 @@
             <CalendarDatePicker Name="BDate" Grid.Column="2" PlaceholderText="this is your birthday" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
             <TextBox Name="compeny" Grid.Column="3" PlaceholderText="compeny" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
             <TextBox Name="newemail" Grid.Column="4" PlaceholderText="email" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-            <TextBox Name="pass" Grid.Column="5" PlaceholderText="password" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+            <local:PasswordWithCheck x:Name="pass" Grid.Column="5" placeHolder="password" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
             <Button Name="UpdateUsr" Grid.Column="6" Click="Update_Click"  HorizontalAlignment="Stretch" VerticalAlignment="Center">
                 <SymbolIcon Symbol="Accept" HorizontalAlignment="Stretch"></SymbolIcon>
             </Button>

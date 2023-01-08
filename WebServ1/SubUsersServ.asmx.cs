@@ -92,5 +92,40 @@ namespace WebServ1
             }
             return false;
         }
+        [WebMethod]
+        ///<summary>
+        ///takes a admin User object, and a User id. The method deletes the coresponding user from db. Returns wether the delete operation secusseded.
+        ///מאפשר למשתמש מנהל לתת את פרטיו כמנהל ואת המספר המזהה של משתמש מסויים ולהסיר את משתמש זה ממסד הנתונים
+        /// </summary>
+        public bool DeleteSubUser(User UpUser, int id)
+        {
+            if (doesSubBelongToThisUser(id, UpUser)) { 
+                try
+                {
+                    Connection con = new Connection(constr);
+                    con.openCon();
+                    bool a = con.ExequteNoneQury("Delete from SubUsers where ID =" + id + ";");
+                    return a;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            else { return false; }
+        }
+
+        private bool doesSubBelongToThisUser(int id, User user)
+        {
+            var con = new Connection(constr);
+            var ds = con.GetDataSet("p", "Select * from SubUsers where ID = " + id + ";");
+            var usdb = new UserDBServ();
+            if (usdb.IsUserPermitted(user))
+            {
+                var sequreUser = usdb.GetFullUser(user);
+                return int.Parse(ds.Tables[0].Rows[0]["BelongsToUpperUser"].ToString()) == sequreUser.ID;
+            }
+            return false;
+        }
     }
 }

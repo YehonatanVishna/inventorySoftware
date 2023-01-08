@@ -30,6 +30,10 @@ namespace storageUniversal.SubUserServ {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/updateSub", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Threading.Tasks.Task<bool> updateSubAsync(storageUniversal.SubUserServ.SubUser subUser, storageUniversal.SubUserServ.User user);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DeleteSubUser", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Threading.Tasks.Task<bool> DeleteSubUserAsync(storageUniversal.SubUserServ.User UpUser, int id);
     }
     
     /// <remarks/>
@@ -313,6 +317,10 @@ namespace storageUniversal.SubUserServ {
         
         public System.Threading.Tasks.Task<bool> updateSubAsync(storageUniversal.SubUserServ.SubUser subUser, storageUniversal.SubUserServ.User user) {
             return base.Channel.updateSubAsync(subUser, user);
+        }
+        
+        public System.Threading.Tasks.Task<bool> DeleteSubUserAsync(storageUniversal.SubUserServ.User UpUser, int id) {
+            return base.Channel.DeleteSubUserAsync(UpUser, id);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync() {

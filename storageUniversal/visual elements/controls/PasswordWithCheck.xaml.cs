@@ -28,13 +28,21 @@ namespace storageUniversal
             get => (string)GetValue(TextProperty);
             set => SetValue(TextProperty, value);
         }
+        public string placeHolder
+        {
+            get => (string)GetValue(PlaceHolderProp);
+            set => SetValue(PlaceHolderProp, value);
+        }
         public static readonly DependencyProperty TextProperty =
           DependencyProperty.Register(nameof(Text), typeof(string),
             typeof(PasswordWithCheck), new PropertyMetadata(string.Empty));
+        public static readonly DependencyProperty PlaceHolderProp =
+  DependencyProperty.Register(nameof(placeHolder), typeof(string),
+    typeof(PasswordWithCheck), new PropertyMetadata(string.Empty));
 
         //private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         //{
-            
+
         //}
 
 

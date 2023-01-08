@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -91,6 +92,7 @@ namespace storageUniversal.xamls
         {
             addUserF();
         }
+        //פונקציה שמוסיפה משתמש ריק למסד הנתונים ולטבלה
         private async void addUserF()
         {
             var sub = new SubUserServ.SubUsersServSoapClient();
@@ -105,7 +107,7 @@ namespace storageUniversal.xamls
         {
             loudTbl();
         }
-
+        //מתבצע כאשר המשתמש מסנכרן את המשתמשים בטבלה עם שרות הרשת
         private void Sync_Click(object sender, RoutedEventArgs e)
         {
             var s = new SubUserServ.SubUsersServSoapClient();
@@ -117,10 +119,67 @@ namespace storageUniversal.xamls
                 }
             }
         }
-
+        //ממיר טיפוס משתמש תחתון מקומי לטיפוס של שירות רשת 
         private SubUserServ.SubUser conv(SubUser a)
         {
             return new SubUserServ.SubUser() { BelongsToUpperUser = a.BelongsToUpperUser, Email = a.Email, FName = a.FName, Id = a.Id, LName = a.LName, Password = a.Password, Role = a.Role };
+        }
+
+        private List<SubUser> selectedUsers = new List<SubUser>();
+        private void Grid_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            selectedUsers.Clear();
+            foreach (ItemIndexRange range in SubUsersTbl.SelectedRanges.ToList())
+            {
+                for (int i = range.FirstIndex; i <= range.LastIndex; i++)
+                {
+                    selectedUsers.Add(SubUsersTbl.Items[i] as SubUser);
+                }
+            }
+            if (selectedUsers.Count <= 0)
+            {
+                SubUser clickedItem = new SubUser();
+                int Id = int.Parse(((sender as Grid).Children.Last() as TextBlock).Text);
+                foreach (SubUser a in SubUsersTbl.Items)
+                {
+                    if (a.Id == Id)
+                    {
+                        clickedItem = a;
+                    }
+                }
+                SubUsersTbl.SelectedItem = clickedItem;
+            }
+            MenuFlyout rightClick = new MenuFlyout();
+            var icon = new SymbolIcon() { Symbol = Symbol.Delete };
+            MenuFlyoutItem deleteOption = new MenuFlyoutItem { Icon = icon, Text = "delete", FontFamily = new FontFamily("Segoe MDL2 Assets") };
+            deleteOption.Click += DeleteOption_Click;
+            rightClick.Items.Add(deleteOption);
+            UIElement b = sender as UIElement;
+            b.ContextFlyout = rightClick;
+            Point point = new Point(e.GetPosition(b).X, e.GetPosition(b).Y);
+            rightClick.ShowAt(b, point);
+        }
+
+        private async void DeleteOption_Click(object sender, RoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Wait, 1);
+            var UsrServ = new SubUserServ.SubUsersServSoapClient();
+            foreach (SubUser br in selectedUsers)
+            {
+                var bs = conv(br);
+                var isok = await UsrServ.DeleteSubUserAsync(new SubUserServ.User() { ID = login.FullUser.ID, Email = login.FullUser.Email, Password = login.FullUser.Password }, bs.Id);
+                if (isok)
+                {
+                    BinedUsersInTbl.Remove(br);
+                }
+                else
+                {
+                    var erro = new ContentDialog() { Title = "something went wrong", CloseButtonText = "ok" };
+                    await erro.ShowAsync();
+                }
+            }
+            Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 1);
+
         }
     }
 }

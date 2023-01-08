@@ -56,7 +56,7 @@
             </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate  x:Name="dataTemp" x:DataType="data:SubUser" >
-                    <Grid HorizontalAlignment="Stretch">
+                    <Grid HorizontalAlignment="Stretch" RightTapped="Grid_RightTapped">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -70,7 +70,7 @@
                         <TextBox HorizontalAlignment="Stretch" Grid.Column="3" Name="Email" Text="{Binding Email, Mode=TwoWay}"></TextBox>
                         <!--<PasswordBox HorizontalAlignment="Stretch" Grid.Column="4" Name="Password" Password="{Binding Role, Mode=TwoWay}" PasswordRevealMode ="Peek" IsPasswordRevealButtonEnabled="True"/>-->
                         <data:PasswordWithCheck Grid.Column="4" Text="{Binding Password, Mode=TwoWay}"></data:PasswordWithCheck>
-                        <TextBlock Visibility="Collapsed" Name="ID" Text="{Binding BorrowingId}"></TextBlock>
+                        <TextBlock Visibility="Collapsed" Name="ID" Text="{Binding Id}"></TextBlock>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
