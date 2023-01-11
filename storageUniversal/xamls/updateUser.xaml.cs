@@ -27,7 +27,7 @@ namespace storageUniversal
     public sealed partial class updateUser : Page
     {
         private UserDBServ.UserDBServSoapClient UDBS = new UserDBServ.UserDBServSoapClient();
-        public static UserDBServ.User FullUser = login.FullUser;
+        public static UserDBServ.User FullUser = UpperLogin.FullUser;
         public static Type SentFrom;
         public updateUser()
         {
@@ -93,7 +93,7 @@ namespace storageUniversal
                 };
                 await secsussPop.ShowAsync();
                 FullUser = NewUser;
-                Frame.Navigate(typeof(login));
+                Frame.Navigate(typeof(UpperLogin));
             }
             else
             {
@@ -109,7 +109,7 @@ namespace storageUniversal
         //מוחק את המשתמש
         private async void DelBot_Click(object sender, RoutedEventArgs e)
         {
-            var usr = login.FullUser;
+            var usr = UpperLogin.FullUser;
             var a = await UDBS.DeleteUserAsync(usr);
             bool b = bool.Parse(a.ToString());
 

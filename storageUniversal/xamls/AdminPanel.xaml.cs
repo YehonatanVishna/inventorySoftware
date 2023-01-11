@@ -29,7 +29,7 @@ namespace storageUniversal
     {
         //משתנה המכיל את פרטי ההתחברות של המנהל
         //the admin user
-        public UserDBServ.User AdminUser = login.FullUser;
+        public UserDBServ.User AdminUser = UpperLogin.FullUser;
 
         public static Type SentFrom { get; internal set; }
 

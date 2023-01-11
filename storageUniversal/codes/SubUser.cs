@@ -16,6 +16,7 @@ namespace storageUniversal
         private string role;
         private string email;
         private string password;
+        private string userName;
 
         public SubUser()
         {
@@ -29,10 +30,11 @@ namespace storageUniversal
         public string Role { get => role; set => role = value; }
         public string Email { get => email; set => email = value; }
         public string Password { get => password; set => password = value; }
+        public string UserName { get => userName; set => userName = value; }
 
         public SubUser Copy()
         {
-            return new SubUser() { Id = this.id, BelongsToUpperUser = this.BelongsToUpperUser, FName = this.FName, LName = this.LName, Role = this.Role };
+            return new SubUser() { Id = this.id, BelongsToUpperUser = this.BelongsToUpperUser, FName = this.FName, LName = this.LName, Role = this.Role, UserName = this.userName };
         }
         public bool IsSame(SubUser user)
         {
@@ -45,7 +47,8 @@ namespace storageUniversal
                 bool PassS = this.password.Equals(user.Password);
                 bool belS = this.BelongsToUpperUser.Equals(user.BelongsToUpperUser);
                 bool roleS = this.Role.Equals(user.Role);
-                return idS && FnameS && LnameS && EmailS && PassS && belS && roleS;
+                bool Usr = this.UserName.Equals(user.UserName);
+                return idS && FnameS && LnameS && EmailS && PassS && belS && roleS && Usr;
             }
             catch
             {

@@ -21,18 +21,18 @@ namespace storageUniversal.xamls
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class UpperUserHomePage : Page
+    public sealed partial class UpperUserStartScreen : Page
     {
-        public UpperUserHomePage()
+        public UpperUserStartScreen()
         {
             this.InitializeComponent();
             // some code to handle mouse back + forward buttons
-            //קוד לניווט אחורה וקדימה עם כפטורי הניווט של העכבר
+            // קוד להוספת פונקציית קדימה ואחורה לכפתורי העכבר
             Window.Current.Activate();
             Window.Current.CoreWindow.PointerPressed += CoreWindow_PointerPressed;
         }
-        //קוד לניווט אחורה וקדימה עם כפטורי הניווט של העכבר
         // some code to handle mouse back + forward buttons
+        // קוד להוספת פונקציית קדימה ואחורה לכפתורי העכבר
         private void CoreWindow_PointerPressed(CoreWindow sender, PointerEventArgs args)
         {
             if (args.CurrentPoint.Properties.IsXButton1Pressed)
@@ -55,36 +55,19 @@ namespace storageUniversal.xamls
                 }
             }
         }
-        //logs in user and sends him to his invntory list
-        // מחבר את המשתמש, ושולח אותו לרשימת המלאי שלו
-        private void LoginAndSendToInventoryList(object sender, RoutedEventArgs e)
+        //sends user to login
+        //שולח את המשתמש לעמוד הכניסה
+        private void Login_Click(object sender, RoutedEventArgs e)
         {
-            var usr = UpperLogin.FullUser;
-            this.Frame.Navigate(typeof(InventoryView));
+            UpperLogin.SentFrom = typeof(MainPage);
+            this.Frame.Navigate(typeof(UpperLogin));
         }
-        //the button sends the user to manege his subusers
-        //הכפטור שולח את המשתמש לנהל את המשתמשים שמשוייכים אליו
-        private void ManegeSubUsers_Click(object sender, RoutedEventArgs e)
+        //sends user to register
+        //שולח את המשתמש לעמוד הרשמה
+        private void Logon_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(SubUsersManegment));
-        }
-        //the button sends the user to edit his ditailes
-        //הכפטור שולח את המשתמש לערוך את פרטיו האישיים
-        private void GoToChangeDitailes_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(updateUser));
-        }
-
-        //מחזיר את המשתמש לעמוד הקודם
-        //goes back to previus page
-        private void Back_Click(object sender, RoutedEventArgs e)
-        {
-            Frame frame = Window.Current.Content as Frame;
-            if (frame.CanGoBack)
-            {
-                frame.GoBack();
-
-            }
+            Register.SentFrom = typeof(MainPage);
+            Frame.Navigate(typeof(Register));
         }
     }
 }

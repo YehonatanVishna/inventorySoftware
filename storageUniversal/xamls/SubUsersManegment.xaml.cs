@@ -45,7 +45,7 @@ namespace storageUniversal.xamls
         public async void loudTbl()
         {
             var s = new SubUserServ.SubUsersServSoapClient();
-            var TmpUsr = login.FullUser;
+            var TmpUsr = UpperLogin.FullUser;
             var usr = new SubUserServ.User() { ID = TmpUsr.ID, BDate = TmpUsr.BDate, Compeny = TmpUsr.Compeny, Email = TmpUsr.Email, Fname = TmpUsr.Fname, Lname = TmpUsr.Lname, Password = TmpUsr.Password };
             var r = await s.getYourSubUsersAsync(usr);
             List<SubUser> Users = new List<SubUser>();
@@ -59,6 +59,7 @@ namespace storageUniversal.xamls
                 row.BelongsToUpperUser = int.Parse(a["BelongsToUpperUser"].ToString());
                 row.Role = a["Role"].ToString();
                 row.Password = a["Password"].ToString();
+                row.UserName = a["UserName"].ToString();
                 Users.Add(row);
             }
             if (BinedUsersInTbl.ToList().Count > 0)
@@ -96,9 +97,9 @@ namespace storageUniversal.xamls
         private async void addUserF()
         {
             var sub = new SubUserServ.SubUsersServSoapClient();
-            var usr = new SubUserServ.SubUser() { BelongsToUpperUser = login.FullUser.ID };
-            var id = await sub.createSubUserAsync(usr, new SubUserServ.User() { Email = login.FullUser.Email, Password = login.FullUser.Password });
-            var localUsr = new SubUser() { BelongsToUpperUser = login.FullUser.ID, Id = id };
+            var usr = new SubUserServ.SubUser() { BelongsToUpperUser = UpperLogin.FullUser.ID };
+            var id = await sub.createSubUserAsync(usr, new SubUserServ.User() { Email = UpperLogin.FullUser.Email, Password = UpperLogin.FullUser.Password });
+            var localUsr = new SubUser() { BelongsToUpperUser = UpperLogin.FullUser.ID, Id = id };
             BinedUsersInTbl.Add(localUsr);
             UsersOriginal.Add(localUsr.Copy());
         }
@@ -115,14 +116,14 @@ namespace storageUniversal.xamls
             {
                 if (!BinedUsersInTbl.ToList()[i].IsSame(UsersOriginal[i]))
                 {
-                    s.updateSubAsync(conv(BinedUsersInTbl[i]), new SubUserServ.User() { Password = login.FullUser.Password, Email = login.FullUser.Email, ID = login.FullUser.ID });
+                    s.updateSubAsync(conv(BinedUsersInTbl[i]), new SubUserServ.User() { Password = UpperLogin.FullUser.Password, Email = UpperLogin.FullUser.Email, ID = UpperLogin.FullUser.ID });
                 }
             }
         }
         //ממיר טיפוס משתמש תחתון מקומי לטיפוס של שירות רשת 
         private SubUserServ.SubUser conv(SubUser a)
         {
-            return new SubUserServ.SubUser() { BelongsToUpperUser = a.BelongsToUpperUser, Email = a.Email, FName = a.FName, Id = a.Id, LName = a.LName, Password = a.Password, Role = a.Role };
+            return new SubUserServ.SubUser() { BelongsToUpperUser = a.BelongsToUpperUser, Email = a.Email, FName = a.FName, Id = a.Id, LName = a.LName, Password = a.Password, Role = a.Role, UserName = a.UserName};
         }
 
         private List<SubUser> selectedUsers = new List<SubUser>();
@@ -167,7 +168,7 @@ namespace storageUniversal.xamls
             foreach (SubUser br in selectedUsers)
             {
                 var bs = conv(br);
-                var isok = await UsrServ.DeleteSubUserAsync(new SubUserServ.User() { ID = login.FullUser.ID, Email = login.FullUser.Email, Password = login.FullUser.Password }, bs.Id);
+                var isok = await UsrServ.DeleteSubUserAsync(new SubUserServ.User() { ID = UpperLogin.FullUser.ID, Email = UpperLogin.FullUser.Email, Password = UpperLogin.FullUser.Password }, bs.Id);
                 if (isok)
                 {
                     BinedUsersInTbl.Remove(br);

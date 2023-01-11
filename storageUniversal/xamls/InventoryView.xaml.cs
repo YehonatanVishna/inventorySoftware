@@ -32,7 +32,7 @@ namespace storageUniversal
     {
         public List<InventoryRow> InventoryBeforeChange;// original inventory
         public ObservableCollection<InventoryRow> InventoryRowesBindedToUser = new ObservableCollection<InventoryRow>();
-        public static UserDBServ.User FullUser = login.FullUser;//the user that activly uses the page;
+        public static UserDBServ.User FullUser = UpperLogin.FullUser;//the user that activly uses the page;
         public static Type SentFrom;//the page from which the user were sent
         public static InventoryRow LantItem;
         public InventoryView()

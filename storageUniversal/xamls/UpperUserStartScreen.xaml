@@ -1,8 +1,8 @@
 ﻿<Page
-    x:Class="storageUniversal.MainPage"
+    x:Class="storageUniversal.xamls.UpperUserStartScreen"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:storageUniversal"
+    xmlns:local="using:storageUniversal.xamls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -13,10 +13,11 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Button Grid.Column="0" x:Name="UpUser" Click="UpUser_Click" VerticalAlignment="Center" HorizontalAlignment="Stretch">I am a Inventory admin</Button>
-        <Button Grid.Column="1" x:Name="LowerUser" Click="LowerUser_Click" VerticalAlignment="Center" HorizontalAlignment="Stretch">I am a user</Button>
-        <Button Content="about" Name="about" Click="About_Click"  HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
-
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button Grid.Column="0" Grid.Row="0" Click="Login_Click" Name="Login" Content="login" HorizontalAlignment="Stretch"  VerticalAlignment="Center" />
+        <Button Grid.Column="1" Grid.Row="0"  Name="logon" Click="Logon_Click" Content="register" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
 
     </Grid>
 </Page>

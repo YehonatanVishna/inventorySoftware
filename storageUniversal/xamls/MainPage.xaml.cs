@@ -20,49 +20,7 @@ namespace storageUniversal
     {
         public MainPage()
         {
-            this.InitializeComponent();
-            // some code to handle mouse back + forward buttons
-            // קוד להוספת פונקציית קדימה ואחורה לכפתורי העכבר
-            Window.Current.Activate();
-            Window.Current.CoreWindow.PointerPressed += CoreWindow_PointerPressed;
-        }
-        // some code to handle mouse back + forward buttons
-        // קוד להוספת פונקציית קדימה ואחורה לכפתורי העכבר
-        private void CoreWindow_PointerPressed(CoreWindow sender, PointerEventArgs args)
-        {
-            if (args.CurrentPoint.Properties.IsXButton1Pressed)
-            {
-                Frame frame = Window.Current.Content as Frame;
-                if (frame.CanGoBack)
-                {
-                    frame.GoBack();
-                }
-            }
-            else
-            {
-                if (args.CurrentPoint.Properties.IsXButton2Pressed)
-                {
-                    Frame frame = Window.Current.Content as Frame;
-                    if (frame.CanGoForward)
-                    {
-                        frame.GoForward();
-                    }
-                }
-            }
-        }
-        //sends user to login
-        //שולח את המשתמש לעמוד הכניסה
-        private void Login_Click(object sender, RoutedEventArgs e)
-        {
-            login.SentFrom = typeof(MainPage);
-            this.Frame.Navigate(typeof(login));
-        }
-        //sends user to register
-        //שולח את המשתמש לעמוד הרשמה
-        private void Logon_Click(object sender, RoutedEventArgs e)
-        {
-            Register.SentFrom = typeof(MainPage);
-            Frame.Navigate(typeof(Register));
+            InitializeComponent();
         }
         //sends user to about page
         //שולח את המשתמש לעמוד אודות
@@ -70,6 +28,16 @@ namespace storageUniversal
         {
             About.SentBy = typeof(MainPage);
             Frame.Navigate(typeof(About));
+        }
+
+        private void UpUser_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(UpperLogin));
+        }
+
+        private void LowerUser_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

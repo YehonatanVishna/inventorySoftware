@@ -160,8 +160,11 @@
     <Compile Include="xamls\InventoryView.xaml.cs">
       <DependentUpon>InventoryView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="xamls\login.xaml.cs">
-      <DependentUpon>login.xaml</DependentUpon>
+    <Compile Include="xamls\LowerLogin.xaml.cs">
+      <DependentUpon>LowerLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="xamls\UpperLogin.xaml.cs">
+      <DependentUpon>UpperLogin.xaml</DependentUpon>
     </Compile>
     <Compile Include="xamls\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -179,6 +182,9 @@
     <Compile Include="codes\User.cs" />
     <Compile Include="xamls\UpperUserHomePage.xaml.cs">
       <DependentUpon>UpperUserHomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="xamls\UpperUserStartScreen.xaml.cs">
+      <DependentUpon>UpperUserStartScreen.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -261,7 +267,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="xamls\login.xaml">
+    <Page Include="xamls\LowerLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="xamls\UpperLogin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -282,6 +292,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="xamls\UpperUserHomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="xamls\UpperUserStartScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -27,13 +27,13 @@ namespace storageUniversal
     /// The page gets the users email and password and signs him in
     /// </summary>
 
-    public sealed partial class login : Page
+    public sealed partial class UpperLogin : Page
     {
         public static UserDBServ.User usr = new UserDBServ.User();
         public static UserDBServ.User FullUser;
         private UserDBServ.UserDBServSoapClient UDBS = new UserDBServ.UserDBServSoapClient();
         public static Type SentFrom;
-        public login()
+        public UpperLogin()
         {
             this.InitializeComponent();
             TryStartAutoLoging();
@@ -138,7 +138,7 @@ namespace storageUniversal
 
             public async void Execute(object parameter)
             {
-                var logPg = (parameter as login);
+                var logPg = (parameter as UpperLogin);
                 logAutoCheck(logPg.Frame, logPg.res);
             }
 
@@ -218,6 +218,11 @@ namespace storageUniversal
             {
                 frame.GoBack();
             }
+        }
+
+        private void RegBut_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(Register));
         }
     }
 }

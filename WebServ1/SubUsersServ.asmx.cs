@@ -34,7 +34,7 @@ namespace WebServ1
             {
                 var con = new Connection(constr);
                 con.openCon();
-                String nqury = "Insert into SubUsers (BelongsToUpperUser, FName, LName, Role, Email, Password) Values (" + subUser.BelongsToUpperUser + ", '" + subUser.FName + "', '" + subUser.LName + "', '" + subUser.Role + "', '" + subUser.Email + "', '" + subUser.Password + "' );";
+                String nqury = "Insert into SubUsers (BelongsToUpperUser, FName, LName, Role, Email, Password, UserName) Values (" + subUser.BelongsToUpperUser + ", '" + subUser.FName + "', '" + subUser.LName + "', '" + subUser.Role + "', '" + subUser.Email + "', '" + subUser.Password + "', '" + subUser.UserName + "');";
                 bool isok = con.ExequteNoneQury(nqury);
                 con.CloseCon();
                 var ds = con.GetDataSet("usr", "select * from SubUsers where BelongsToUpperUser = " + subUser.BelongsToUpperUser + ";");
@@ -80,17 +80,33 @@ namespace WebServ1
                 var sequreUser = usdb.GetFullUser(user);
                 if (int.Parse(ds.Tables[0].Rows[0]["BelongsToUpperUser"].ToString()) == sequreUser.ID)
                 {
+                    if (doesUserNameAlredyInUse(subUser.Id, subUser.UserName))
+                    {
+                        throw new InvalidOperationException("the user name is alredy in use, use a diffrent one");
+                    }
                     ds.Tables[0].Rows[0]["BelongsToUpperUser"] = subUser.BelongsToUpperUser;
                     ds.Tables[0].Rows[0]["FName"] = subUser.FName;
                     ds.Tables[0].Rows[0]["LName"] = subUser.LName;
                     ds.Tables[0].Rows[0]["Role"] = subUser.Role;
                     ds.Tables[0].Rows[0]["Email"] = subUser.Email;
                     ds.Tables[0].Rows[0]["Password"] = subUser.Password;
+                    ds.Tables[0].Rows[0]["UserName"] = subUser.UserName;
                     con.Update(ds);
                     return true;
                 }
             }
             return false;
+        }
+        private bool doesUserNameAlredyInUse(int SubId, string Username)
+        {
+            var con = new Connection(constr);
+            var ds = con.GetDataSet("p", "Select ID from SubUsers where UserName = '" + Username + "';");
+            var usdb = new UserDBServ();
+            try
+            {
+                return int.Parse(ds.Tables[0].Rows[0]["ID"].ToString()) != SubId;
+            }
+            catch { return false; }
         }
         [WebMethod]
         ///<summary>
