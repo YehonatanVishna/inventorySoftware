@@ -23,6 +23,7 @@ namespace storageUniversal.xamls
     /// </summary>
     public sealed partial class UpperUserHomePage : Page
     {
+        private string UseName = "Hello "+ UpperLogin.FullUser.Fname + UpperLogin.FullUser.Lname;
         public UpperUserHomePage()
         {
             this.InitializeComponent();

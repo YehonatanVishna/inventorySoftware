@@ -20,6 +20,7 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Button x:Name="back" Grid.Column="0" Grid.Row="0" Click="Back_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
+        <TextBlock x:Name="helloMsg" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="0" Text="{x:Bind UseName, Mode=TwoWay}"></TextBlock>
         <Button  Grid.Column="1" Grid.Row="1" Name="sendToInventoryTbl" ToolTipService.ToolTip="this button sends you to see your inventory table" Click="LoginAndSendToInventoryList" HorizontalAlignment="Stretch" VerticalAlignment="Center">
             <SymbolIcon Symbol="List"/>
         </Button>

@@ -143,5 +143,44 @@ namespace WebServ1
             }
             return false;
         }
+        [WebMethod]
+        ///<summary>
+        ///takes  a  user with username and password, and returns the full user
+        ///לוקח עצם של משתמש עם שם משתמש וססמה ומחסיר משתמש מלא
+        /// </summary>
+        public SubUser GetFullUser(SubUser user)
+        {
+            if(DoesSubExists(user.UserName, user.Password))
+            {
+                var con = new Connection(constr);
+                var ds = con.GetDataSet("0", "Select top 1 * from SubUsers where UserName = '" + user.UserName + "' AND Password = '" + user.Password + "' ;");
+                var fullUser = new SubUser();
+                fullUser.Id = int.Parse(ds.Tables[0].Rows[0]["ID"].ToString());
+                fullUser.BelongsToUpperUser = int.Parse(ds.Tables[0].Rows[0]["BelongsToUpperUser"].ToString());
+                fullUser.FName = ds.Tables[0].Rows[0]["FName"].ToString();
+                fullUser.LName = ds.Tables[0].Rows[0]["LName"].ToString();
+                fullUser.Role = ds.Tables[0].Rows[0]["Role"].ToString();
+                fullUser.Email = ds.Tables[0].Rows[0]["Email"].ToString();
+                fullUser.Password = ds.Tables[0].Rows[0]["Password"].ToString();
+                fullUser.UserName = ds.Tables[0].Rows[0]["UserName"].ToString();
+                return fullUser;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        //אומר האם המשתמש התחתון קיים במערכת
+        private bool DoesSubExists(string userName, string password)
+        {
+            var con = new Connection(constr);
+            var ds = con.GetDataSet("0", "Select top 1 * from SubUsers where UserName = '" + userName + "' AND Password = '"+ password + "' ;");
+            try
+            {
+                return ds.Tables[0].Rows[0][0] != null;
+            }
+            catch { return false; }
+        }
     }
 }

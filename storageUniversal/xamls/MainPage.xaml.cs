@@ -37,7 +37,7 @@ namespace storageUniversal
 
         private void LowerUser_Click(object sender, RoutedEventArgs e)
         {
-
+            Frame.Navigate(typeof(LowerLogin));
         }
     }
 }

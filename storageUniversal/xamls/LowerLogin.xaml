@@ -20,29 +20,26 @@
         </Grid.RowDefinitions>
 
         <Button Grid.Row="0" Grid.Column="0" Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
-        <Button Grid.Row="1" Grid.Column="0" x:Name="RegBut" Click="RegBut_Click" VerticalAlignment="Bottom" HorizontalAlignment="Left" ToolTipService.ToolTip="register">
-            <SymbolIcon Symbol="OtherUser"></SymbolIcon>
-        </Button>
         <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" ColumnSpacing="20">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="0.5*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
+            <!--<Grid Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBox Name="email" Grid.Row="1" TextWrapping="Wrap" HorizontalAlignment="Stretch"  PlaceholderText="email" VerticalAlignment="Center" />
                 <TextBlock Name="IsEmailValidBlock" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" IsColorFontEnabled="True" Foreground="Red" Text=""/>
-            </Grid>
+            </Grid>-->
             <PasswordBox  Name="password" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  PlaceholderText="password" />
             <TextBlock Visibility="Collapsed" Name="res"  Text="" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-            <Button  Grid.Column="2" Name="LoginButton" ToolTipService.ToolTip="Login" Click="LoginAndSendToHome" HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                <SymbolIcon Symbol="log"
+            <TextBox x:Name="UserNameInput" PlaceholderText="user name" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Center"></TextBox>
+            <Button  Grid.Column="2" x:Name="LoginButton" Click="LoginButton_Click" ToolTipService.ToolTip="Login" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                <SymbolIcon Symbol="People"></SymbolIcon>
             </Button>
             <CheckBox Grid.Column="3" Name="rememberBox" Content="remenber for next time" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
         </Grid>

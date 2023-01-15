@@ -163,6 +163,9 @@
     <Compile Include="xamls\LowerLogin.xaml.cs">
       <DependentUpon>LowerLogin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="xamls\LowerUserOrdePage.xaml.cs">
+      <DependentUpon>LowerUserOrdePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="xamls\UpperLogin.xaml.cs">
       <DependentUpon>UpperLogin.xaml</DependentUpon>
     </Compile>
@@ -193,6 +196,9 @@
     </AppxManifest>
     <None Include="Connected Services\BorowwDb\BorowwingsDB.wsdl" />
     <None Include="Connected Services\InventoryServ\InventoryFuncs.wsdl" />
+    <None Include="Connected Services\SubUserServ\storageUniversal.SubUserServ.SubUser.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\SubUserServ\SubUsersServ.wsdl" />
     <None Include="Connected Services\UserDBServ\storageUniversal.UserDBServ.User.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -268,6 +274,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="xamls\LowerLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="xamls\LowerUserOrdePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
