@@ -73,6 +73,7 @@
     <Content Include="UserDBServ.asmx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Order.cs" />
     <Compile Include="SubUser.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

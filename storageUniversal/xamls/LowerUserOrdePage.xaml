@@ -5,6 +5,7 @@
     xmlns:local="using:storageUniversal.xamls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:storageUniversal"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -18,5 +19,12 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Button Grid.Row="0" Grid.Column="0" Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
+        <ListView x:Name="NamesList" Grid.Column="1" Grid.Row="1">
+            <ListView.ItemTemplate>
+                <DataTemplate x:Name="DataTemp" x:DataType="data:InventoryRow">
+                    <TextBlock Text ="{Binding Name}"></TextBlock>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Page>

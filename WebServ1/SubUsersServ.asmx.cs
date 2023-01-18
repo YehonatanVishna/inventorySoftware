@@ -182,5 +182,21 @@ namespace WebServ1
             }
             catch { return false; }
         }
+        [WebMethod]
+        ///<summary>
+        ///takes a subuser ditailes and returns a limited inventory table
+        /// מקבל משתמש תחתון ומחזיר את רשימת המלאי של הפריטים שהוא יכול לשאול
+        /// </summary>
+        public DataTable getLimitedSubUserInventoryList(SubUser subUser)
+        {
+            if(DoesSubExists(subUser.UserName, subUser.Password))
+            {
+                var con = new Connection(constr);
+                var ds = con.GetDataSet("items", "select ID, Name from Inventory where OwnerUserId =" + subUser.BelongsToUpperUser.ToString() + ";");
+                return ds.Tables[0];
+            }
+            return null;
+        }
     }
 }
+

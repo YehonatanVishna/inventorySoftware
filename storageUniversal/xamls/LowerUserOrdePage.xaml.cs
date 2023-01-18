@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -22,9 +24,27 @@ namespace storageUniversal.xamls
     /// </summary>
     public sealed partial class LowerUserOrdePage : Page
     {
+        private SubUserServ.SubUsersServSoapClient SubServ = new SubUserServ.SubUsersServSoapClient();
+        private ObservableCollection<InventoryRow> BindedRowesInList = new ObservableCollection<InventoryRow>();
         public LowerUserOrdePage()
         {
             this.InitializeComponent();
+            NamesList.ItemsSource = BindedRowesInList;
+            LoadList();
+        }
+        //טוען את הטבלה על ידי לקיחת השמות ממסד הנתונים והשמתם במשתנה הטבלה
+        private async void LoadList()
+        {
+
+            var dt = await SubServ.getLimitedSubUserInventoryListAsync(LowerLogin.FullSubUser);
+            //var LimitedInventoryList = new List<InventoryRow>();
+            BindedRowesInList.Clear();
+            foreach(DataRow dr in dt.Rows)
+            {
+                string Name = dr["Name"].ToString();
+                int Id = int.Parse(dr["ID"].ToString());
+                BindedRowesInList.Add(new InventoryRow() { Name = Name, ID = Id });
+            }
         }
         // מגיב ללחיצה על כפתור החזרה, מחזיר את המשתמש למסך הקודם
         //go back to previus page

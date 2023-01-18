@@ -57,11 +57,12 @@ namespace storageUniversal.xamls
                 var tempSub = new SubUserServ.SubUser();
                 tempSub.Password = localSettings.Values["Sub_Password"] as string;
                 tempSub.UserName = localSettings.Values["Sub_UserName"] as string;
-                log(tempSub, parameter as LowerUserOrdePage);
+                log(tempSub, parameter as storageUniversal.xamls.LowerLogin);
 
             }
         }
-        public async static void log(SubUserServ.SubUser tempSub, LowerUserOrdePage page)
+        //מכניס את המשתמש למערכת בעזרת הפרטים השמורים
+        public async static void log(SubUserServ.SubUser tempSub, storageUniversal.xamls.LowerLogin frame)
         {
             var serv = new SubUserServ.SubUsersServSoapClient();
             FullSubUser = await serv.GetFullUserAsync(tempSub);
@@ -69,7 +70,7 @@ namespace storageUniversal.xamls
             {
                 var sucsuss = new ContentDialog() { Title = "hello " + FullSubUser.FName + " " + FullSubUser.LName, CloseButtonText = "ok" };
                 await sucsuss.ShowAsync();
-                page.Frame.Navigate(typeof(LowerUserOrdePage));
+                frame.Frame.Navigate(typeof(LowerUserOrdePage));
 
             }
             else
@@ -108,6 +109,7 @@ namespace storageUniversal.xamls
                     localSettings.Values["Sub_Password"] = FullSubUser.Password;
                     localSettings.Values["Is_SubUser_saved"] = true.ToString();
                 }
+                Frame.Navigate(typeof(LowerUserOrdePage));
             }
             else
             {

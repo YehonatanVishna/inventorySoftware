@@ -38,6 +38,10 @@ namespace storageUniversal.SubUserServ {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetFullUser", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Threading.Tasks.Task<storageUniversal.SubUserServ.SubUser> GetFullUserAsync(storageUniversal.SubUserServ.SubUser user);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/getLimitedSubUserInventoryList", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Threading.Tasks.Task<System.Data.DataTable> getLimitedSubUserInventoryListAsync(storageUniversal.SubUserServ.SubUser subUser);
     }
     
     /// <remarks/>
@@ -343,6 +347,10 @@ namespace storageUniversal.SubUserServ {
         
         public System.Threading.Tasks.Task<storageUniversal.SubUserServ.SubUser> GetFullUserAsync(storageUniversal.SubUserServ.SubUser user) {
             return base.Channel.GetFullUserAsync(user);
+        }
+        
+        public System.Threading.Tasks.Task<System.Data.DataTable> getLimitedSubUserInventoryListAsync(storageUniversal.SubUserServ.SubUser subUser) {
+            return base.Channel.getLimitedSubUserInventoryListAsync(subUser);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync() {
