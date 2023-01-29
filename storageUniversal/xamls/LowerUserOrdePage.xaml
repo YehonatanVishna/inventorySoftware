@@ -22,7 +22,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Button Grid.Row="0" Grid.Column="0" Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
-        <ListView x:Name="NamesList" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="2">
+        <ListView x:Name="NamesList" Grid.ColumnSpan="1" Grid.Column="1" Grid.Row="0" Grid.RowSpan="3">
             <ListView.ItemTemplate>
                 <DataTemplate x:Name="DataTemp" x:DataType="data:InventoryRow">
                     <Grid>
@@ -30,27 +30,52 @@
                             <ColumnDefinition Width="3*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text ="{Binding Name}"></TextBlock>
+                        <TextBlock Grid.Column="0" Text ="{Binding Name}" HorizontalAlignment="Stretch"></TextBlock>
                         
-                    <Button Grid.Column="1" x:Name="requstBut" Click="RequstBut_Click">requst item</Button>
+                    <Button Grid.Column="1" x:Name="requstBut" HorizontalAlignment="Stretch" Click="RequstBut_Click">requst item</Button>
                         <TextBlock Text="{Binding ID}" Visibility="Collapsed"></TextBlock>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment"  Value="Stretch"></Setter>
+                    <Setter Property="HorizontalAlignment"  Value="Stretch"></Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
         </ListView>
-        <ListView Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" x:Name="shoppingCart">
+        <ListView Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" x:Name="shoppingCart" SelectionMode="Single">
+            <ListView.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"></ColumnDefinition>
+                        <ColumnDefinition/>
+
+                    </Grid.ColumnDefinitions>
+                    <SymbolIcon Grid.Column="0" HorizontalAlignment="Left" Symbol="Shop"></SymbolIcon>
+                    <TextBlock Grid.Column="1">your order</TextBlock>
+                </Grid>
+            </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="serv:Order">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="6*"/>
                         </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="{Binding ItemName}"></TextBlock>
-                    <TextBlock Grid.Column="1" Text="{Binding Amount}"></TextBlock>
+                        <Frame Grid.Column="1" BorderThickness="1" BorderBrush="{ThemeResource SystemAccentColor}">
+                    <TextBlock  Text="{Binding ItemName}"></TextBlock>
+                        </Frame>
+                        <TextBlock Grid.Column="0" Text="{Binding Amount}"></TextBlock>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment"  Value="Stretch"></Setter>
+                    <Setter Property="HorizontalAlignment"  Value="Stretch"></Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
         </ListView>
     </Grid>
 </Page>

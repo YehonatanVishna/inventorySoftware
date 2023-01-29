@@ -32,6 +32,7 @@ namespace storageUniversal.xamls
         {
             this.InitializeComponent();
             NamesList.ItemsSource = BindedRowesInList;
+            shoppingCart.ItemsSource = cashedOrders;
             LoadList();
         }
         //טוען את הטבלה על ידי לקיחת השמות ממסד הנתונים והשמתם במשתנה הטבלה
@@ -71,14 +72,16 @@ namespace storageUniversal.xamls
                     break;
                 }
             }
-            var requstDetailes = new ContentDialog() { Title = "Insert the desiered amount of " + item.Name , CloseButtonText = "apply and add", SecondaryButtonText = "cancel"};
+            var requstDetailes = new ContentDialog() { Title = "Insert the desiered amount of " + item.Name , SecondaryButtonText = "apply and add", CloseButtonText = "cancel"};
             Grid getRequstDitailes = new Grid();
             var amount = new TextBox() { PlaceholderText = "desiered amount of " + item.Name };
             getRequstDitailes.Children.Add(amount);
+            getRequstDitailes.Children.Add(new TextBlock() { Text = item.Name.ToString(), Visibility = Visibility.Collapsed });
+            getRequstDitailes.Children.Add(new TextBlock() { Text = item.ID.ToString(), Visibility = Visibility.Collapsed });
             requstDetailes.Content = getRequstDitailes;
             requstDetailes.SecondaryButtonCommand = new addOrdToCash();
             SubUserServ.Order order = new SubUserServ.Order();
-            requstDetailes.SecondaryButtonCommandParameter = amount;
+            requstDetailes.SecondaryButtonCommandParameter = getRequstDitailes;
             await requstDetailes.ShowAsync();
 
         }
@@ -93,9 +96,19 @@ namespace storageUniversal.xamls
 
             public void Execute(object parameter)
             {
-                var amount = parameter as TextBox;
-                var ord= new SubUserServ.Order() { Amount = float.Parse(amount.Text), Aproved = false, BySubUser = LowerLogin.FullSubUser.Id, ItemId = item.ID, ToUpperUser = LowerLogin.FullSubUser.BelongsToUpperUser, Rejected = false, ItemName = item.Name };
+                var amount = (parameter as Grid).Children[0] as TextBox;
+                var idb = (parameter as Grid).Children[2] as TextBlock;
+                var nameBox = (parameter as Grid).Children[1] as TextBlock;
 
+                var ord = new SubUserServ.Order();
+                ord.Amount = float.Parse(amount.Text);
+                ord.Aproved = false;
+                ord.BySubUser = LowerLogin.FullSubUser.Id;
+                ord.ItemId = int.Parse(idb.Text);
+                ord.ToUpperUser = LowerLogin.FullSubUser.BelongsToUpperUser;
+                ord.Rejected = false;
+                ord.ItemName = nameBox.Text;
+                cashedOrders.Add(ord);
 
             }
         }
