@@ -197,6 +197,18 @@ namespace WebServ1
             }
             return null;
         }
+        [WebMethod]
+        ///<summary>
+        ///takes an order and adds it to the db, extra verubles for sequrity
+        /// מקבל הזמנה ומוסיף אותה לטבלה המשתנים הנוספים לאבטחה
+        /// </summary>
+        /// <returns>
+        /// מחזיר את האיי די של ההזמנה החדשה
+        /// </returns>
+        public int addOrder(Order order ,SubUser subUser)
+        {
+            return 0;
+        }
     }
 }
 

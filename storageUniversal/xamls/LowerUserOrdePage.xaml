@@ -6,23 +6,49 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:data="using:storageUniversal"
+    xmlns:serv="using:storageUniversal.SubUserServ"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40"></ColumnDefinition>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
-            <RowDefinition/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Button Grid.Row="0" Grid.Column="0" Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
-        <ListView x:Name="NamesList" Grid.Column="1" Grid.Row="1">
+        <ListView x:Name="NamesList" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="2">
             <ListView.ItemTemplate>
                 <DataTemplate x:Name="DataTemp" x:DataType="data:InventoryRow">
-                    <TextBlock Text ="{Binding Name}"></TextBlock>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text ="{Binding Name}"></TextBlock>
+                        
+                    <Button Grid.Column="1" x:Name="requstBut" Click="RequstBut_Click">requst item</Button>
+                        <TextBlock Text="{Binding ID}" Visibility="Collapsed"></TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ListView Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" x:Name="shoppingCart">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="serv:Order">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="{Binding ItemName}"></TextBlock>
+                    <TextBlock Grid.Column="1" Text="{Binding Amount}"></TextBlock>
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

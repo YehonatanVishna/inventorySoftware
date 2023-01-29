@@ -5,6 +5,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Windows.Input;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -26,6 +27,7 @@ namespace storageUniversal.xamls
     {
         private SubUserServ.SubUsersServSoapClient SubServ = new SubUserServ.SubUsersServSoapClient();
         private ObservableCollection<InventoryRow> BindedRowesInList = new ObservableCollection<InventoryRow>();
+        private static ObservableCollection<SubUserServ.Order> cashedOrders = new ObservableCollection<SubUserServ.Order>();
         public LowerUserOrdePage()
         {
             this.InitializeComponent();
@@ -54,6 +56,47 @@ namespace storageUniversal.xamls
             if (frame.CanGoBack)
             {
                 frame.GoBack();
+            }
+        }
+
+        private async void RequstBut_Click(object sender, RoutedEventArgs e)
+        {
+            Grid grid = (sender as Button).Parent as Grid;
+            InventoryRow item = new InventoryRow();
+            foreach(var row in BindedRowesInList)
+            {
+                if(row.ID == int.Parse((grid.Children.Last() as TextBlock).Text))
+                {
+                    item = row;
+                    break;
+                }
+            }
+            var requstDetailes = new ContentDialog() { Title = "Insert the desiered amount of " + item.Name , CloseButtonText = "apply and add", SecondaryButtonText = "cancel"};
+            Grid getRequstDitailes = new Grid();
+            var amount = new TextBox() { PlaceholderText = "desiered amount of " + item.Name };
+            getRequstDitailes.Children.Add(amount);
+            requstDetailes.Content = getRequstDitailes;
+            requstDetailes.SecondaryButtonCommand = new addOrdToCash();
+            SubUserServ.Order order = new SubUserServ.Order();
+            requstDetailes.SecondaryButtonCommandParameter = amount;
+            await requstDetailes.ShowAsync();
+
+        }
+        class addOrdToCash : ICommand
+        {
+            public event EventHandler CanExecuteChanged;
+
+            public bool CanExecute(object parameter)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void Execute(object parameter)
+            {
+                var amount = parameter as TextBox;
+                var ord= new SubUserServ.Order() { Amount = float.Parse(amount.Text), Aproved = false, BySubUser = LowerLogin.FullSubUser.Id, ItemId = item.ID, ToUpperUser = LowerLogin.FullSubUser.BelongsToUpperUser, Rejected = false, ItemName = item.Name };
+
+
             }
         }
     }

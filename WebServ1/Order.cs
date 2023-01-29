@@ -15,6 +15,7 @@ namespace WebServ1
         private bool aproved;
         private bool rejected;
         private string remarkes;
+        private string itemName;
         public Order()
         {
 
@@ -28,5 +29,6 @@ namespace WebServ1
         public bool Aproved { get => aproved; set => aproved = value; }
         public bool Rejected { get => rejected; set => rejected = value; }
         public string Remarkes { get => remarkes; set => remarkes = value; }
+        public string ItemName { get => itemName; set => itemName = value; }
     }
 }

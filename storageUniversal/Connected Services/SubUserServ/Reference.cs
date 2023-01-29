@@ -42,6 +42,10 @@ namespace storageUniversal.SubUserServ {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/getLimitedSubUserInventoryList", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Threading.Tasks.Task<System.Data.DataTable> getLimitedSubUserInventoryListAsync(storageUniversal.SubUserServ.SubUser subUser);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/addOrder", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Threading.Tasks.Task<int> addOrderAsync(storageUniversal.SubUserServ.Order order, storageUniversal.SubUserServ.SubUser subUser);
     }
     
     /// <remarks/>
@@ -159,6 +163,148 @@ namespace storageUniversal.SubUserServ {
             set {
                 this.userNameField = value;
                 this.RaisePropertyChanged("UserName");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class Order : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private int idField;
+        
+        private int bySubUserField;
+        
+        private int itemIdField;
+        
+        private float amountField;
+        
+        private int toUpperUserField;
+        
+        private bool aprovedField;
+        
+        private bool rejectedField;
+        
+        private string remarkesField;
+        
+        private string itemNameField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public int ID {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+                this.RaisePropertyChanged("ID");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public int BySubUser {
+            get {
+                return this.bySubUserField;
+            }
+            set {
+                this.bySubUserField = value;
+                this.RaisePropertyChanged("BySubUser");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public int ItemId {
+            get {
+                return this.itemIdField;
+            }
+            set {
+                this.itemIdField = value;
+                this.RaisePropertyChanged("ItemId");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public float Amount {
+            get {
+                return this.amountField;
+            }
+            set {
+                this.amountField = value;
+                this.RaisePropertyChanged("Amount");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
+        public int ToUpperUser {
+            get {
+                return this.toUpperUserField;
+            }
+            set {
+                this.toUpperUserField = value;
+                this.RaisePropertyChanged("ToUpperUser");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
+        public bool Aproved {
+            get {
+                return this.aprovedField;
+            }
+            set {
+                this.aprovedField = value;
+                this.RaisePropertyChanged("Aproved");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
+        public bool Rejected {
+            get {
+                return this.rejectedField;
+            }
+            set {
+                this.rejectedField = value;
+                this.RaisePropertyChanged("Rejected");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=7)]
+        public string Remarkes {
+            get {
+                return this.remarkesField;
+            }
+            set {
+                this.remarkesField = value;
+                this.RaisePropertyChanged("Remarkes");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=8)]
+        public string ItemName {
+            get {
+                return this.itemNameField;
+            }
+            set {
+                this.itemNameField = value;
+                this.RaisePropertyChanged("ItemName");
             }
         }
         
@@ -351,6 +497,10 @@ namespace storageUniversal.SubUserServ {
         
         public System.Threading.Tasks.Task<System.Data.DataTable> getLimitedSubUserInventoryListAsync(storageUniversal.SubUserServ.SubUser subUser) {
             return base.Channel.getLimitedSubUserInventoryListAsync(subUser);
+        }
+        
+        public System.Threading.Tasks.Task<int> addOrderAsync(storageUniversal.SubUserServ.Order order, storageUniversal.SubUserServ.SubUser subUser) {
+            return base.Channel.addOrderAsync(order, subUser);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync() {
