@@ -112,5 +112,35 @@ namespace storageUniversal.xamls
 
             }
         }
+
+        private async void PlaceOrderButton_Click(object sender, RoutedEventArgs e)
+        {
+            var serv = new SubUserServ.SubUsersServSoapClient();
+            bool isok = true;
+            var ids = new List<int>();
+            foreach(SubUserServ.Order order in cashedOrders)
+            {
+                try
+                {
+                    ids.Add(await serv.addOrderAsync(order, LowerLogin.FullSubUser));
+                    isok = isok && true;
+                }
+                catch
+                {
+                    isok = isok && false;
+                }
+            }
+            if (isok)
+            {
+                var sucsses = new ContentDialog() { Title = "Your order has been placed secsussfully", CloseButtonText = "ok" };
+                await sucsses.ShowAsync();
+            }
+            else
+            {
+                var fail = new ContentDialog() { Title = "We Have Encontered a Problem", Content = "one or more of the items you tried to order wasn't orderd correctly", CloseButtonText = "ok" };
+                await fail.ShowAsync();
+            }
+
+        }
     }
 }

@@ -134,14 +134,10 @@ namespace WebServ1
         private bool doesSubBelongToThisUser(int id, User user)
         {
             var con = new Connection(constr);
-            var ds = con.GetDataSet("p", "Select * from SubUsers where ID = " + id + ";");
+            string q = "Select * from SubUsers where ID = " + id + ";";
+            var ds = con.GetDataSet("p", q);
             var usdb = new UserDBServ();
-            if (usdb.IsUserPermitted(user))
-            {
-                var sequreUser = usdb.GetFullUser(user);
-                return int.Parse(ds.Tables[0].Rows[0]["BelongsToUpperUser"].ToString()) == sequreUser.ID;
-            }
-            return false;
+            return int.Parse(ds.Tables[0].Rows[0]["BelongsToUpperUser"].ToString()) == user.ID;
         }
         [WebMethod]
         ///<summary>
@@ -207,7 +203,42 @@ namespace WebServ1
         /// </returns>
         public int addOrder(Order order ,SubUser subUser)
         {
-            return 0;
+            if (DoesSubExists(subUser.UserName, subUser.Password))
+            {
+                if(doesSubBelongToThisUser(subUser.Id, new WebServ1.User() {ID = subUser.BelongsToUpperUser }))
+                {
+                    var con = new Connection(constr);
+                    var emptyDs = con.GetDataSet("1", "Select * from Orders where 1<0");
+                    var newDr = emptyDs.Tables[0].NewRow();
+                    newDr["BySubUser"] = subUser.Id;
+                    newDr["ItemId"] = order.ItemId;
+                    newDr["Amount"] = order.Amount;
+                    newDr["ToUpperUser"] = order.ToUpperUser;
+                    newDr["Aproved"] = "FALSE";
+                    newDr["Rejected"] = "FALSE";
+                    newDr["Remarks"] = order.Remarkes.ToString();
+                    newDr["ItemName"] = order.ItemName;
+                    con.Update(emptyDs);
+                    var updated = con.GetDataSet("1", "Select top 1 ID from Orders where BySubUser = " + subUser.Id + " AND ItemId = " + order.ItemId + " AND Amount = " + order.Amount + " AND ToUpperUser = "+ order.ToUpperUser + " ORDER BY ID DESC;");
+                    return int.Parse(updated.Tables[0].Rows[0][0].ToString());
+                }
+                else
+                {
+                    throw new UnauthorizedAccessException();
+                }
+            }
+            else
+            {
+                throw new UnauthorizedAccessException();
+            }
+        }
+
+        [WebMethod]
+        public int test()
+        {
+            var order = new Order() { Amount = 1, Aproved = false, BySubUser = 1, ItemId = 400, ItemName = "דליים", ToUpperUser = 20, Rejected = false, Remarkes=""};
+            var sub = new SubUser() { Id = 1, Password = "123", UserName = "yyy", BelongsToUpperUser = 20 }; 
+            return addOrder(order,sub);
         }
     }
 }

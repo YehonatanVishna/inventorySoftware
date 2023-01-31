@@ -63,10 +63,8 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="6*"/>
                         </Grid.ColumnDefinitions>
-                        <Frame Grid.Column="1" BorderThickness="1" BorderBrush="{ThemeResource SystemAccentColor}">
-                    <TextBlock  Text="{Binding ItemName}"></TextBlock>
-                        </Frame>
-                        <TextBlock Grid.Column="0" Text="{Binding Amount}"></TextBlock>
+                        <TextBlock Grid.Column="1"  Text="{Binding ItemName}"></TextBlock>
+                            <TextBlock Grid.Column="0" Text="{Binding Amount}"></TextBlock>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -77,5 +75,8 @@
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
+        <Button Grid.Column="2" Grid.Row="2" x:Name="placeOrderButton" Click="PlaceOrderButton_Click" HorizontalAlignment="Right" VerticalAlignment="Bottom" ToolTipService.ToolTip="place your order">
+            <SymbolIcon Symbol="Shop"></SymbolIcon>
+        </Button>
     </Grid>
 </Page>
