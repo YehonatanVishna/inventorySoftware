@@ -1,0 +1,36 @@
+﻿<Page
+    x:Class="storageUniversal.xamls.LowerUser.LowerSeeOrders"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:storageUniversal.xamls.LowerUser"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:storageUniversal.SubUserServ"
+    xmlns:cont="using:storageUniversal.visual_elements.controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40"></ColumnDefinition>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button x:Name="back" Grid.Column="0" Grid.Row="0" Click="Back_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
+        <ListView x:Name="Orders">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="data:Order">
+                        <VariableSizedWrapGrid>
+                        <TextBlock Text="{Binding ItemName}"></TextBlock>
+                        <TextBlock Text="{Binding  Amount}"></TextBlock>
+                        <cont:CheckBoolean IsTrue="{Binding Aproved}"></cont:CheckBoolean>
+                        <cont:CheckBoolean IsTrue="{Binding Rejected}"></cont:CheckBoolean>
+                    </VariableSizedWrapGrid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

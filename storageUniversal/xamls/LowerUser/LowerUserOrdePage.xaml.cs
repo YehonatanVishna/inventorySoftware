@@ -118,17 +118,19 @@ namespace storageUniversal.xamls
             var serv = new SubUserServ.SubUsersServSoapClient();
             bool isok = true;
             var ids = new List<int>();
-            foreach(SubUserServ.Order order in cashedOrders)
+            var usr = LowerLogin.FullSubUser;
+            foreach (SubUserServ.Order order in cashedOrders)
             {
-                try
-                {
-                    ids.Add(await serv.addOrderAsync(order, LowerLogin.FullSubUser));
+                //try
+                //{
+                int a = await serv.addOrderAsync(order, new SubUserServ.SubUser() { BelongsToUpperUser = 1, UserName = "dd", Password = "222" });
+                    ids.Add(await serv.addOrderAsync(order, new SubUserServ.SubUser() { UserName= usr.UserName, Password = usr.Password, BelongsToUpperUser = usr.BelongsToUpperUser, Id = usr.Id}));
                     isok = isok && true;
-                }
-                catch
-                {
-                    isok = isok && false;
-                }
+                //}
+                //catch
+                //{
+                //    isok = isok && false;
+                //}
             }
             if (isok)
             {

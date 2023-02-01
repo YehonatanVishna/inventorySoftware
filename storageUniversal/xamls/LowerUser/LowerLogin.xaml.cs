@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.Storage;
 using System.Windows.Input;
+using storageUniversal.xamls.LowerUser;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -70,7 +71,7 @@ namespace storageUniversal.xamls
             {
                 var sucsuss = new ContentDialog() { Title = "hello " + FullSubUser.FName + " " + FullSubUser.LName, CloseButtonText = "ok" };
                 await sucsuss.ShowAsync();
-                frame.Frame.Navigate(typeof(LowerUserOrdePage));
+                frame.Frame.Navigate(typeof(LowerUserHome));
 
             }
             else
@@ -109,7 +110,7 @@ namespace storageUniversal.xamls
                     localSettings.Values["Sub_Password"] = FullSubUser.Password;
                     localSettings.Values["Is_SubUser_saved"] = true.ToString();
                 }
-                Frame.Navigate(typeof(LowerUserOrdePage));
+                Frame.Navigate(typeof(LowerUserHome));
             }
             else
             {

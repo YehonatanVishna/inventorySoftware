@@ -126,19 +126,28 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="visual elements\controls\CheckBoolean.xaml.cs">
+      <DependentUpon>CheckBoolean.xaml</DependentUpon>
+    </Compile>
     <Compile Include="visual elements\controls\PasswordWithCheck.xaml.cs">
       <DependentUpon>PasswordWithCheck.xaml</DependentUpon>
     </Compile>
     <Compile Include="xamls\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
-    <Compile Include="xamls\AdminPanel.xaml.cs">
+    <Compile Include="xamls\LowerUser\LowerSeeOrders.xaml.cs">
+      <DependentUpon>LowerSeeOrders.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="xamls\LowerUser\LowerUserHome.xaml.cs">
+      <DependentUpon>LowerUserHome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="xamls\UpperUser\AdminPanel.xaml.cs">
       <DependentUpon>AdminPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="xamls\BrowwingsAndDistractions.xaml.cs">
+    <Compile Include="xamls\UpperUser\BrowwingsAndDistractions.xaml.cs">
       <DependentUpon>BrowwingsAndDistractions.xaml</DependentUpon>
     </Compile>
     <Compile Include="Connected Services\BorowwDb\Reference.cs">
@@ -157,36 +166,36 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="codes\InventoryRow.cs" />
-    <Compile Include="xamls\InventoryView.xaml.cs">
+    <Compile Include="xamls\UpperUser\InventoryView.xaml.cs">
       <DependentUpon>InventoryView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="xamls\LowerLogin.xaml.cs">
+    <Compile Include="xamls\LowerUser\LowerLogin.xaml.cs">
       <DependentUpon>LowerLogin.xaml</DependentUpon>
     </Compile>
-    <Compile Include="xamls\LowerUserOrdePage.xaml.cs">
+    <Compile Include="xamls\LowerUser\LowerUserOrdePage.xaml.cs">
       <DependentUpon>LowerUserOrdePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="xamls\UpperLogin.xaml.cs">
+    <Compile Include="xamls\UpperUser\UpperLogin.xaml.cs">
       <DependentUpon>UpperLogin.xaml</DependentUpon>
     </Compile>
     <Compile Include="xamls\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="xamls\Register.xaml.cs">
+    <Compile Include="xamls\UpperUser\Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
     </Compile>
-    <Compile Include="xamls\SubUsersManegment.xaml.cs">
+    <Compile Include="xamls\UpperUser\SubUsersManegment.xaml.cs">
       <DependentUpon>SubUsersManegment.xaml</DependentUpon>
     </Compile>
-    <Compile Include="xamls\updateUser.xaml.cs">
+    <Compile Include="xamls\UpperUser\updateUser.xaml.cs">
       <DependentUpon>updateUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="codes\User.cs" />
-    <Compile Include="xamls\UpperUserHomePage.xaml.cs">
+    <Compile Include="xamls\UpperUser\UpperUserHomePage.xaml.cs">
       <DependentUpon>UpperUserHomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="xamls\UpperUserStartScreen.xaml.cs">
+    <Compile Include="xamls\UpperUser\UpperUserStartScreen.xaml.cs">
       <DependentUpon>UpperUserStartScreen.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -253,6 +262,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="visual elements\controls\CheckBoolean.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="visual elements\controls\PasswordWithCheck.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -261,27 +274,35 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="xamls\AdminPanel.xaml">
+    <Page Include="xamls\LowerUser\LowerSeeOrders.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="xamls\BrowwingsAndDistractions.xaml">
+    <Page Include="xamls\LowerUser\LowerUserHome.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="xamls\InventoryView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="xamls\LowerLogin.xaml">
+    <Page Include="xamls\UpperUser\AdminPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="xamls\LowerUserOrdePage.xaml">
+    <Page Include="xamls\UpperUser\BrowwingsAndDistractions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="xamls\UpperLogin.xaml">
+    <Page Include="xamls\UpperUser\InventoryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="xamls\LowerUser\LowerLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="xamls\LowerUser\LowerUserOrdePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="xamls\UpperUser\UpperLogin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -289,23 +310,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="xamls\Register.xaml">
+    <Page Include="xamls\UpperUser\Register.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="xamls\SubUsersManegment.xaml">
+    <Page Include="xamls\UpperUser\SubUsersManegment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="xamls\updateUser.xaml">
+    <Page Include="xamls\UpperUser\updateUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="xamls\UpperUserHomePage.xaml">
+    <Page Include="xamls\UpperUser\UpperUserHomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="xamls\UpperUserStartScreen.xaml">
+    <Page Include="xamls\UpperUser\UpperUserStartScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

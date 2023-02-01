@@ -14,7 +14,7 @@ namespace WebServ1
         private int toUpperUser;
         private bool aproved;
         private bool rejected;
-        private string remarkes;
+        private string remarkes= "";
         private string itemName;
         public Order()
         {

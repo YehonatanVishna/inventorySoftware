@@ -216,30 +216,37 @@ namespace WebServ1
                     newDr["ToUpperUser"] = order.ToUpperUser;
                     newDr["Aproved"] = "FALSE";
                     newDr["Rejected"] = "FALSE";
-                    newDr["Remarks"] = order.Remarkes.ToString();
+                    if(order.Remarkes != null)
+                    {
+                        newDr["Remarks"] = order.Remarkes.ToString();
+                    }
+                    
                     newDr["ItemName"] = order.ItemName;
-                    con.Update(emptyDs);
+                    con.InsertDataRow(newDr);
                     var updated = con.GetDataSet("1", "Select top 1 ID from Orders where BySubUser = " + subUser.Id + " AND ItemId = " + order.ItemId + " AND Amount = " + order.Amount + " AND ToUpperUser = "+ order.ToUpperUser + " ORDER BY ID DESC;");
                     return int.Parse(updated.Tables[0].Rows[0][0].ToString());
                 }
                 else
                 {
-                    throw new UnauthorizedAccessException();
+                    //throw new UnauthorizedAccessException();
+                    return -1;
                 }
             }
             else
             {
-                throw new UnauthorizedAccessException();
+                //throw new UnauthorizedAccessException();
+                return -2;
             }
         }
 
         [WebMethod]
-        public int test()
-        {
-            var order = new Order() { Amount = 1, Aproved = false, BySubUser = 1, ItemId = 400, ItemName = "דליים", ToUpperUser = 20, Rejected = false, Remarkes=""};
-            var sub = new SubUser() { Id = 1, Password = "123", UserName = "yyy", BelongsToUpperUser = 20 }; 
-            return addOrder(order,sub);
-        }
+        ///<summary>
+        ///get all users orders
+        /// מוציא טבלה עם כל ההזמנות של המשתמש
+        /// </summary>
+        /// <returns>
+        /// מחזיר את האיי די של ההזמנה החדשה
+        /// </returns>
     }
 }
 
