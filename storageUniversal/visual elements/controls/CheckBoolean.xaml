@@ -10,6 +10,6 @@
     d:DesignWidth="400">
 
     <Grid>
-        <SymbolIcon Symbol="{x:Bind icon}"></SymbolIcon>
+        <TextBlock Text="{x:Bind icon, Mode=TwoWay}"/>
     </Grid>
 </UserControl>

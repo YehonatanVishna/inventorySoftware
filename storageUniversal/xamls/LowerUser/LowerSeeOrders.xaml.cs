@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -22,9 +24,13 @@ namespace storageUniversal.xamls.LowerUser
     /// </summary>
     public sealed partial class LowerSeeOrders : Page
     {
+        public static ObservableCollection<SubUserServ.Order> BindedOrders = new ObservableCollection<SubUserServ.Order>();
         public LowerSeeOrders()
         {
             this.InitializeComponent();
+            LoadTable();
+            
+            
         }
         // מגיב ללחיצה על כפתור החזרה, מחזיר את המשתמש למסך הקודם
         //go back to previus page
@@ -35,6 +41,27 @@ namespace storageUniversal.xamls.LowerUser
             {
                 frame.GoBack();
             }
+        }
+        public async void LoadTable()
+        {
+            var serv = new SubUserServ.SubUsersServSoapClient();
+            var tbl = await serv.getOrdersAsync(LowerLogin.FullSubUser);
+            foreach(DataRow row in tbl.Rows)
+            {
+                var order = new SubUserServ.Order();
+                order.Amount = float.Parse(row["Amount"].ToString());
+                order.ID = int.Parse(row["ID"].ToString());
+                order.ItemId = int.Parse(row["ItemId"].ToString());
+                order.BySubUser = int.Parse(row["BySubUser"].ToString());
+                order.ToUpperUser = int.Parse(row["ToUpperUser"].ToString());
+                order.Aproved = bool.Parse(row["Aproved"].ToString());
+                order.Rejected = bool.Parse(row["Rejected"].ToString());
+                order.Remarkes = row["Remarks"].ToString();
+                order.ItemName = row["ItemName"].ToString();
+                BindedOrders.Add(order);
+            }
+            OrdersTbl.ItemsSource = BindedOrders;
+            
         }
     }
 }

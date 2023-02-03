@@ -25,13 +25,14 @@ namespace storageUniversal.visual_elements.controls
             {
                 if (IsTrue)
                 {
-                    return "Clear";
+                    return "Accept";
                 }
-                return "Accept";
+                return "Clear";
             }
+            set { }
         }
 
-        public bool IsTrue { get => isTrue; set => isTrue = value; }
+        //public bool IsTrue { get => isTrue; set => isTrue = value; }
 
         private bool isTrue;
         public CheckBoolean()
@@ -40,6 +41,11 @@ namespace storageUniversal.visual_elements.controls
         }
         public static readonly DependencyProperty BoolProp =
   DependencyProperty.Register(nameof(IsTrue), typeof(Boolean),
-    typeof(CheckBoolean), new PropertyMetadata(string.Empty));
+    typeof(CheckBoolean), new PropertyMetadata(true));
+        public bool IsTrue
+        {
+            get { return bool.Parse( GetValue(BoolProp).ToString()); }
+            set { SetValue(BoolProp, value); }
+        }
     }
 }

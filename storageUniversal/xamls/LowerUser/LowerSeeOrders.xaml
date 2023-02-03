@@ -20,17 +20,29 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Button x:Name="back" Grid.Column="0" Grid.Row="0" Click="Back_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
-        <ListView x:Name="Orders">
+        <ListView Grid.Column="1" Grid.Row="1" x:Name="OrdersTbl" ItemsSource="{x:Bind local:LowerSeeOrders.BindedOrders}">
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="data:Order">
-                        <VariableSizedWrapGrid>
-                        <TextBlock Text="{Binding ItemName}"></TextBlock>
-                        <TextBlock Text="{Binding  Amount}"></TextBlock>
-                        <cont:CheckBoolean IsTrue="{Binding Aproved}"></cont:CheckBoolean>
-                        <cont:CheckBoolean IsTrue="{Binding Rejected}"></cont:CheckBoolean>
-                    </VariableSizedWrapGrid>
+                <DataTemplate >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{Binding ItemName}"></TextBlock>
+                        <TextBlock Grid.Column="1" Text="{Binding  Amount}"></TextBlock>
+                        <cont:CheckBoolean Grid.Column="2" IsTrue="{Binding Aproved, Mode=TwoWay}"></cont:CheckBoolean>
+                        <cont:CheckBoolean Grid.Column="3" IsTrue="{Binding Rejected, Mode=TwoWay}"></cont:CheckBoolean>
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment"  Value="Stretch"></Setter>
+                    <Setter Property="HorizontalAlignment"  Value="Stretch"></Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
         </ListView>
     </Grid>
 </Page>

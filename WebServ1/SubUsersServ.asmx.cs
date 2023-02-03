@@ -245,8 +245,23 @@ namespace WebServ1
         /// מוציא טבלה עם כל ההזמנות של המשתמש
         /// </summary>
         /// <returns>
-        /// מחזיר את האיי די של ההזמנה החדשה
+        ///returns a datatable with all the user's orders.
         /// </returns>
+        public DataTable getOrders(SubUser user)
+        {
+            if (DoesSubExists(user.UserName,user.Password))
+            {
+                var sequrUser = GetFullUser(user);
+                var con = new Connection(constr);
+                DataSet ds = con.GetDataSet("orders", "Select * From Orders where ID = " + sequrUser.Id + " ;");
+                return ds.Tables[0];
+            }
+            else
+            {
+                throw new UnauthorizedAccessException();
+            }
+        }
+
     }
 }
 

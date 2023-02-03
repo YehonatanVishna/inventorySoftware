@@ -35,7 +35,7 @@ namespace storageUniversal.xamls.LowerUser
 
         private void OrderedItems_Click(object sender, RoutedEventArgs e)
         {
-
+            Frame.Navigate(typeof(LowerSeeOrders));
         }
         // מגיב ללחיצה על כפתור החזרה, מחזיר את המשתמש למסך הקודם
         //go back to previus page

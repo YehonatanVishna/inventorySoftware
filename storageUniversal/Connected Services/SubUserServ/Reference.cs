@@ -47,9 +47,9 @@ namespace storageUniversal.SubUserServ {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Threading.Tasks.Task<int> addOrderAsync(storageUniversal.SubUserServ.Order order, storageUniversal.SubUserServ.SubUser subUser);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/test", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/getOrders", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Threading.Tasks.Task<int> testAsync();
+        System.Threading.Tasks.Task<System.Data.DataTable> getOrdersAsync(storageUniversal.SubUserServ.SubUser user);
     }
     
     /// <remarks/>
@@ -507,8 +507,8 @@ namespace storageUniversal.SubUserServ {
             return base.Channel.addOrderAsync(order, subUser);
         }
         
-        public System.Threading.Tasks.Task<int> testAsync() {
-            return base.Channel.testAsync();
+        public System.Threading.Tasks.Task<System.Data.DataTable> getOrdersAsync(storageUniversal.SubUserServ.SubUser user) {
+            return base.Channel.getOrdersAsync(user);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync() {
