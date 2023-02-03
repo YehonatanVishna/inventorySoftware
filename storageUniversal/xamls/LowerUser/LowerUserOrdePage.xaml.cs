@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace storageUniversal.xamls
@@ -30,10 +31,12 @@ namespace storageUniversal.xamls
         private static ObservableCollection<SubUserServ.Order> cashedOrders = new ObservableCollection<SubUserServ.Order>();
         public LowerUserOrdePage()
         {
+            
             this.InitializeComponent();
             NamesList.ItemsSource = BindedRowesInList;
             shoppingCart.ItemsSource = cashedOrders;
             LoadList();
+            
         }
         //טוען את הטבלה על ידי לקיחת השמות ממסד הנתונים והשמתם במשתנה הטבלה
         private async void LoadList()

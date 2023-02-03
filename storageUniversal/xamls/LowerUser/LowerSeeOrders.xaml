@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:data="using:storageUniversal.SubUserServ"
     xmlns:cont="using:storageUniversal.visual_elements.controls"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -20,29 +21,18 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Button x:Name="back" Grid.Column="0" Grid.Row="0" Click="Back_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
-        <ListView Grid.Column="1" Grid.Row="1" x:Name="OrdersTbl" ItemsSource="{x:Bind local:LowerSeeOrders.BindedOrders}">
-            <ListView.ItemTemplate>
-                <DataTemplate >
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{Binding ItemName}"></TextBlock>
-                        <TextBlock Grid.Column="1" Text="{Binding  Amount}"></TextBlock>
-                        <cont:CheckBoolean Grid.Column="2" IsTrue="{Binding Aproved, Mode=TwoWay}"></cont:CheckBoolean>
-                        <cont:CheckBoolean Grid.Column="3" IsTrue="{Binding Rejected, Mode=TwoWay}"></cont:CheckBoolean>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment"  Value="Stretch"></Setter>
-                    <Setter Property="HorizontalAlignment"  Value="Stretch"></Setter>
-                </Style>
-            </ListView.ItemContainerStyle>
-        </ListView>
+        <controls:DataGrid Grid.Column="1" Grid.Row="1" x:Name="tbl" 
+    AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True"
+    ItemsSource="{x:Bind local:LowerSeeOrders.BindedOrders}" >
+            <controls:DataGrid.Columns>
+                <controls:DataGridTextColumn Header="item name" Binding="{Binding ItemName}"/>
+                <controls:DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
+                <controls:DataGridCheckBoxColumn Header="Aproved?" Binding="{Binding Aproved}"/>
+                <controls:DataGridCheckBoxColumn Header="Rejected?" Binding="{Binding Rejected}"/>
+                <controls:DataGridTextColumn Header="Remarkes" Binding="{Binding Remarkes}"/>
+            </controls:DataGrid.Columns>
+        </controls:DataGrid>
+
     </Grid>
+
 </Page>

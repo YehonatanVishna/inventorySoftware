@@ -253,7 +253,7 @@ namespace WebServ1
             {
                 var sequrUser = GetFullUser(user);
                 var con = new Connection(constr);
-                DataSet ds = con.GetDataSet("orders", "Select * From Orders where ID = " + sequrUser.Id + " ;");
+                DataSet ds = con.GetDataSet("orders", "Select * From Orders where BySubUser = " + sequrUser.Id + " ;");
                 return ds.Tables[0];
             }
             else

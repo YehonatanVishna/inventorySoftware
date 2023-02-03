@@ -45,10 +45,11 @@ namespace storageUniversal.xamls.LowerUser
         public async void LoadTable()
         {
             var serv = new SubUserServ.SubUsersServSoapClient();
-            var tbl = await serv.getOrdersAsync(LowerLogin.FullSubUser);
-            foreach(DataRow row in tbl.Rows)
+            var tbldata = await serv.getOrdersAsync(LowerLogin.FullSubUser);
+            foreach (DataRow row in tbldata.Rows)
             {
                 var order = new SubUserServ.Order();
+                order.ItemName = row["ItemName"].ToString();
                 order.Amount = float.Parse(row["Amount"].ToString());
                 order.ID = int.Parse(row["ID"].ToString());
                 order.ItemId = int.Parse(row["ItemId"].ToString());
@@ -57,11 +58,13 @@ namespace storageUniversal.xamls.LowerUser
                 order.Aproved = bool.Parse(row["Aproved"].ToString());
                 order.Rejected = bool.Parse(row["Rejected"].ToString());
                 order.Remarkes = row["Remarks"].ToString();
-                order.ItemName = row["ItemName"].ToString();
+                
                 BindedOrders.Add(order);
             }
-            OrdersTbl.ItemsSource = BindedOrders;
-            
+            //OrdersTbl.ItemsSource = BindedOrders;
+            tbl.ItemsSource = BindedOrders.ToList();
+            //tbl.ItemsSource = tbldata.Rows;
+
         }
     }
 }
