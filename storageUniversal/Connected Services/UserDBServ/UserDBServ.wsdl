@@ -174,6 +174,27 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="getUpperOrders">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="tns:User" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getUpperOrdersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getUpperOrdersResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="regSoapIn">
@@ -242,6 +263,12 @@
   <wsdl:message name="DoesEmailExistSoapOut">
     <wsdl:part name="parameters" element="tns:DoesEmailExistResponse" />
   </wsdl:message>
+  <wsdl:message name="getUpperOrdersSoapIn">
+    <wsdl:part name="parameters" element="tns:getUpperOrders" />
+  </wsdl:message>
+  <wsdl:message name="getUpperOrdersSoapOut">
+    <wsdl:part name="parameters" element="tns:getUpperOrdersResponse" />
+  </wsdl:message>
   <wsdl:portType name="UserDBServSoap">
     <wsdl:operation name="reg">
       <wsdl:input message="tns:regSoapIn" />
@@ -286,6 +313,10 @@
     <wsdl:operation name="DoesEmailExist">
       <wsdl:input message="tns:DoesEmailExistSoapIn" />
       <wsdl:output message="tns:DoesEmailExistSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getUpperOrders">
+      <wsdl:input message="tns:getUpperOrdersSoapIn" />
+      <wsdl:output message="tns:getUpperOrdersSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="UserDBServSoap" type="tns:UserDBServSoap">
@@ -389,6 +420,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="getUpperOrders">
+      <soap:operation soapAction="http://tempuri.org/getUpperOrders" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="UserDBServSoap12" type="tns:UserDBServSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -484,6 +524,15 @@
     </wsdl:operation>
     <wsdl:operation name="DoesEmailExist">
       <soap12:operation soapAction="http://tempuri.org/DoesEmailExist" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUpperOrders">
+      <soap12:operation soapAction="http://tempuri.org/getUpperOrders" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

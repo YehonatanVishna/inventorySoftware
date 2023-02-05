@@ -50,6 +50,14 @@ namespace storageUniversal.SubUserServ {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/getOrders", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Threading.Tasks.Task<System.Data.DataTable> getOrdersAsync(storageUniversal.SubUserServ.SubUser user);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetYourSubUser", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Threading.Tasks.Task<storageUniversal.SubUserServ.SubUser> GetYourSubUserAsync(storageUniversal.SubUserServ.User user, int SubUserID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UpdateOrderByUpperUser", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Threading.Tasks.Task<bool> UpdateOrderByUpperUserAsync(storageUniversal.SubUserServ.User user, storageUniversal.SubUserServ.Order order);
     }
     
     /// <remarks/>
@@ -204,6 +212,8 @@ namespace storageUniversal.SubUserServ {
         
         private string itemNameField;
         
+        private System.DateTime orderDateField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public int ID {
@@ -309,6 +319,18 @@ namespace storageUniversal.SubUserServ {
             set {
                 this.itemNameField = value;
                 this.RaisePropertyChanged("ItemName");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=9)]
+        public System.DateTime OrderDate {
+            get {
+                return this.orderDateField;
+            }
+            set {
+                this.orderDateField = value;
+                this.RaisePropertyChanged("OrderDate");
             }
         }
         
@@ -509,6 +531,14 @@ namespace storageUniversal.SubUserServ {
         
         public System.Threading.Tasks.Task<System.Data.DataTable> getOrdersAsync(storageUniversal.SubUserServ.SubUser user) {
             return base.Channel.getOrdersAsync(user);
+        }
+        
+        public System.Threading.Tasks.Task<storageUniversal.SubUserServ.SubUser> GetYourSubUserAsync(storageUniversal.SubUserServ.User user, int SubUserID) {
+            return base.Channel.GetYourSubUserAsync(user, SubUserID);
+        }
+        
+        public System.Threading.Tasks.Task<bool> UpdateOrderByUpperUserAsync(storageUniversal.SubUserServ.User user, storageUniversal.SubUserServ.Order order) {
+            return base.Channel.UpdateOrderByUpperUserAsync(user, order);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync() {

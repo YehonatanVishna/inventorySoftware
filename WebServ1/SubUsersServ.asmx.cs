@@ -82,7 +82,7 @@ namespace WebServ1
                 {
                     if (doesUserNameAlredyInUse(subUser.Id, subUser.UserName))
                     {
-                        throw new InvalidOperationException("the user name is alredy in use, use a diffrent one");
+                        throw new InvalidOperationException("the user "+ subUser.UserName +" name is alredy in use, use a diffrent one");
                     }
                     ds.Tables[0].Rows[0]["BelongsToUpperUser"] = subUser.BelongsToUpperUser;
                     ds.Tables[0].Rows[0]["FName"] = subUser.FName;
@@ -115,7 +115,8 @@ namespace WebServ1
         /// </summary>
         public bool DeleteSubUser(User UpUser, int id)
         {
-            if (doesSubBelongToThisUser(id, UpUser)) { 
+            if (doesSubBelongToThisUser(id, UpUser))
+            {
                 try
                 {
                     Connection con = new Connection(constr);
@@ -146,7 +147,7 @@ namespace WebServ1
         /// </summary>
         public SubUser GetFullUser(SubUser user)
         {
-            if(DoesSubExists(user.UserName, user.Password))
+            if (DoesSubExists(user.UserName, user.Password))
             {
                 var con = new Connection(constr);
                 var ds = con.GetDataSet("0", "Select top 1 * from SubUsers where UserName = '" + user.UserName + "' AND Password = '" + user.Password + "' ;");
@@ -171,7 +172,7 @@ namespace WebServ1
         private bool DoesSubExists(string userName, string password)
         {
             var con = new Connection(constr);
-            var ds = con.GetDataSet("0", "Select top 1 * from SubUsers where UserName = '" + userName + "' AND Password = '"+ password + "' ;");
+            var ds = con.GetDataSet("0", "Select top 1 * from SubUsers where UserName = '" + userName + "' AND Password = '" + password + "' ;");
             try
             {
                 return ds.Tables[0].Rows[0][0] != null;
@@ -185,7 +186,7 @@ namespace WebServ1
         /// </summary>
         public DataTable getLimitedSubUserInventoryList(SubUser subUser)
         {
-            if(DoesSubExists(subUser.UserName, subUser.Password))
+            if (DoesSubExists(subUser.UserName, subUser.Password))
             {
                 var con = new Connection(constr);
                 var ds = con.GetDataSet("items", "select ID, Name from Inventory where OwnerUserId =" + subUser.BelongsToUpperUser.ToString() + ";");
@@ -201,11 +202,11 @@ namespace WebServ1
         /// <returns>
         /// מחזיר את האיי די של ההזמנה החדשה
         /// </returns>
-        public int addOrder(Order order ,SubUser subUser)
+        public int addOrder(Order order, SubUser subUser)
         {
             if (DoesSubExists(subUser.UserName, subUser.Password))
             {
-                if(doesSubBelongToThisUser(subUser.Id, new WebServ1.User() {ID = subUser.BelongsToUpperUser }))
+                if (doesSubBelongToThisUser(subUser.Id, new WebServ1.User() { ID = subUser.BelongsToUpperUser }))
                 {
                     var con = new Connection(constr);
                     var emptyDs = con.GetDataSet("1", "Select * from Orders where 1<0");
@@ -216,14 +217,15 @@ namespace WebServ1
                     newDr["ToUpperUser"] = order.ToUpperUser;
                     newDr["Aproved"] = "FALSE";
                     newDr["Rejected"] = "FALSE";
-                    if(order.Remarkes != null)
+                    if (order.Remarkes != null)
                     {
                         newDr["Remarks"] = order.Remarkes.ToString();
                     }
-                    
+                    newDr["OrderDate"] = DateTime.Now.ToString();
+
                     newDr["ItemName"] = order.ItemName;
                     con.InsertDataRow(newDr);
-                    var updated = con.GetDataSet("1", "Select top 1 ID from Orders where BySubUser = " + subUser.Id + " AND ItemId = " + order.ItemId + " AND Amount = " + order.Amount + " AND ToUpperUser = "+ order.ToUpperUser + " ORDER BY ID DESC;");
+                    var updated = con.GetDataSet("1", "Select top 1 ID from Orders where BySubUser = " + subUser.Id + " AND ItemId = " + order.ItemId + " AND Amount = " + order.Amount + " AND ToUpperUser = " + order.ToUpperUser + " ORDER BY ID DESC;");
                     return int.Parse(updated.Tables[0].Rows[0][0].ToString());
                 }
                 else
@@ -249,7 +251,7 @@ namespace WebServ1
         /// </returns>
         public DataTable getOrders(SubUser user)
         {
-            if (DoesSubExists(user.UserName,user.Password))
+            if (DoesSubExists(user.UserName, user.Password))
             {
                 var sequrUser = GetFullUser(user);
                 var con = new Connection(constr);
@@ -262,6 +264,90 @@ namespace WebServ1
             }
         }
 
+        [WebMethod]
+        ///<summary>
+        ///gives the upper user all the details of one of his subUsers based on his id
+        /// נותן למשתמש את כל הפרטים של המשמש שאת מספר הזיהוי שלו הוא נותן
+        /// </summary>
+        /// <returns>
+        ///returns the full SubUser.
+        /// </returns>
+        public SubUser GetYourSubUser(User user, int SubUserID)
+        {
+            var UserServ = new UserDBServ();
+            if (UserServ.IsUserPermitted(user))
+            {
+                if (doesSubBelongToThisUser(SubUserID, user))
+                {
+                    var con = new Connection(constr);
+                    var ds = con.GetDataSet("0", "Select top 1 * from SubUsers where ID = " + SubUserID + ";");
+                    var fullUser = new SubUser();
+                    fullUser.Id = int.Parse(ds.Tables[0].Rows[0]["ID"].ToString());
+                    fullUser.BelongsToUpperUser = int.Parse(ds.Tables[0].Rows[0]["BelongsToUpperUser"].ToString());
+                    fullUser.FName = ds.Tables[0].Rows[0]["FName"].ToString();
+                    fullUser.LName = ds.Tables[0].Rows[0]["LName"].ToString();
+                    fullUser.Role = ds.Tables[0].Rows[0]["Role"].ToString();
+                    fullUser.Email = ds.Tables[0].Rows[0]["Email"].ToString();
+                    fullUser.Password = ds.Tables[0].Rows[0]["Password"].ToString();
+                    fullUser.UserName = ds.Tables[0].Rows[0]["UserName"].ToString();
+                    return fullUser;
+                }
+            }
+            return null;
+        }
+        [WebMethod]
+        ///<summary>
+        ///takes an order and updates it
+        /// מעדכן הזמנה
+        /// </summary>
+        /// <returns>
+        ///returns whether the update procces was complited sucssesfuly
+        /// </returns>
+        public bool UpdateOrderByUpperUser(User user, Order order)
+        {
+            var UserServ = new UserDBServ();
+            if (UserServ.IsUserPermitted(user))
+            {
+                if (doesOrderBelongToThisUpperUser(order, user))
+                {
+                    try
+                    {
+                        var sequreUser = UserServ.GetFullUser(user);
+                        var con = new Connection(constr);
+                        var ds = con.GetDataSet("0", "Select * from Orders where ID = " + order.ID);
+                        ds.Tables[0].Rows[0]["Amount"] = order.Amount;
+                        ds.Tables[0].Rows[0]["Aproved"] = order.Aproved.ToString().ToUpper();
+                        ds.Tables[0].Rows[0]["Rejected"] = order.Rejected.ToString().ToUpper();
+                        ds.Tables[0].Rows[0]["Remarks"] = order.Remarkes.ToString();
+                        con.Update(ds);
+                        return true;
+                    }
+                    catch
+                    {
+                        return false;
+                    }
+                }
+            }
+            return false;
+
+        }
+
+        //בודק האם שורת הזמנה שייכת למשתמש עליון מסויים
+        private bool doesOrderBelongToThisUpperUser(Order order, User user)
+        {
+            var con = new Connection(constr);
+            var UserServ = new UserDBServ();
+            var sequreUser = UserServ.GetFullUser(user);
+            DataSet ds = con.GetDataSet("0", "Select * From Orders where ID = " + order.ID + ";");
+            try { 
+                bool result = int.Parse(ds.Tables[0].Rows[0]["ToUpperUser"].ToString()) == sequreUser.ID;
+                return result;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
 

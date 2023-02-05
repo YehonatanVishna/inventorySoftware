@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Core;
 using System.Collections.ObjectModel;
+using storageUniversal.xamls.UpperUser;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -173,6 +174,16 @@ namespace storageUniversal
                 await bdb.updateBorrowAsync(convert(old), convert(LandsTbl.Items[i] as codes.Borrow), user.Email, user.Password);
             }
             Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 1);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PendingOrders_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(UpperSeeOrders));
         }
     }
 }

@@ -18,7 +18,6 @@ namespace storageUniversal.codes
         private float borrowingId;
         private int userId;
         private string name;
-         private bool _isSelected;
 
         //הבנאי הראשי
         // Default constructor

@@ -16,6 +16,7 @@ namespace WebServ1
         private bool rejected;
         private string remarkes= "";
         private string itemName;
+        private DateTime orderDate;
         public Order()
         {
 
@@ -30,5 +31,11 @@ namespace WebServ1
         public bool Rejected { get => rejected; set => rejected = value; }
         public string Remarkes { get => remarkes; set => remarkes = value; }
         public string ItemName { get => itemName; set => itemName = value; }
+        public DateTime OrderDate { get => orderDate;
+            set
+            {
+                orderDate = value;
+            }
+            }
     }
 }

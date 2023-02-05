@@ -58,11 +58,15 @@ namespace storageUniversal.xamls.LowerUser
                 order.Aproved = bool.Parse(row["Aproved"].ToString());
                 order.Rejected = bool.Parse(row["Rejected"].ToString());
                 order.Remarkes = row["Remarks"].ToString();
+                if(DateTime.TryParse(row["OrderDate"].ToString(), out DateTime OrderDate))
+                {
+                    order.OrderDate = OrderDate;
+                }
                 
                 BindedOrders.Add(order);
             }
             //OrdersTbl.ItemsSource = BindedOrders;
-            tbl.ItemsSource = BindedOrders.ToList();
+            //tbl.ItemsSource = BindedOrders.ToList();
             //tbl.ItemsSource = tbldata.Rows;
 
         }

@@ -227,6 +227,29 @@ namespace WebServ1
                 return false;
             }
         }
+        [WebMethod]
+        ///<summary>
+        ///get all the orders sent to the Upper User
+        /// מוציא טבלה עם כל ההזמנות של המשתמשים הנמוכים השייכים למשתמש הגבוה
+        /// </summary>
+        /// <returns>
+        ///returns a datatable with all the orders sent to the Upper User.
+        /// </returns>
+        public DataTable getUpperOrders(User user)
+        {
+            var UpServ = new UserDBServ();
+            if (UpServ.IsUserPermitted(user))
+            {
+                var sequrUser = UpServ.GetFullUser(user);
+                var con = new Connection(constr);
+                DataSet ds = con.GetDataSet("orders", "Select * From Orders where ToUpperUser = " + sequrUser.ID + " ;");
+                return ds.Tables[0];
+            }
+            else
+            {
+                throw new UnauthorizedAccessException();
+            }
+        }
 
     }
 }

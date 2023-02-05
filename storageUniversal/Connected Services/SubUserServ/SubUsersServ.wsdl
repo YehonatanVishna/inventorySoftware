@@ -145,6 +145,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="Rejected" type="s:boolean" />
           <s:element minOccurs="0" maxOccurs="1" name="Remarkes" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="ItemName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderDate" type="s:dateTime" />
         </s:sequence>
       </s:complexType>
       <s:element name="addOrderResponse">
@@ -172,6 +173,36 @@
                 </s:sequence>
               </s:complexType>
             </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetYourSubUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="tns:User" />
+            <s:element minOccurs="1" maxOccurs="1" name="SubUserID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetYourSubUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetYourSubUserResult" type="tns:SubUser" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateOrderByUpperUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="tns:User" />
+            <s:element minOccurs="0" maxOccurs="1" name="order" type="tns:Order" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateOrderByUpperUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateOrderByUpperUserResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -225,6 +256,18 @@
   <wsdl:message name="getOrdersSoapOut">
     <wsdl:part name="parameters" element="tns:getOrdersResponse" />
   </wsdl:message>
+  <wsdl:message name="GetYourSubUserSoapIn">
+    <wsdl:part name="parameters" element="tns:GetYourSubUser" />
+  </wsdl:message>
+  <wsdl:message name="GetYourSubUserSoapOut">
+    <wsdl:part name="parameters" element="tns:GetYourSubUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateOrderByUpperUserSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateOrderByUpperUser" />
+  </wsdl:message>
+  <wsdl:message name="UpdateOrderByUpperUserSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateOrderByUpperUserResponse" />
+  </wsdl:message>
   <wsdl:portType name="SubUsersServSoap">
     <wsdl:operation name="createSubUser">
       <wsdl:input message="tns:createSubUserSoapIn" />
@@ -257,6 +300,14 @@
     <wsdl:operation name="getOrders">
       <wsdl:input message="tns:getOrdersSoapIn" />
       <wsdl:output message="tns:getOrdersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetYourSubUser">
+      <wsdl:input message="tns:GetYourSubUserSoapIn" />
+      <wsdl:output message="tns:GetYourSubUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOrderByUpperUser">
+      <wsdl:input message="tns:UpdateOrderByUpperUserSoapIn" />
+      <wsdl:output message="tns:UpdateOrderByUpperUserSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="SubUsersServSoap" type="tns:SubUsersServSoap">
@@ -333,6 +384,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetYourSubUser">
+      <soap:operation soapAction="http://tempuri.org/GetYourSubUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOrderByUpperUser">
+      <soap:operation soapAction="http://tempuri.org/UpdateOrderByUpperUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="SubUsersServSoap12" type="tns:SubUsersServSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -401,6 +470,24 @@
     </wsdl:operation>
     <wsdl:operation name="getOrders">
       <soap12:operation soapAction="http://tempuri.org/getOrders" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetYourSubUser">
+      <soap12:operation soapAction="http://tempuri.org/GetYourSubUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOrderByUpperUser">
+      <soap12:operation soapAction="http://tempuri.org/UpdateOrderByUpperUser" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

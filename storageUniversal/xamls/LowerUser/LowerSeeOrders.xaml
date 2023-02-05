@@ -30,6 +30,7 @@
                 <controls:DataGridCheckBoxColumn Header="Aproved?" Binding="{Binding Aproved}"/>
                 <controls:DataGridCheckBoxColumn Header="Rejected?" Binding="{Binding Rejected}"/>
                 <controls:DataGridTextColumn Header="Remarkes" Binding="{Binding Remarkes}"/>
+                <controls:DataGridTextColumn Header="date" Binding="{Binding OrderDate}"/>
             </controls:DataGrid.Columns>
         </controls:DataGrid>
 

@@ -22,31 +22,30 @@
         </Grid.RowDefinitions>
         
         <Button Grid.Column="0" Grid.Row="0" Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
-        <Grid Grid.Column="1" Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="40"></ColumnDefinition>
-                <ColumnDefinition Width="40"></ColumnDefinition>
-                <ColumnDefinition Width="40"></ColumnDefinition>
-                <ColumnDefinition Width="40"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Name="refresh" Background="Black" BorderBrush="DarkGray" BorderThickness="0" Click="Refresh_Click" Height="40" Width="40" ToolTipService.ToolTip="refresh the items in the table">
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0">
+            <Button Name="refresh" Background="Black" BorderBrush="DarkGray" BorderThickness="0" Click="Refresh_Click" Height="40" Width="40" ToolTipService.ToolTip="refresh the items in the table">
                 <SymbolIcon Symbol="Refresh"/>
             </Button>
-            <Button Grid.Column="1" Name="syncButton" Background="Black" BorderBrush="DarkGray" BorderThickness="0" Click="SyncButton_Click" ToolTipService.ToolTip="sync changes to database" Height="40" Width="40">
+            <Button Name="syncButton" Background="Black" BorderBrush="DarkGray" BorderThickness="0" Click="SyncButton_Click" ToolTipService.ToolTip="sync changes to database" Height="40" Width="40">
                 <SymbolIcon Symbol="Sync"></SymbolIcon>
             </Button>
-        </Grid>
+        </StackPanel>
+        <Button Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" ToolTipService.ToolTip="see all pendind order requsts" x:Name="pendingOrders" Click="PendingOrders_Click">
+            <SymbolIcon Symbol="MailReply"></SymbolIcon>
+        </Button>
         <ListView Grid.Column="1" Grid.Row="1" Name="LandsTbl" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" IsMultiSelectCheckBoxEnabled="False" SelectionMode="Extended">
             <ListView.Header>
                 <Grid HorizontalAlignment="Stretch">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.25*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0">item name</TextBlock>
-                    <TextBlock Grid.Column="1">amount lent</TextBlock>
-                    <TextBlock Grid.Column="2">taken by</TextBlock>
+                    <TextBlock Grid.Column="0" HorizontalAlignment="Center">item name</TextBlock>
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Center">amount lent</TextBlock>
+                    <TextBlock Grid.Column="2" HorizontalAlignment="Center">taken by</TextBlock>
+                    <TextBlock Grid.Column="3" HorizontalAlignment="Center">borrowed in</TextBlock>
 
                 </Grid>
             </ListView.Header>
@@ -54,14 +53,15 @@
                 <DataTemplate  x:Name="dataTemp" x:DataType="data:Borrow" >
                     <Grid HorizontalAlignment="Stretch" RightTapped="Grid_RightTapped">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="0.25*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <TextBlock HorizontalAlignment="Stretch" Grid.Column="0" Name="itemName" Text="{Binding Name, Mode=TwoWay}"></TextBlock>
+                        <TextBlock HorizontalAlignment="Stretch" Grid.Column="0" Name="itemName" Text="{Binding Name, Mode=TwoWay}" TextAlignment="DetectFromContent"></TextBlock>
                         <TextBox HorizontalAlignment="Stretch" Grid.Column="1" Name="amount" Text="{Binding Quantity, Mode=TwoWay}"></TextBox>
                         <TextBox HorizontalAlignment="Stretch" Grid.Column="2" Name="takenBy" Text="{Binding BorrowedBy, Mode=TwoWay}"></TextBox>
+                        <TextBlock HorizontalAlignment="Center" Name="WhenBorrowed" Grid.Column="3" Text="{Binding When}"></TextBlock>
                         <TextBlock Visibility="Collapsed" Name="ID" Text="{Binding BorrowingId}"></TextBlock>
                     </Grid>
                 </DataTemplate>

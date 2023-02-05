@@ -62,10 +62,14 @@ namespace storageUniversal.UserDBServ {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DoesEmailExist", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Threading.Tasks.Task<bool> DoesEmailExistAsync(string email);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/getUpperOrders", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Threading.Tasks.Task<System.Data.DataTable> getUpperOrdersAsync(storageUniversal.UserDBServ.User user);
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public partial class User : object, System.ComponentModel.INotifyPropertyChanged {
@@ -263,6 +267,10 @@ namespace storageUniversal.UserDBServ {
         
         public System.Threading.Tasks.Task<bool> DoesEmailExistAsync(string email) {
             return base.Channel.DoesEmailExistAsync(email);
+        }
+        
+        public System.Threading.Tasks.Task<System.Data.DataTable> getUpperOrdersAsync(storageUniversal.UserDBServ.User user) {
+            return base.Channel.getUpperOrdersAsync(user);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync() {

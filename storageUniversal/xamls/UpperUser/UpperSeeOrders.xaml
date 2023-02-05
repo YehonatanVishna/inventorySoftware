@@ -1,0 +1,90 @@
+﻿<Page
+    x:Class="storageUniversal.xamls.UpperUser.UpperSeeOrders"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:storageUniversal.xamls.UpperUser"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls ="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" Grid.Column="0" Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
+        <controls:DataGrid Grid.Column="1" Grid.Row="1" x:Name="UnAprovedOrders" 
+    AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="False" GridLinesVisibility="All" AlternatingRowBackground="Gray" 
+    ItemsSource="{x:Bind local:UpperSeeOrders.UnAprovedBindedOrders}" >
+            <controls:DataGrid.Columns>
+                <controls:DataGridTextColumn Header="item name" Binding="{Binding ItemName}" IsReadOnly="True"/>
+                <controls:DataGridTextColumn Header="Amount" Binding="{Binding Amount, Mode=TwoWay}"/>
+                <controls:DataGridTextColumn Header="Remarkes" Binding="{Binding Remarkes, Mode=TwoWay}"/>
+                <controls:DataGridTextColumn Header="date" Binding="{Binding OrderDate}" IsReadOnly="True"/>
+                <controls:DataGridTemplateColumn >
+                    <controls:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="AcceptOrder" Click="AcceptOrder_Click">
+                                <TextBlock>Accept order</TextBlock>
+                            </Button>
+                        </DataTemplate>
+                    </controls:DataGridTemplateColumn.CellTemplate>
+                </controls:DataGridTemplateColumn>
+                <controls:DataGridTemplateColumn >
+                    <controls:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="RejectOrder" Click="RejectOrder_Click" ToolTipService.ToolTip="reject order">
+                                <SymbolIcon Symbol="Delete"></SymbolIcon>
+                            </Button>
+                        </DataTemplate>
+                    </controls:DataGridTemplateColumn.CellTemplate>
+                </controls:DataGridTemplateColumn>
+
+            </controls:DataGrid.Columns>
+        </controls:DataGrid>
+        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2" >
+            <TextBlock TextDecorations="Underline">Aproved Orders:</TextBlock>
+            <controls:DataGrid x:Name="AprovedOrders" 
+        AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="False" GridLinesVisibility="All" AlternatingRowBackground="Gray" 
+        ItemsSource="{x:Bind local:UpperSeeOrders.AprovedBindedOrders}" >
+                <controls:DataGrid.Columns>
+                    <controls:DataGridTextColumn Header="item name" Binding="{Binding ItemName}" IsReadOnly="True"/>
+                    <controls:DataGridTextColumn Header="Amount" Binding="{Binding Amount, Mode=TwoWay}"/>
+                    <controls:DataGridTextColumn Header="Remarkes" Binding="{Binding Remarkes, Mode=TwoWay}"/>
+                    <controls:DataGridTextColumn Header="date" Binding="{Binding OrderDate}" IsReadOnly="True"/>
+                    <controls:DataGridTemplateColumn >
+                        <controls:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="AcceptOrder" Click="AcceptOrder_Click">
+                                    <TextBlock>Accept order</TextBlock>
+                                </Button>
+                            </DataTemplate>
+                        </controls:DataGridTemplateColumn.CellTemplate>
+                    </controls:DataGridTemplateColumn>
+                    <controls:DataGridTemplateColumn >
+                        <controls:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="RejectOrder" Click="RejectOrder_Click" ToolTipService.ToolTip="reject order">
+                                    <SymbolIcon Symbol="Delete"></SymbolIcon>
+                                </Button>
+                            </DataTemplate>
+                        </controls:DataGridTemplateColumn.CellTemplate>
+                    </controls:DataGridTemplateColumn>
+
+                </controls:DataGrid.Columns>
+            </controls:DataGrid>
+            <Button x:Name="addAllAprovedToBorrowings" Click="AddAllAprovedToBorrowings_Click" ToolTipService.ToolTip="add all the aproved orders to active borowwings">
+                <SymbolIcon Symbol="Send"></SymbolIcon>
+            </Button>
+        </StackPanel>
+
+    </Grid>
+</Page>

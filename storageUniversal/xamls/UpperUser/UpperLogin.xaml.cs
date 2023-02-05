@@ -115,14 +115,15 @@ namespace storageUniversal
             if (b)
             {
 
-                res.Text = "user exists, data should be showen";
+                
                 var TempFullUsr = await UDBS.GetFullUserAsync(usr);
                 FullUser = TempFullUsr;
                 frame.Navigate(typeof(xamls.UpperUserHomePage));
             }
             else
             {
-                res.Text = "email or password are wrong, try again";
+                var fail = new ContentDialog() { Title = "email or password are wrong, try again", CloseButtonText = "ok" };
+                await fail.ShowAsync();
             }
         }
         //the command that passes user data to next page from auto login menu

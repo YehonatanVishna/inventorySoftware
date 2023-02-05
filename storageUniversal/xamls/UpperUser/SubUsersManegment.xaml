@@ -14,31 +14,25 @@
             <ColumnDefinition Width="40"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-            </Grid.RowDefinitions>
-            <Button Grid.Row="0" Name="back" Click="Back_Click"  VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
-            <Button Grid.Row="1" Name="addUser" Click="AddUser_Click" VerticalAlignment="Top" ToolTipService.ToolTip="add user">
+        <StackPanel Orientation="Vertical">
+            <Button  Name="back" Click="Back_Click"  VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
+            <Button Name="addUser" Click="AddUser_Click" VerticalAlignment="Top" ToolTipService.ToolTip="add user">
                 <SymbolIcon Symbol="Add"/>
             </Button>
-            <Button Grid.Row="2" Name="refresh" Click="Refresh_Click" VerticalAlignment="Top" ToolTipService.ToolTip="refresh">
+            <Button  Name="refresh" Click="Refresh_Click" VerticalAlignment="Top" ToolTipService.ToolTip="refresh">
                 <SymbolIcon Symbol="Refresh"></SymbolIcon>
             </Button>
-            <Button Grid.Row="3" Name="sync" Click="Sync_Click" VerticalAlignment="Top" ToolTipService.ToolTip="sync">
+            <Button Name="sync" Click="Sync_Click" VerticalAlignment="Top" ToolTipService.ToolTip="sync">
                 <SymbolIcon Symbol="Sync"></SymbolIcon>
             </Button>
-        </Grid>
+            <Button Name="delete" Click="Delete_Click" VerticalAlignment="Top" ToolTipService.ToolTip="delete selected row">
+                <SymbolIcon Symbol="Delete"></SymbolIcon>
+            </Button>
+        </StackPanel>
         
         <ListView Grid.Column="1" Grid.Row="1" Name="SubUsersTbl" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" SelectionMode="Extended">
             <ListView.Header>
-                <Grid HorizontalAlignment="Stretch">
+                <Grid HorizontalAlignment="Stretch" RightTapped="Grid_RightTapped">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>

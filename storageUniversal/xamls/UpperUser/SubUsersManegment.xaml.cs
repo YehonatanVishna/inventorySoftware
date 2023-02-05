@@ -98,8 +98,71 @@ namespace storageUniversal.xamls
         {
             var sub = new SubUserServ.SubUsersServSoapClient();
             var usr = new SubUserServ.SubUser() { BelongsToUpperUser = UpperLogin.FullUser.ID };
+            var getNewDetails = new StackPanel() { Orientation = Orientation.Vertical, DataContext=usr};
+
+            //מוסיף שדה שם פרטי להודעה
+            Binding FirstNameBinding = new Binding();
+            var FNBox = new TextBox() { PlaceholderText = "The new user's first name." };
+            FirstNameBinding.Source = usr.FName;
+            FirstNameBinding.Path = new PropertyPath("FName");
+            FirstNameBinding.Mode = BindingMode.TwoWay;
+            FirstNameBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+            BindingOperations.SetBinding(FNBox, TextBox.TextProperty, FirstNameBinding);
+            getNewDetails.Children.Add(FNBox);
+
+            //מוסיף שדה שם פרטי להודעה
+            Binding LastNameBinding = new Binding();
+            var LNBox = new TextBox() { PlaceholderText = "The new user's last name." };
+            LastNameBinding.Source = usr.LName;
+            LastNameBinding.Path = new PropertyPath("LName");
+            LastNameBinding.Mode = BindingMode.TwoWay;
+            LastNameBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+            BindingOperations.SetBinding(LNBox, TextBox.TextProperty, LastNameBinding);
+            getNewDetails.Children.Add(LNBox);
+
+            //מוסיף שדה תפקיד להודעה
+            Binding RoleBinding = new Binding();
+            var RoleBox = new TextBox() { PlaceholderText = "The new user's role." };
+            RoleBinding.Source = usr.Role;
+            RoleBinding.Path = new PropertyPath("Role");
+            RoleBinding.Mode = BindingMode.TwoWay;
+            RoleBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+            BindingOperations.SetBinding(RoleBox, TextBox.TextProperty, RoleBinding);
+            getNewDetails.Children.Add(RoleBox);
+
+            //מוסיף שדה שם משתמש להודעה
+            Binding UserNameBinding = new Binding();
+            var UserName = new TextBox() {PlaceholderText="The new user's username."};
+            UserNameBinding.Source = usr.UserName;
+            UserNameBinding.Path = new PropertyPath("UserName");
+            UserNameBinding.Mode = BindingMode.TwoWay;
+            UserNameBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+            BindingOperations.SetBinding(UserName, TextBox.TextProperty, UserNameBinding);
+            getNewDetails.Children.Add(UserName);
+            //מוסיף שדה ססמה להודעה
+            Binding PasswordBinding = new Binding();
+            var PassBox = new PasswordBox() { PlaceholderText = "The new user's password." };
+            PasswordBinding.Source = usr.Password;
+            PasswordBinding.Path = new PropertyPath("Password");
+            PasswordBinding.Mode = BindingMode.TwoWay;
+            PasswordBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+            BindingOperations.SetBinding(PassBox, PasswordBox.PasswordProperty, PasswordBinding);
+            getNewDetails.Children.Add(PassBox);
+
+            //מוסיף שדה דואל להודעה
+            Binding EmailBinding = new Binding();
+            var EmailBox = new TextBox() { PlaceholderText = "The new user's email." };
+            EmailBinding.Source = usr.Email;
+            EmailBinding.Path = new PropertyPath("Email");
+            EmailBinding.Mode = BindingMode.TwoWay;
+            EmailBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+            BindingOperations.SetBinding(EmailBox, TextBox.TextProperty, EmailBinding);
+            getNewDetails.Children.Add(EmailBox);
+            //מציג את ההודעה עם הבקשה לנתינת הפרטים
+            var ask = new ContentDialog() { Title = "write the new user name", Content=getNewDetails, CloseButtonText = "ok" };
+            await ask.ShowAsync();
             var id = await sub.createSubUserAsync(usr, new SubUserServ.User() { Email = UpperLogin.FullUser.Email, Password = UpperLogin.FullUser.Password });
-            var localUsr = new SubUser() { BelongsToUpperUser = UpperLogin.FullUser.ID, Id = id };
+            var localUsr = new SubUser() { BelongsToUpperUser = UpperLogin.FullUser.ID, Id = id, UserName=usr.UserName, Email=usr.Email, FName = usr.FName, LName = usr.LName, Password=usr.Password, Role= usr.Role };
             BinedUsersInTbl.Add(localUsr);
             UsersOriginal.Add(localUsr.Copy());
         }
@@ -109,15 +172,31 @@ namespace storageUniversal.xamls
             loudTbl();
         }
         //מתבצע כאשר המשתמש מסנכרן את המשתמשים בטבלה עם שרות הרשת
-        private void Sync_Click(object sender, RoutedEventArgs e)
+        private async void Sync_Click(object sender, RoutedEventArgs e)
         {
             var s = new SubUserServ.SubUsersServSoapClient();
             for(int i=0; i< BinedUsersInTbl.Count; i++)
             {
                 if (!BinedUsersInTbl.ToList()[i].IsSame(UsersOriginal[i]))
                 {
-                    s.updateSubAsync(conv(BinedUsersInTbl[i]), new SubUserServ.User() { Password = UpperLogin.FullUser.Password, Email = UpperLogin.FullUser.Email, ID = UpperLogin.FullUser.ID });
-                }
+                    try
+                    {
+                        bool worked = await s.updateSubAsync(conv(BinedUsersInTbl[i]), new SubUserServ.User() { Password = UpperLogin.FullUser.Password, Email = UpperLogin.FullUser.Email, ID = UpperLogin.FullUser.ID });
+                    }
+                    catch(Exception exeption)
+                    {
+                        string msg = exeption.Message;
+                        if (exeption.Message.Contains("the user"))
+                        {
+                            msg = msg.Remove(0, 121);
+                            int count = 215;
+                            msg = msg.Remove(msg.Length-count, count);
+                        }
+                        var TellAboutError = new ContentDialog() { Title = "the operation couldn't complete sucsussfully", Content = msg, CloseButtonText = "ok" };
+                        await TellAboutError.ShowAsync();
+                        loudTbl();
+                    }
+                 }
             }
         }
         //ממיר טיפוס משתמש תחתון מקומי לטיפוס של שירות רשת 
@@ -163,6 +242,11 @@ namespace storageUniversal.xamls
 
         private async void DeleteOption_Click(object sender, RoutedEventArgs e)
         {
+            deleteSelected();
+
+        }
+        private async void deleteSelected()
+        {
             Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Wait, 1);
             var UsrServ = new SubUserServ.SubUsersServSoapClient();
             foreach (SubUser br in selectedUsers)
@@ -180,7 +264,34 @@ namespace storageUniversal.xamls
                 }
             }
             Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 1);
-
         }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            selectedUsers.Clear();
+            foreach (ItemIndexRange range in SubUsersTbl.SelectedRanges.ToList())
+            {
+                for (int i = range.FirstIndex; i <= range.LastIndex; i++)
+                {
+                    selectedUsers.Add(SubUsersTbl.Items[i] as SubUser);
+                }
+            }
+            if (selectedUsers.Count <= 0)
+            {
+                SubUser clickedItem = new SubUser();
+                int Id = int.Parse(((sender as Grid).Children.Last() as TextBlock).Text);
+                foreach (SubUser a in SubUsersTbl.Items)
+                {
+                    if (a.Id == Id)
+                    {
+                        clickedItem = a;
+                    }
+                }
+                SubUsersTbl.SelectedItem = clickedItem;
+            }
+            deleteSelected();
+        }
+
+
     }
 }
