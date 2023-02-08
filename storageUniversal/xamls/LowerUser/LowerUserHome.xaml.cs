@@ -27,6 +27,12 @@ namespace storageUniversal.xamls.LowerUser
         {
             this.InitializeComponent();
         }
+        override
+protected void OnNavigatedTo(NavigationEventArgs e)
+        {
+            Frame.IsNavigationStackEnabled = true;
+
+        }
 
         private void SendToOrderPage_Click(object sender, RoutedEventArgs e)
         {
@@ -35,7 +41,8 @@ namespace storageUniversal.xamls.LowerUser
 
         private void OrderedItems_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(LowerSeeOrders));
+            
+            Frame.Navigate(typeof(LowerSeeOrders), Frame);
         }
         // מגיב ללחיצה על כפתור החזרה, מחזיר את המשתמש למסך הקודם
         //go back to previus page

@@ -26,21 +26,84 @@ namespace storageUniversal.xamls
     public sealed partial class LowerLogin : Page
     {
         public static SubUserServ.SubUser FullSubUser;
+        public bool navingate;
+        public static Type sender;
+        
+        public LowerLogin(Frame f1)
+        {
+            this.InitializeComponent();
+            var f = Frame;
+            var frame = Window.Current.Content as Frame;
+            var c = frame.SourcePageType;
+            if (c == typeof(MainPage))
+            {
+                //מעביר אוטומטית לעמוד הבא אם המשתמש כבר מחובר
+                if (FullSubUser != null)
+                {
+                    navingate = true;
+                    frame.Navigate(typeof(LowerUserHome));
+                }
+                else
+                {
+                    //שואל את המשתמש אם הוא רוצה להשתמש במשתמש שמור
+                    if (Windows.Storage.ApplicationData.Current.LocalSettings.Values["Is_SubUser_saved"] != null && bool.Parse(Windows.Storage.ApplicationData.Current.LocalSettings.Values["Is_SubUser_saved"] as string))
+                    {
+                        ContentDialog getLandingDits = new ContentDialog()
+                        {
+                            Title = "do you wish to use saved user?",
+                            SecondaryButtonText = "yes",
+                            SecondaryButtonCommand = new logSavedUser(),
+                            SecondaryButtonCommandParameter = this,
+                            CloseButtonText = "no"
+                        };
+                        getLandingDits.ShowAsync();
+                    }
+                }
+            }
+        }
+
         public LowerLogin()
         {
             this.InitializeComponent();
-            //שואל את המשתמש אם הוא רוצה להשתמש במשתמש שמור
-            if (Windows.Storage.ApplicationData.Current.LocalSettings.Values["Is_SubUser_saved"] != null && bool.Parse(Windows.Storage.ApplicationData.Current.LocalSettings.Values["Is_SubUser_saved"] as string))
+            var f = Frame;
+            var frame = Window.Current.Content as Frame;
+            var c = frame.SourcePageType;
+            if (c == typeof(MainPage))
             {
-                ContentDialog getLandingDits = new ContentDialog()
+                //מעביר אוטומטית לעמוד הבא אם המשתמש כבר מחובר
+                if (FullSubUser != null)
                 {
-                    Title = "do you wish to use saved user?",
-                    SecondaryButtonText = "yes",
-                    SecondaryButtonCommand = new logSavedUser(),
-                    SecondaryButtonCommandParameter = this,
-                    CloseButtonText = "no"
-                };
-                getLandingDits.ShowAsync();
+                    navingate = true;
+                    frame.Navigate(typeof(LowerUserHome));
+                }
+                else
+                {
+                    //שואל את המשתמש אם הוא רוצה להשתמש במשתמש שמור
+                    if (Windows.Storage.ApplicationData.Current.LocalSettings.Values["Is_SubUser_saved"] != null && bool.Parse(Windows.Storage.ApplicationData.Current.LocalSettings.Values["Is_SubUser_saved"] as string))
+                    {
+                        ContentDialog getLandingDits = new ContentDialog()
+                        {
+                            Title = "do you wish to use saved user?",
+                            SecondaryButtonText = "yes",
+                            SecondaryButtonCommand = new logSavedUser(),
+                            SecondaryButtonCommandParameter = this,
+                            CloseButtonText = "no"
+                        };
+                        getLandingDits.ShowAsync();
+                    }
+                }
+            }
+
+        }
+        override
+        protected void OnNavigatedTo(NavigationEventArgs e)
+        {
+            var a = Frame.BackStack;
+            var b = a.Last();
+            bool h = false;
+            if (navingate)
+            {
+                h = Frame.Navigate(typeof(LowerUserHome));
             }
         }
         private class logSavedUser : ICommand

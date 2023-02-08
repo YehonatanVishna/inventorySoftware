@@ -8,6 +8,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using System.Net;
 using storageUniversal.xamls;
+using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -21,6 +22,13 @@ namespace storageUniversal
         public MainPage()
         {
             InitializeComponent();
+            
+        }
+        override
+        protected void OnNavigatedTo(NavigationEventArgs e)
+        {
+            Frame.IsNavigationStackEnabled = true;
+
         }
         //sends user to about page
         //שולח את המשתמש לעמוד אודות

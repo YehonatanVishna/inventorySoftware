@@ -37,5 +37,39 @@ namespace WebServ1
                 orderDate = value;
             }
             }
+        private string status;
+        //public string Status
+        //{
+        //    get
+        //    {
+        //        if(aproved == false && rejected == false)
+        //        {
+        //            return "awaiting response";
+        //        }
+        //        else
+        //        {
+        //            if(aproved==false && rejected == true)
+        //            {
+        //                return "rejected";
+        //            }
+        //            else
+        //            {
+        //                if(aproved==true && rejected == false)
+        //                {
+        //                    return "aproved";
+        //                }
+        //                else
+        //                {
+        //                    return "error";
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+        public string Status
+        {
+            get { return status; }
+            set { status = value; }
+        }
     }
 }

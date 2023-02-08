@@ -46,6 +46,7 @@ namespace storageUniversal.xamls.LowerUser
         {
             var serv = new SubUserServ.SubUsersServSoapClient();
             var tbldata = await serv.getOrdersAsync(LowerLogin.FullSubUser);
+            BindedOrders.Clear();
             foreach (DataRow row in tbldata.Rows)
             {
                 var order = new SubUserServ.Order();
@@ -62,13 +63,41 @@ namespace storageUniversal.xamls.LowerUser
                 {
                     order.OrderDate = OrderDate;
                 }
-                
+                string str;
+                order.Status = getStatus(order);
                 BindedOrders.Add(order);
             }
             //OrdersTbl.ItemsSource = BindedOrders;
             //tbl.ItemsSource = BindedOrders.ToList();
             //tbl.ItemsSource = tbldata.Rows;
 
+        }
+        private string getStatus(SubUserServ.Order order)
+        {
+            var aproved = order.Aproved;
+            var rejected = order.Rejected;
+            if (aproved == false && rejected == false)
+            {
+                return "awaiting response";
+            }
+            else
+            {
+                if (aproved == false && rejected == true)
+                {
+                    return "rejected";
+                }
+                else
+                {
+                    if (aproved == true && rejected == false)
+                    {
+                        return "aproved";
+                    }
+                    else
+                    {
+                        return "error";
+                    }
+                }
+            }
         }
     }
 }

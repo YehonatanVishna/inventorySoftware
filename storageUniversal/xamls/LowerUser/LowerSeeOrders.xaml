@@ -9,7 +9,8 @@
     xmlns:cont="using:storageUniversal.visual_elements.controls"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    >
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -27,8 +28,7 @@
             <controls:DataGrid.Columns>
                 <controls:DataGridTextColumn Header="item name" Binding="{Binding ItemName}"/>
                 <controls:DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
-                <controls:DataGridCheckBoxColumn Header="Aproved?" Binding="{Binding Aproved}"/>
-                <controls:DataGridCheckBoxColumn Header="Rejected?" Binding="{Binding Rejected}"/>
+                <controls:DataGridTextColumn Header="status?" Binding="{Binding Status}"/> 
                 <controls:DataGridTextColumn Header="Remarkes" Binding="{Binding Remarkes}"/>
                 <controls:DataGridTextColumn Header="date" Binding="{Binding OrderDate}"/>
             </controls:DataGrid.Columns>

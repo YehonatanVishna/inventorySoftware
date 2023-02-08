@@ -146,6 +146,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Remarkes" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="ItemName" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="OrderDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="addOrderResponse">
