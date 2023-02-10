@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.Storage;
 using System.Windows.Input;
 using storageUniversal.xamls.LowerUser;
+using System.Threading.Tasks;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -28,38 +29,10 @@ namespace storageUniversal.xamls
         public static SubUserServ.SubUser FullSubUser;
         public bool navingate;
         public static Type sender;
-        
-        public LowerLogin(Frame f1)
+        public async void gotoHome()
         {
-            this.InitializeComponent();
-            var f = Frame;
-            var frame = Window.Current.Content as Frame;
-            var c = frame.SourcePageType;
-            if (c == typeof(MainPage))
-            {
-                //מעביר אוטומטית לעמוד הבא אם המשתמש כבר מחובר
-                if (FullSubUser != null)
-                {
-                    navingate = true;
-                    frame.Navigate(typeof(LowerUserHome));
-                }
-                else
-                {
-                    //שואל את המשתמש אם הוא רוצה להשתמש במשתמש שמור
-                    if (Windows.Storage.ApplicationData.Current.LocalSettings.Values["Is_SubUser_saved"] != null && bool.Parse(Windows.Storage.ApplicationData.Current.LocalSettings.Values["Is_SubUser_saved"] as string))
-                    {
-                        ContentDialog getLandingDits = new ContentDialog()
-                        {
-                            Title = "do you wish to use saved user?",
-                            SecondaryButtonText = "yes",
-                            SecondaryButtonCommand = new logSavedUser(),
-                            SecondaryButtonCommandParameter = this,
-                            CloseButtonText = "no"
-                        };
-                        getLandingDits.ShowAsync();
-                    }
-                }
-            }
+            await Task.Delay(1);
+            Frame.Navigate(typeof(LowerUserHome));
         }
 
         public LowerLogin()
@@ -71,12 +44,7 @@ namespace storageUniversal.xamls
             if (c == typeof(MainPage))
             {
                 //מעביר אוטומטית לעמוד הבא אם המשתמש כבר מחובר
-                if (FullSubUser != null)
-                {
-                    navingate = true;
-                    frame.Navigate(typeof(LowerUserHome));
-                }
-                else
+                if (FullSubUser == null)
                 {
                     //שואל את המשתמש אם הוא רוצה להשתמש במשתמש שמור
                     if (Windows.Storage.ApplicationData.Current.LocalSettings.Values["Is_SubUser_saved"] != null && bool.Parse(Windows.Storage.ApplicationData.Current.LocalSettings.Values["Is_SubUser_saved"] as string))
@@ -92,19 +60,12 @@ namespace storageUniversal.xamls
                         getLandingDits.ShowAsync();
                     }
                 }
+                else
+                {
+                    gotoHome();
+                }
             }
 
-        }
-        override
-        protected void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var a = Frame.BackStack;
-            var b = a.Last();
-            bool h = false;
-            if (navingate)
-            {
-                h = Frame.Navigate(typeof(LowerUserHome));
-            }
         }
         private class logSavedUser : ICommand
         {
@@ -132,6 +93,7 @@ namespace storageUniversal.xamls
             FullSubUser = await serv.GetFullUserAsync(tempSub);
             if (FullSubUser != null)
             {
+                
                 var sucsuss = new ContentDialog() { Title = "hello " + FullSubUser.FName + " " + FullSubUser.LName, CloseButtonText = "ok" };
                 await sucsuss.ShowAsync();
                 frame.Frame.Navigate(typeof(LowerUserHome));
@@ -156,6 +118,11 @@ namespace storageUniversal.xamls
 
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
+            if (FullSubUser != null)
+            {
+                Frame.Navigate(typeof(LowerUserHome));
+                return;
+            }
             var tempSub = new SubUserServ.SubUser();
             tempSub.Password = password.Password;
             tempSub.UserName = UserNameInput.Text;
@@ -181,12 +148,20 @@ namespace storageUniversal.xamls
                 await fail.ShowAsync();
             }
         }
-
         private void Res_SelectionChanged(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
-
+        private void Logout_Click(object sender, RoutedEventArgs e)
+        {
+            FullSubUser = null;
+            if (forget_saved_users.IsChecked.GetValueOrDefault())
+            {
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values["Is_SubUser_saved"] = false.ToString();
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values["Sub_UserName"] = "";
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values["Sub_Password"] = "";
+            }
+        }
     }
 }

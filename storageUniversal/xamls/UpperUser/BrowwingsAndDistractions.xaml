@@ -40,7 +40,7 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="0.25*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.5*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" HorizontalAlignment="Center">item name</TextBlock>
                     <TextBlock Grid.Column="1" HorizontalAlignment="Center">amount lent</TextBlock>
@@ -56,7 +56,7 @@
                             <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="0.25*"></ColumnDefinition>
+                            <ColumnDefinition Width="0.5*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <TextBlock HorizontalAlignment="Stretch" Grid.Column="0" Name="itemName" Text="{Binding Name, Mode=TwoWay}" TextAlignment="DetectFromContent"></TextBlock>
                         <TextBox HorizontalAlignment="Stretch" Grid.Column="1" Name="amount" Text="{Binding Quantity, Mode=TwoWay}"></TextBox>

@@ -28,14 +28,6 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="0.5*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <!--<Grid Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <TextBlock Name="IsEmailValidBlock" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" IsColorFontEnabled="True" Foreground="Red" Text=""/>
-            </Grid>-->
             <PasswordBox  Name="password" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"  PlaceholderText="password" />
             <TextBlock Visibility="Collapsed" Name="res"  Text="" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
             <TextBox x:Name="UserNameInput" PlaceholderText="user name" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Center"></TextBox>
@@ -43,6 +35,17 @@
                 <SymbolIcon Symbol="People"></SymbolIcon>
             </Button>
             <CheckBox Grid.Column="3" Name="rememberBox" Content="remenber for next time" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+        
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="0.25*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" x:Name="logout" Click="Logout_Click">
+                log out
+            </Button>
+            <CheckBox Grid.Column="1" x:Name="forget_saved_users" ToolTipService.ToolTip="forget all saved users"></CheckBox>
         </Grid>
     </Grid>
 </Page>

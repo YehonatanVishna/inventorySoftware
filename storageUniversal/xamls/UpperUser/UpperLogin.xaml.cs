@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using storageUniversal.codes;
+using System.Threading.Tasks;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -33,15 +34,36 @@ namespace storageUniversal
         public static UserDBServ.User FullUser;
         private UserDBServ.UserDBServSoapClient UDBS = new UserDBServ.UserDBServSoapClient();
         public static Type SentFrom;
+        //שולח את המשתמש לעמוד הבית אם הוא כבר התחבר
+        public async void gotoHome()
+        {
+            await Task.Delay(1);
+            Frame.Navigate(typeof(xamls.UpperUserHomePage));
+        }
         public UpperLogin()
         {
             this.InitializeComponent();
-            TryStartAutoLoging();
+            
             // some code to handle mouse back + forward buttons
             // קוד להוספת פונקציית קדימה ואחורה לכפתורי העכבר
             Window.Current.Activate();
             Window.Current.CoreWindow.PointerPressed += CoreWindow_PointerPressed;
+            var frame = Window.Current.Content as Frame;
+            var sender = frame.SourcePageType;
+            if(sender == typeof(MainPage))
+            {
+                if(FullUser != null)
+                {
+                    gotoHome();
+                }
+                else
+                {
+                    TryStartAutoLoging();
+                }
+            }
+            
         }
+
         // some code to handle mouse back + forward buttons
         // קוד להוספת פונקציית קדימה ואחורה לכפתורי העכבר
         private void CoreWindow_PointerPressed(CoreWindow sender, PointerEventArgs args)
@@ -224,6 +246,16 @@ namespace storageUniversal
         private void RegBut_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(Register));
+        }
+        //מנתק את המשתמש על ידי איפוס משנה המשתמש
+        private void Logout_Click(object sender, RoutedEventArgs e)
+        {
+            FullUser = null;
+            if (forget_saved_users.IsChecked.GetValueOrDefault())
+            {
+                var db = new UsersDatabase();
+                db.DeleteAll();
+            }
         }
     }
 }

@@ -60,7 +60,7 @@
                     <controls:DataGridTextColumn Header="Amount" Binding="{Binding Amount, Mode=TwoWay}"/>
                     <controls:DataGridTextColumn Header="Remarkes" Binding="{Binding Remarkes, Mode=TwoWay}"/>
                     <controls:DataGridTextColumn Header="date" Binding="{Binding OrderDate}" IsReadOnly="True"/>
-                    <controls:DataGridTemplateColumn >
+                    <!--<controls:DataGridTemplateColumn >
                         <controls:DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button x:Name="AcceptOrder" Click="AcceptOrder_Click">
@@ -77,7 +77,7 @@
                                 </Button>
                             </DataTemplate>
                         </controls:DataGridTemplateColumn.CellTemplate>
-                    </controls:DataGridTemplateColumn>
+                    </controls:DataGridTemplateColumn>-->
 
                 </controls:DataGrid.Columns>
             </controls:DataGrid>

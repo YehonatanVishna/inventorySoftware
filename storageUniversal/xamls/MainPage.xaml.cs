@@ -19,6 +19,7 @@ namespace storageUniversal
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        public static Frame frame;
         public MainPage()
         {
             InitializeComponent();
@@ -45,6 +46,7 @@ namespace storageUniversal
 
         private void LowerUser_Click(object sender, RoutedEventArgs e)
         {
+            frame = Frame;
             Frame.Navigate(typeof(LowerLogin));
         }
     }

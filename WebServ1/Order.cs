@@ -17,6 +17,7 @@ namespace WebServ1
         private string remarkes= "";
         private string itemName;
         private DateTime orderDate;
+        private bool isActive;
         public Order()
         {
 
@@ -71,5 +72,7 @@ namespace WebServ1
             get { return status; }
             set { status = value; }
         }
+
+        public bool IsActive { get => isActive; set => isActive = value; }
     }
 }

@@ -27,12 +27,6 @@ namespace storageUniversal.xamls.LowerUser
         {
             this.InitializeComponent();
         }
-        override
-protected void OnNavigatedTo(NavigationEventArgs e)
-        {
-            Frame.IsNavigationStackEnabled = true;
-
-        }
 
         private void SendToOrderPage_Click(object sender, RoutedEventArgs e)
         {
