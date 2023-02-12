@@ -20,6 +20,12 @@ using System.Windows.Input;
 using System.Collections.ObjectModel;
 using Windows.UI.Core;
 
+using Google.Apis.Services;
+using Google.Apis.Discovery.v1;
+using Google.Apis.Discovery.v1.Data;
+using Google.Apis.Services;
+using System.Threading.Tasks;
+
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -43,6 +49,22 @@ namespace storageUniversal
             // some code to handle mouse back + forward buttons
             Window.Current.Activate();
             Window.Current.CoreWindow.PointerPressed += CoreWindow_PointerPressed;
+
+
+
+        }
+        private async Task<IList<Google.Apis.CustomSearchAPI.v1.Data.Result>> googleApi(string qury)
+        {
+            string apiKey = "AIzaSyAs4wufxBxLid6quJCN2ynqihPieMxP3qY";
+            string cx = "f427caefac6b24f26";
+
+            var svc = new Google.Apis.CustomSearchAPI.v1.CustomSearchAPIService(new BaseClientService.Initializer { ApiKey = apiKey });
+            var listRequest = svc.Cse.List();
+            listRequest.Q = qury;
+            listRequest.Gl = "il";
+            listRequest.Cx = cx;
+            var search = await listRequest.ExecuteAsync();
+            return search.Items;
         }
         //קוד לניווט אחורה וקדימה עם כפטורי הניווט של העכבר
         // some code to handle mouse back + forward buttons

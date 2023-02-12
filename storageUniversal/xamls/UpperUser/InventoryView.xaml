@@ -24,11 +24,11 @@
         <Button Grid.Column="0" Grid.Row="0" Name="back" Click="Back_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
         <Grid Grid.Column="1" Grid.Row="0" Name="headers" Width="auto">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition MinWidth="50"  Width="2*"></ColumnDefinition>
-                <ColumnDefinition MinWidth="50" MaxWidth="2000" Width="1*"></ColumnDefinition>
-                <ColumnDefinition MinWidth="50" MaxWidth="2000" Width="1*"></ColumnDefinition>
-                <ColumnDefinition MinWidth="50" Width="2*"></ColumnDefinition>
-                <ColumnDefinition MinWidth="50" MaxWidth="2000" Width="0.5*"></ColumnDefinition>
+                <ColumnDefinition  Width="2*"></ColumnDefinition>
+                <ColumnDefinition MaxWidth="2000" Width="1*"></ColumnDefinition>
+                <ColumnDefinition MaxWidth="2000" Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition MaxWidth="2000" Width="0.5*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" HorizontalTextAlignment="Center">name</TextBlock>
             <TextBlock Grid.Column="1" HorizontalTextAlignment="Center">Quntety</TextBlock>
