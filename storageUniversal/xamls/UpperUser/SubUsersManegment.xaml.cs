@@ -76,6 +76,9 @@ namespace storageUniversal.xamls
             {
                 UsersOriginal.Add(Row.Copy());
             }
+            //קוד לניווט אחורה וקדימה עם כפטורי הניווט של העכבר
+            // some code to handle mouse back + forward buttons
+            var win = new codes.backMouse();
         }
 
         //send user back to previus page
@@ -204,7 +207,7 @@ namespace storageUniversal.xamls
         {
             return new SubUserServ.SubUser() { BelongsToUpperUser = a.BelongsToUpperUser, Email = a.Email, FName = a.FName, Id = a.Id, LName = a.LName, Password = a.Password, Role = a.Role, UserName = a.UserName};
         }
-
+        //מעלה אפשרויות טפריט לחיצה ימנית
         private List<SubUser> selectedUsers = new List<SubUser>();
         private void Grid_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
@@ -245,6 +248,7 @@ namespace storageUniversal.xamls
             deleteSelected();
 
         }
+        //מוחק את כל הפריטים ברשימת הנבחרים
         private async void deleteSelected()
         {
             Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Wait, 1);
@@ -265,7 +269,8 @@ namespace storageUniversal.xamls
             }
             Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 1);
         }
-
+        //לחיצה על כפטור המחיקה תעלה את זה 
+        //שונה מלחיצה על המחיקה בטפריט הימני
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             selectedUsers.Clear();

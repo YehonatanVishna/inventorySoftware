@@ -136,7 +136,8 @@ namespace storageUniversal
                 Point point = new Point(e.GetPosition(b).X, e.GetPosition(b).Y);
                 rightClick.ShowAt(b, point);
         }
-
+        //מתבצע כאשר המשתמש לוחץ על אפשרות המחיקה
+        //מוחק את המשתמש מהטבלה וממסד הנתונים
         private async void DeleteOption_Click(object sender, RoutedEventArgs e)
         {
             Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Wait, 1);
@@ -150,20 +151,22 @@ namespace storageUniversal
             Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 1);
 
         }
-
+        //מרענן את הטבלה
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
             loadTbl();
         }
-
+        //מסנכרן את הטבלה עם מסד הנתונים
         private async void SyncButton_Click(object sender, RoutedEventArgs e)
         {
             syncToDataBase();
         }
+        //ממיר השאלה מקומית להשאלה מהטיפוס של שרות הרשת
         public BorowwDb.Borrow convert(codes.Borrow borrow)
         {
             return new BorowwDb.Borrow() { BorrowedBy = borrow.BorrowedBy, BorrowingId = borrow.BorrowingId, ItemId = borrow.ItemId, Quantity = borrow.Quantity, UserId = borrow.UserId, When = borrow.When};
         }
+        //מסנכרן את הטבלה עם מסד הנתונים
         public async void syncToDataBase()
         {
             Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Wait, 1);
@@ -176,11 +179,8 @@ namespace storageUniversal
             Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 1);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
-
+        //לוקח את המשתמש לעמוד המכיל את כל ההשאלות הממתינות לו
         private void PendingOrders_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(UpperSeeOrders));

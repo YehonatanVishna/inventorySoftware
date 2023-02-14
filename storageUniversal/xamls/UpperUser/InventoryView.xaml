@@ -36,7 +36,7 @@
             <TextBlock Grid.Column="3" HorizontalTextAlignment="Center">remarks</TextBlock>
             <TextBlock Grid.Column="4" HorizontalTextAlignment="Center">amount out</TextBlock>
         </Grid>
-        <ListView Grid.Column="1" Grid.Row="1" Name="InventoryTbl" CanDragItems="True" RightTapped="Gridy_RightTapped" HorizontalContentAlignment="Stretch" ItemClick="InventoryTbl_ItemClick" HorizontalAlignment="Stretch" VerticalAlignment="Top" >
+        <ListView Grid.Column="1" Grid.Row="1" Name="InventoryTbl" CanDragItems="True" RightTapped="Gridy_RightTapped" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Top" >
             <ListView.ItemTemplate>
                 <DataTemplate  x:Name="dataTemp" x:DataType="data:InventoryRow">
                     <Grid   Name="gridy" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
@@ -97,7 +97,7 @@
                 <SymbolIcon Symbol="Delete"></SymbolIcon>
             </Button>
 
-            <Button Grid.Row="4" PointerEntered="CsvImport_PointerEntered" PointerExited="CsvImport_PointerExited" Name="CsvImport" Click="CsvImport_Click"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Button Grid.Row="4" Name="CsvImport" Click="CsvImport_Click"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ToolTipService.ToolTip="import your existing inventory from csv file">
                 <SymbolIcon Symbol="Import"></SymbolIcon>
                 <!--<TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="WrapWholeWords" Text="import from csv"></TextBlock>-->
             </Button>

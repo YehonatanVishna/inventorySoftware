@@ -49,11 +49,9 @@ namespace storageUniversal
             // some code to handle mouse back + forward buttons
             Window.Current.Activate();
             Window.Current.CoreWindow.PointerPressed += CoreWindow_PointerPressed;
-
-
-
         }
-        private async Task<IList<Google.Apis.CustomSearchAPI.v1.Data.Result>> googleApi(string qury)
+        //מבצע חיפוש בגוגל במנוע חיפוש מותאם אישית עם מגוון אתרי קמעונעות
+        private async Task<Google.Apis.CustomSearchAPI.v1.Data.Search> googleApi(string qury)
         {
             string apiKey = "AIzaSyAs4wufxBxLid6quJCN2ynqihPieMxP3qY";
             string cx = "f427caefac6b24f26";
@@ -64,7 +62,7 @@ namespace storageUniversal
             listRequest.Gl = "il";
             listRequest.Cx = cx;
             var search = await listRequest.ExecuteAsync();
-            return search.Items;
+            return search;
         }
         //קוד לניווט אחורה וקדימה עם כפטורי הניווט של העכבר
         // some code to handle mouse back + forward buttons
@@ -91,11 +89,6 @@ namespace storageUniversal
             }
         }
 
-        private void InventoryTbl_ItemClick(object sender, ItemClickEventArgs e)
-        {
-
-
-        }
         //מרענן את הטבלה בלחיצה על הכפתור
         //loades the table at a click on the button
         private void LoadTbl_Click(object sender, RoutedEventArgs e)
@@ -318,7 +311,13 @@ namespace storageUniversal
                 MenuFlyout rightClick = new MenuFlyout();
                 MenuFlyoutItem firstItem = new MenuFlyoutItem { Text = "land out" };
                 firstItem.Click += LandButton_Click;
+
                 rightClick.Items.Add(firstItem);
+                var InventoryItemSelected = InventoryTbl.SelectedItem as InventoryRow;
+                MenuFlyoutItem GoogleSearchItem = new MenuFlyoutItem { Text = "find where to buy mor of this" };
+                GoogleSearchItem.DataContext = InventoryItemSelected;
+                GoogleSearchItem.Click += GoogleSearchItem_Click ;
+                rightClick.Items.Add(GoogleSearchItem);
                 UIElement b = sender as UIElement;
                 b.ContextFlyout = rightClick;
                 Point point = new Point(e.GetPosition(b).X, e.GetPosition(b).Y);
@@ -327,6 +326,17 @@ namespace storageUniversal
 
 
         }
+        //הפעולה שמתבצעת כאשר המשתמש לוחץ על האופציה של מציאת עוד מאותו מוצר
+        //פעולה זו שולחת אותו ללינק הראשון ממגוון אתרים קמעוניים שיש להם עמוד לאותו מוצר
+        //משתמש בשירות רשת של גוגל
+        private async void GoogleSearchItem_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as MenuFlyoutItem;
+            InventoryRow row = button.DataContext as InventoryRow;
+            var s = (await googleApi(row.Name)).Items.First().Link;
+            var success = await Windows.System.Launcher.LaunchUriAsync( new Uri(s ));
+        }
+
         //הפקודה להוספת השאלה למסד הנתונים
         //the command for adding a landing
         class saveBtnCmd : ICommand
@@ -357,19 +367,6 @@ namespace storageUniversal
             BrowwingsAndDistractions.user = FullUser;
             BrowwingsAndDistractions.senderPage = typeof(InventoryView);
             Frame.Navigate(typeof(BrowwingsAndDistractions));
-        }
-
-        private void CsvImport_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            var b  = new TextWrapping();
-
-            (sender as Button).Content = new TextBlock() { Text = "import your existing inventory from csv file", TextWrapping = b };
-
-        }
-
-        private void CsvImport_PointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            (sender as Button).Content = new SymbolIcon(Symbol.Import);
         }
     }
 }

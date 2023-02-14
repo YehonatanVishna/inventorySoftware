@@ -25,6 +25,7 @@ namespace storageUniversal.xamls.UpperUser
     /// </summary>
     public sealed partial class UpperSeeOrders : Page
     {
+        //רשימות של ההזמנות שאושרו ושלא אושרו
         public static ObservableCollection<SubUserServ.Order> UnAprovedBindedOrders = new ObservableCollection<SubUserServ.Order>();
         public static ObservableCollection<SubUserServ.Order> AprovedBindedOrders = new ObservableCollection<SubUserServ.Order>();
         private List<SubUserServ.Order> orders = new List<SubUserServ.Order>();
@@ -33,6 +34,7 @@ namespace storageUniversal.xamls.UpperUser
             this.InitializeComponent();
             LoadTables();
         }
+        //ממיר את המשתמש מעמוד הכניסה למשתמש שמתאים לשירות הרשת של התת משתמשים
         public SubUserServ.User FullUpperUserFromSubServ
         {
             get
@@ -40,6 +42,7 @@ namespace storageUniversal.xamls.UpperUser
                 return new SubUserServ.User() { ID = UpperLogin.FullUser.ID, BDate = UpperLogin.FullUser.BDate, Compeny = UpperLogin.FullUser.Compeny, Email = UpperLogin.FullUser.Email, Fname = UpperLogin.FullUser.Fname, Lname = UpperLogin.FullUser.Lname, Password = UpperLogin.FullUser.Password };
             }
         }
+        //מעלה את הטבלאות לפי המידע משירות הרשת
         public async void LoadTables()
         {
             var serv = new UserDBServ.UserDBServSoapClient();
@@ -94,7 +97,7 @@ namespace storageUniversal.xamls.UpperUser
                 frame.GoBack();
             }
         }
-
+        //לחיצה מאשרת את ההזמנה
         private async void AcceptOrder_Click(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
@@ -106,7 +109,7 @@ namespace storageUniversal.xamls.UpperUser
             AprovedBindedOrders.Add(order);
 
         }
-
+        //לחיצה דוחה את ההזמנה
         private async void RejectOrder_Click(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;

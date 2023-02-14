@@ -174,10 +174,5 @@ namespace storageUniversal
                 frame.GoBack();
             }
         }
-
-        private void Grid_KeyDown(object sender, KeyRoutedEventArgs e)
-        {
-
-        }
     }
 }
