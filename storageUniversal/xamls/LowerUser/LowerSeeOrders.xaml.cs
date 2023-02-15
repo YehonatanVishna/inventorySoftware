@@ -42,6 +42,7 @@ namespace storageUniversal.xamls.LowerUser
                 frame.GoBack();
             }
         }
+        //מושך את המידע משירות הרשת וממלא את הטבלה
         public async void LoadTable()
         {
             var serv = new SubUserServ.SubUsersServSoapClient();
@@ -67,11 +68,9 @@ namespace storageUniversal.xamls.LowerUser
                 order.Status = getStatus(order);
                 BindedOrders.Add(order);
             }
-            //OrdersTbl.ItemsSource = BindedOrders;
-            //tbl.ItemsSource = BindedOrders.ToList();
-            //tbl.ItemsSource = tbldata.Rows;
 
         }
+        //לפי פרטי ההזמנה מחזיר משפט או צירוף שמתאר את מצב ההזמנה
         private string getStatus(SubUserServ.Order order)
         {
             var aproved = order.Aproved;

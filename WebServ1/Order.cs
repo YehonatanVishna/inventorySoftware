@@ -7,6 +7,7 @@ namespace WebServ1
 {
     public class Order
     {
+        //תכונות של ההזמנה
         private int iD;
         private int bySubUser;
         private int itemId;
@@ -22,7 +23,7 @@ namespace WebServ1
         {
 
         }
-
+        //גטרים וסטטרים של התכונות
         public int ID { get => iD; set => iD = value; }
         public int BySubUser { get => bySubUser; set => bySubUser = value; }
         public int ItemId { get => itemId; set => itemId = value; }
@@ -32,6 +33,7 @@ namespace WebServ1
         public bool Rejected { get => rejected; set => rejected = value; }
         public string Remarkes { get => remarkes; set => remarkes = value; }
         public string ItemName { get => itemName; set => itemName = value; }
+
         public DateTime OrderDate { get => orderDate;
             set
             {
@@ -39,40 +41,13 @@ namespace WebServ1
             }
             }
         private string status;
-        //public string Status
-        //{
-        //    get
-        //    {
-        //        if(aproved == false && rejected == false)
-        //        {
-        //            return "awaiting response";
-        //        }
-        //        else
-        //        {
-        //            if(aproved==false && rejected == true)
-        //            {
-        //                return "rejected";
-        //            }
-        //            else
-        //            {
-        //                if(aproved==true && rejected == false)
-        //                {
-        //                    return "aproved";
-        //                }
-        //                else
-        //                {
-        //                    return "error";
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
+        //תכונה שמטרתה לתת סיכום בטקסט למשתמש של מצב הזמנתו
         public string Status
         {
             get { return status; }
             set { status = value; }
         }
-
+        //האם ההזמנה פעילה
         public bool IsActive { get => isActive; set => isActive = value; }
     }
 }

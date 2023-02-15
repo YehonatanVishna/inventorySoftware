@@ -29,6 +29,7 @@ namespace storageUniversal.xamls
         public static SubUserServ.SubUser FullSubUser;
         public bool navingate;
         public static Type sender;
+        //פעולה ששולחת משתמש שכבר נכנס לעמוד הבית שלו
         public async void gotoHome()
         {
             await Task.Delay(1);
@@ -67,6 +68,7 @@ namespace storageUniversal.xamls
             }
 
         }
+        //פקודה שמכניסה משתמש שפרטיו שמורים במערכת
         private class logSavedUser : ICommand
         {
             public event EventHandler CanExecuteChanged;
@@ -115,7 +117,7 @@ namespace storageUniversal.xamls
                 frame.GoBack();
             }
         }
-
+        //מבצע כניסה ואימות פרטים אחרי שהמשתמש הכניס פרטים ולחץ על כפתור ההתחברות
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             if (FullSubUser != null)
@@ -152,7 +154,7 @@ namespace storageUniversal.xamls
         {
             
         }
-
+        //שוכח את פרטי המשתמש אם החליט גם לשכוח את כל מה שנשמר בצורה קבועה אז מוחק גם את זה
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
             FullSubUser = null;

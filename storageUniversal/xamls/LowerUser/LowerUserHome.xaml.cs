@@ -19,20 +19,23 @@ using storageUniversal.xamls;
 namespace storageUniversal.xamls.LowerUser
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// this is the home page the user starts from.
+    /// From here, the user can go to other pages in the app
     /// </summary>
     public sealed partial class LowerUserHome : Page
     {
         public LowerUserHome()
         {
             this.InitializeComponent();
+            //קוד לניווט עם כפטורי העכבר
+            var mouse = new codes.backMouse();
         }
-
+        //שולח את המשתמש למסך ההזמנה
         private void SendToOrderPage_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(LowerUserOrdePage));
         }
-
+        //שולח את המשתמש לראות את ההזמנות שכבר שלח
         private void OrderedItems_Click(object sender, RoutedEventArgs e)
         {
             

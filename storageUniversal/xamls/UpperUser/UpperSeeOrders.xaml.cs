@@ -119,7 +119,7 @@ namespace storageUniversal.xamls.UpperUser
             bool a = await serv.UpdateOrderByUpperUserAsync(FullUpperUserFromSubServ, order);
             UnAprovedBindedOrders.Remove(order);
         }
-
+        //פעולה שמוסיפה את ההשאלות שאאושרו לרשימת ההשאלות
         private async void AddAllAprovedToBorrowings_Click(object sender, RoutedEventArgs e)
         {
             var borowwServ = new BorowwDb.BorowwingsDBSoapClient();

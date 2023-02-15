@@ -202,9 +202,6 @@
     <Compile Include="xamls\UpperUser\UpperUserHomePage.xaml.cs">
       <DependentUpon>UpperUserHomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="xamls\UpperUser\UpperUserStartScreen.xaml.cs">
-      <DependentUpon>UpperUserStartScreen.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -339,10 +336,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="xamls\UpperUser\UpperUserHomePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="xamls\UpperUser\UpperUserStartScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

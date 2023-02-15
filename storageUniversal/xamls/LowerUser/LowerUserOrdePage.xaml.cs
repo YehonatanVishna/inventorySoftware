@@ -22,13 +22,16 @@ using Windows.UI.Xaml.Navigation;
 namespace storageUniversal.xamls
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// This page lets the user order items from his UpperUser
     /// </summary>
     public sealed partial class LowerUserOrdePage : Page
     {
+        //רשימות של הזמנות
+        //רשימות אלה מקושרות לטבלאות
         private SubUserServ.SubUsersServSoapClient SubServ = new SubUserServ.SubUsersServSoapClient();
         private ObservableCollection<InventoryRow> BindedRowesInList = new ObservableCollection<InventoryRow>();
         private static ObservableCollection<SubUserServ.Order> cashedOrders = new ObservableCollection<SubUserServ.Order>();
+
         public LowerUserOrdePage()
         {
             
@@ -62,7 +65,7 @@ namespace storageUniversal.xamls
                 frame.GoBack();
             }
         }
-
+        //מבקש מהמשתמש את פרטי ההזמנה שלו אחרי שהוא ביקש להזמין פריט מסויים בטפריט הקליק הימני
         private async void RequstBut_Click(object sender, RoutedEventArgs e)
         {
             Grid grid = (sender as Button).Parent as Grid;
@@ -88,6 +91,7 @@ namespace storageUniversal.xamls
             await requstDetailes.ShowAsync();
 
         }
+        //הפקודה מוסיפה את ההזמנה לרשימת הקניות
         class addOrdToCash : ICommand
         {
             public event EventHandler CanExecuteChanged;
@@ -102,7 +106,6 @@ namespace storageUniversal.xamls
                 var amount = (parameter as Grid).Children[0] as TextBox;
                 var idb = (parameter as Grid).Children[2] as TextBlock;
                 var nameBox = (parameter as Grid).Children[1] as TextBlock;
-
                 var ord = new SubUserServ.Order();
                 ord.Amount = float.Parse(amount.Text);
                 ord.Aproved = false;
@@ -115,7 +118,7 @@ namespace storageUniversal.xamls
 
             }
         }
-
+        //שולח למשתמש העליון את כל ההזמנות שהמשתמש התחתון הוסיף לרשימת הקניות שלו
         private async void PlaceOrderButton_Click(object sender, RoutedEventArgs e)
         {
             var serv = new SubUserServ.SubUsersServSoapClient();
@@ -124,16 +127,9 @@ namespace storageUniversal.xamls
             var usr = LowerLogin.FullSubUser;
             foreach (SubUserServ.Order order in cashedOrders)
             {
-                //try
-                //{
                 int a = await serv.addOrderAsync(order, new SubUserServ.SubUser() { BelongsToUpperUser = 1, UserName = "dd", Password = "222" });
                     ids.Add(await serv.addOrderAsync(order, new SubUserServ.SubUser() { UserName= usr.UserName, Password = usr.Password, BelongsToUpperUser = usr.BelongsToUpperUser, Id = usr.Id}));
                     isok = isok && true;
-                //}
-                //catch
-                //{
-                //    isok = isok && false;
-                //}
             }
             if (isok)
             {
