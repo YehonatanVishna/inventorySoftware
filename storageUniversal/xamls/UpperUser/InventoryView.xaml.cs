@@ -314,7 +314,7 @@ namespace storageUniversal
 
                 rightClick.Items.Add(firstItem);
                 var InventoryItemSelected = InventoryTbl.SelectedItem as InventoryRow;
-                MenuFlyoutItem GoogleSearchItem = new MenuFlyoutItem { Text = "find where to buy mor of this" };
+                MenuFlyoutItem GoogleSearchItem = new MenuFlyoutItem { Text = "find where to buy more of this" };
                 GoogleSearchItem.DataContext = InventoryItemSelected;
                 GoogleSearchItem.Click += GoogleSearchItem_Click ;
                 rightClick.Items.Add(GoogleSearchItem);

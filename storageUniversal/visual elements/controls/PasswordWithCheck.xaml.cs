@@ -40,16 +40,6 @@ namespace storageUniversal
   DependencyProperty.Register(nameof(placeHolder), typeof(string),
     typeof(PasswordWithCheck), new PropertyMetadata(string.Empty));
 
-        //private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        //{
-
-        //}
-
-
-        //private void PasswordBox_FocusDisengaged(Control sender, FocusDisengagedEventArgs args)
-        //{
-        //    pass.PasswordRevealMode = PasswordRevealMode.Hidden;
-        //}
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
