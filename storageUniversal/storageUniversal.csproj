@@ -127,12 +127,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="visual elements\controls\BlankGenericPage.xaml.cs">
-      <DependentUpon>BlankGenericPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="visual elements\controls\CheckBoolean.xaml.cs">
-      <DependentUpon>CheckBoolean.xaml</DependentUpon>
-    </Compile>
     <Compile Include="visual elements\controls\PasswordWithCheck.xaml.cs">
       <DependentUpon>PasswordWithCheck.xaml</DependentUpon>
     </Compile>
@@ -267,14 +261,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="visual elements\controls\BlankGenericPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="visual elements\controls\CheckBoolean.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="visual elements\controls\PasswordWithCheck.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
