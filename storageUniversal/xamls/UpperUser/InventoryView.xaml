@@ -6,6 +6,7 @@
     xmlns:local="using:storageUniversal"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:noneNumberFilds="using:storageUniversal.handleNoneNumbers"
     xmlns:Windows10FallCreatorsUpdate="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 5)"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -52,8 +53,8 @@
                         </Grid.RowDefinitions>
 
                         <TextBox Grid.Row="0" TextWrapping="Wrap" FlowDirection="LeftToRight" TextAlignment="Left" HorizontalAlignment="Stretch" Grid.Column="0" Name="NameBlock" Text= "{x:Bind Name, Mode=TwoWay}"/>
-                        <TextBox Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Stretch" Grid.Column="1" Name="QuantityBlock" Text= "{x:Bind Quantity, Mode=TwoWay}"/>
-                        <TextBox Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Stretch" Grid.Column="2" Name="NeededQuantityBlock" Text= "{x:Bind NeededQuantity, Mode=TwoWay}"/>
+                        <TextBox Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Stretch" Grid.Column="1" Name="QuantityBlock" TextChanged="{x:Bind local:handleNoneNumbers.Number_TextChanged}" Text= "{x:Bind Quantity, Mode=TwoWay}"/>
+                        <TextBox Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Stretch" Grid.Column="2" Name="NeededQuantityBlock" TextChanged="{x:Bind local:handleNoneNumbers.Number_TextChanged}" Text= "{x:Bind NeededQuantity, Mode=TwoWay}"/>
                         <Frame Grid.Row="0" Grid.Column="4" HorizontalAlignment="Stretch" BorderThickness="2" BorderBrush="Gray">
                             <TextBlock  TextWrapping="Wrap" HorizontalAlignment="Stretch" Name="AmountOutBox" Text="{x:Bind AmountOut, Mode=TwoWay}"/>
                         </Frame>

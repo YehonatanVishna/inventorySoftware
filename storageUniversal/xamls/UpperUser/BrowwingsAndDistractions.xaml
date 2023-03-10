@@ -59,7 +59,7 @@
                             <ColumnDefinition Width="0.5*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <TextBlock HorizontalAlignment="Stretch" Grid.Column="0" Name="itemName" Text="{Binding Name, Mode=TwoWay}" TextAlignment="DetectFromContent"></TextBlock>
-                        <TextBox HorizontalAlignment="Stretch" Grid.Column="1" Name="amount" Text="{Binding Quantity, Mode=TwoWay}"></TextBox>
+                        <TextBox HorizontalAlignment="Stretch" Grid.Column="1" Name="amount" Text="{Binding Quantity, Mode=TwoWay}" TextChanged="{x:Bind local:handleNoneNumbers.Number_TextChanged}"></TextBox>
                         <TextBox HorizontalAlignment="Stretch" Grid.Column="2" Name="takenBy" Text="{Binding BorrowedBy, Mode=TwoWay}"></TextBox>
                         <TextBlock HorizontalAlignment="Center" Name="WhenBorrowed" Grid.Column="3" Text="{Binding When}"></TextBlock>
                         <TextBlock Visibility="Collapsed" Name="ID" Text="{Binding BorrowingId}"></TextBlock>

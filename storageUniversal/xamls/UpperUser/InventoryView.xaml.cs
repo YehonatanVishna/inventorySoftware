@@ -287,6 +287,8 @@ namespace storageUniversal
                 rowDefinitions.Add(new RowDefinition());
             }
             TextBox amount = new TextBox { PlaceholderText = "amount" };
+            //מוסיף פעולה שלא תתיר למשתמש להכינס לשדה כמות אותיות
+            amount.TextChanged += storageUniversal.handleNoneNumbers.Number_TextChanged;
             Grid.SetRow(amount, 0); grid.Children.Add(amount); 
             TextBox lentTo = new TextBox { PlaceholderText = "Lent to" };
             Grid.SetRow(lentTo, 1); grid.Children.Add(lentTo);

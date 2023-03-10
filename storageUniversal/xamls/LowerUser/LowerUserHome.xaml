@@ -20,11 +20,6 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Button x:Name="back" Grid.Column="0" Grid.Row="0" Click="Back_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
-        <StackPanel Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
-            <TextBlock xml:space="preserve">Hello </TextBlock>
-            <TextBlock Text="{x:Bind usr:LowerLogin.FullSubUser.FName.ToString() , Mode=OneTime}"></TextBlock>
-
-        </StackPanel>
         <Button  Grid.Column="1" Grid.Row="1" Name="sendToOrderPage" ToolTipService.ToolTip="this button sends you to order items" Click="SendToOrderPage_Click" HorizontalAlignment="Stretch" VerticalAlignment="Center">
             <SymbolIcon Symbol="Shop"/>
         </Button>

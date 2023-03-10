@@ -81,6 +81,9 @@ namespace storageUniversal.xamls
             var requstDetailes = new ContentDialog() { Title = "Insert the desiered amount of " + item.Name , SecondaryButtonText = "apply and add", CloseButtonText = "cancel"};
             Grid getRequstDitailes = new Grid();
             var amount = new TextBox() { PlaceholderText = "desiered amount of " + item.Name };
+            //מונע מהמשתמש להכניס לשדה מספרי תווים לא מספריים
+            amount.TextChanged += storageUniversal.handleNoneNumbers.Number_TextChanged;
+
             getRequstDitailes.Children.Add(amount);
             getRequstDitailes.Children.Add(new TextBlock() { Text = item.Name.ToString(), Visibility = Visibility.Collapsed });
             getRequstDitailes.Children.Add(new TextBlock() { Text = item.ID.ToString(), Visibility = Visibility.Collapsed });
@@ -135,6 +138,7 @@ namespace storageUniversal.xamls
             {
                 var sucsses = new ContentDialog() { Title = "Your order has been placed secsussfully", CloseButtonText = "ok" };
                 await sucsses.ShowAsync();
+                cashedOrders.Clear();
             }
             else
             {
