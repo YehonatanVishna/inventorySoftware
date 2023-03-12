@@ -6,6 +6,7 @@ using System.Web.Services;
 using System.Data;
 using System.Data.SqlClient;
 using System.Net;
+using System.Threading.Tasks;
 //made by yehonatan vishna
 
 namespace WebServ1
@@ -147,11 +148,57 @@ namespace WebServ1
         ///takes a user object, and deletes the coresponding user from db. Returns wether the delete operation secusseded.
         ///מקבל עצם של משתמש עם דואל וסיסמה ומוחק את משתמש או משתמשים אלו ממסד הנתונים
         /// </summary>
-        public bool DeleteUser(User usr) {
+        public async Task<bool> DeleteUserAsync(User usr) {
             Connection con = new Connection(constr);
             con.openCon();
-            return con.ExequteNoneQury("Delete From users where email='" + usr.Email + "' AND password = '" + usr.Password + "'");
+
+            return  DeleteAllBorrows(usr) && DeleteAllOrders(usr) && await DeleteAllItemsInIventory(usr) && DeleteAllSubs(usr) && con.ExequteNoneQury("Delete From users where email='" + usr.Email + "' AND password = '" + usr.Password + "'");
         }
+        //מוחק את כל התת משתמשים של אותו משתמש
+        private bool DeleteAllSubs(User user)
+        {
+            var subsServ = new SubUsersServ();
+            var data_table = subsServ.getYourSubUsers(user);
+            Connection con = new Connection(constr);
+            con.openCon();
+            bool ok = true;
+            foreach (DataRow dr in data_table.Rows)
+            {
+                ok = ok && subsServ.DeleteSubUser(user, int.Parse(dr["ID"].ToString()));
+            }
+            return ok;
+        }
+        //מוחק את כל הפריטים של המשתמש
+        private async Task<bool> DeleteAllItemsInIventory(User user)
+        {
+            var Inventory = new InventoryFuncs.InventoryFuncsSoapClient();
+            var data_table = await Inventory.GetInventoryUserDataTableAsync(user.ID,user.Email,user.Password);
+            Connection con = new Connection(constr);
+            con.openCon();
+            bool ok = true;
+            foreach (DataRow dr in data_table.Rows)
+            {
+                ok = ok && await Inventory.DeleteInventoryRowAsync(int.Parse(dr["ID"].ToString()), user.Email, user.Password);
+            }
+            return ok;
+        }
+        //מוחק את כל ההזמנות למשתמש
+        private bool DeleteAllOrders(User user)
+        {
+            var subsServ = new SubUsersServ();
+            var data_table = getUpperOrders(user);
+            Connection con = new Connection(constr);
+            con.openCon();
+            return con.ExequteNoneQury("Delete * from Orders where ToUpperUser = " + user.ID + ";");
+        }
+        //מוחק את כל ההשאלות ציוד מהמשתמש
+        private bool DeleteAllBorrows(User user)
+        {
+            Connection con = new Connection(constr);
+            con.openCon();
+            return con.ExequteNoneQury("Delete * from BorrowedItems where UserId = " + user.ID + ";");
+        }
+
         [WebMethod]
         ///<summary>
         ///takes a admin User object, and a User id. The method deletes the coresponding user from db. Returns wether the delete operation secusseded.

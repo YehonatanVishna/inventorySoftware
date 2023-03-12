@@ -48,6 +48,8 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -69,10 +71,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Connected Services\InventoryFuncs\InventoryFuncs.disco" />
+    <None Include="Connected Services\InventoryFuncs\configuration91.svcinfo" />
+    <None Include="Connected Services\InventoryFuncs\configuration.svcinfo" />
+    <None Include="Connected Services\InventoryFuncs\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="SubUsersServ.asmx" />
     <Content Include="UserDBServ.asmx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connected Services\InventoryFuncs\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Order.cs" />
     <Compile Include="SubUser.cs" />
     <Compile Include="Connection.cs" />
@@ -88,14 +102,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Connected Services\InventoryFuncs\InventoryFuncs.wsdl" />
     <None Include="packages.config" />
     <Content Include="web.config" />
+    <Content Include="Properties\DataSources\System.Data.DataTable.datasource" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
     <None Include="web.Release.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\InventoryFuncs\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

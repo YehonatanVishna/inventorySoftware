@@ -60,7 +60,7 @@ namespace storageUniversal
         }
         //בודק האם האימייל שהתקבל תקין בתחביר שלו
         //checks whether the recived email is valid
-        public bool isEmailValid(String email)
+        public static bool isEmailValid(String email)
         {
             var trimmedEmail = email.Trim();
 
@@ -80,7 +80,7 @@ namespace storageUniversal
         }
         // בודק האם האימייל שהתקבל כבר בשימוש במסד הנתונים
         //checks whether the email alredy axists in db
-        public async Task<bool> DoesEmailExistAlready(string email)
+        public static async Task<bool> DoesEmailExistAlready(string email)
         {
             var UDBS = new UserDBServ.UserDBServSoapClient();
             return await UDBS.DoesEmailExistAsync(email);

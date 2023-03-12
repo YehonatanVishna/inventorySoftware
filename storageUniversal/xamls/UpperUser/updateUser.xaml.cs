@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Navigation;
 using storageUniversal;
 using System.Threading;
 using Windows.UI.Core;
+using System.Windows.Input;
 
 //made by yehonatan vishna
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -83,37 +84,73 @@ namespace storageUniversal
             NewUser.Email = newemail.Text;
             NewUser.Password = pass.Text;
             NewUser.Compeny = compeny.Text;
-            var resTemp = await UDBS.updateUserAsync(FullUser, NewUser);
-            bool res = resTemp;
-            if (res)
+            //בודק שהאימייל תקין
+            if (Register.isEmailValid(newemail.Text))
             {
-                var secsussPop = new ContentDialog()
+                var resTemp = await UDBS.updateUserAsync(FullUser, NewUser);
+                bool res = resTemp;
+                if (res)
                 {
-                    Title = "Detailes Update Have Been Sucsussfully Completed", CloseButtonText="ok"
-                };
-                await secsussPop.ShowAsync();
-                FullUser = NewUser;
-                Frame.Navigate(typeof(UpperLogin));
+                    var secsussPop = new ContentDialog()
+                    {
+                        Title = "Detailes Update Have Been Sucsussfully Completed",
+                        CloseButtonText = "ok"
+                    };
+                    await secsussPop.ShowAsync();
+                    FullUser = NewUser;
+                    Frame.Navigate(typeof(UpperLogin));
+                }
+                else
+                {
+                    var failPop = new ContentDialog()
+                    {
+                        Title = "Detailes Update Have Been Unsecsussfull",
+                        Content = "Please try again.",
+                        CloseButtonText = "ok"
+                    };
+                    await failPop.ShowAsync();
+                }
             }
             else
             {
-                var failPop = new ContentDialog()
-                {
-                    Title = "Detailes Update Have Been Unsecsussfull", Content = "Please try again.",
-                    CloseButtonText = "ok"
-                };
-                await failPop.ShowAsync();
+                var invalidEmail = new ContentDialog() { Title = "Invalid Email address", Content = "please enter a valid Email adress", CloseButtonText = "ok" };
+                await invalidEmail.ShowAsync();
             }
-            }
+
+
+
+        }
         //deletes user from system
         //מוחק את המשתמש
         private async void DelBot_Click(object sender, RoutedEventArgs e)
         {
-            var usr = UpperLogin.FullUser;
-            var a = await UDBS.DeleteUserAsync(usr);
-            bool b = bool.Parse(a.ToString());
-
+            //שואל את המשתמש אם הוא בטוח שהוא רוצה להימחק
+            
+            var delMsg = new ContentDialog() { Title = "Notice", Content = "You are about to delete all your data from our systems, are you sure?", CloseButtonText="Cancel", SecondaryButtonText = "ok, delete me", SecondaryButtonCommandParameter= this };
+            delMsg.SecondaryButtonCommand = new deleteButtonCommand() ;
+            await delMsg.ShowAsync();
         }
+        public async void deleteUser()
+        {
+            var usr = UpperLogin.FullUser;
+            var a = await UDBS.DeleteUserAsyncAsync(usr);
+        }
+        class deleteButtonCommand : ICommand
+        {
+            public event EventHandler CanExecuteChanged;
+
+            public bool CanExecute(object parameter)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void Execute(object parameter)
+            {
+                var page = parameter as updateUser;
+                page.deleteUser();
+            }
+        }
+
         //מחזיר את המשתמש לעמוד הקודם
         //goes back to previus page
         private void Back_Click(object sender, RoutedEventArgs e)

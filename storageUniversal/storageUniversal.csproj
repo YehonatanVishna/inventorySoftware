@@ -208,6 +208,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\SubUserServ\SubUsersServ.wsdl" />
+    <None Include="Connected Services\UserDBServ\storageUniversal.UserDBServ.TaskOfBoolean.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\UserDBServ\storageUniversal.UserDBServ.User.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
