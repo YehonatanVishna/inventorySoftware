@@ -79,6 +79,7 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Button Grid.Row="0" Name="LoadTbl" Click="LoadTbl_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <!--<TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="WrapWholeWords" Text="load table"></TextBlock>-->
@@ -102,7 +103,10 @@
                 <SymbolIcon Symbol="Import"></SymbolIcon>
                 <!--<TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="WrapWholeWords" Text="import from csv"></TextBlock>-->
             </Button>
-            <Button Grid.Row="5" Name="seeLandings" Click="SeeLandings_Click"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Button Grid.Row="5" Name="see_items_shortege" Click="See_items_shortege_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ToolTipService.ToolTip="see what items you lack in your inventory">
+                <TextBlock TextWrapping="Wrap">items in shortage</TextBlock>
+            </Button>
+            <Button Grid.Row="6" Name="seeLandings" Click="SeeLandings_Click"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="WrapWholeWords" Text="see all active landings"></TextBlock>
             </Button>
         </Grid>

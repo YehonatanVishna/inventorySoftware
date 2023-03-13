@@ -370,5 +370,10 @@ namespace storageUniversal
             BrowwingsAndDistractions.senderPage = typeof(InventoryView);
             Frame.Navigate(typeof(BrowwingsAndDistractions));
         }
+
+        private void See_items_shortege_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
