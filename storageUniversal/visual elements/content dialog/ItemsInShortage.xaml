@@ -5,13 +5,37 @@
     xmlns:local="using:storageUniversal.visual_elements.content_dialog"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:inventory="using:storageUniversal"
+    xmlns:controls ="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:convert ="using:storageUniversal.visual_elements.content_dialog"
+    xmlns:data="using Windows.UI.Xaml.Data"
     mc:Ignorable="d"
-    Title="TITLE"
-    PrimaryButtonText="Button1"
-    SecondaryButtonText="Button2"
-    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
-    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
-
-    <Grid>
-    </Grid>
+    Title="The Items You Are Currently In Need Of In Your Inventory"
+    CloseButtonText="close"
+    FullSizeDesired="True"
+    CornerRadius="10"
+    Width="Auto"
+    BackgroundSizing="OuterBorderEdge"
+    HorizontalContentAlignment="Center"
+    HorizontalAlignment="Center"
+    Margin="0"  BorderThickness="1" 
+    >
+    <ContentDialog.Resources>
+        <local:QuantityDifferenceConverter x:Key="convert"/>
+    </ContentDialog.Resources>
+    <Viewbox HorizontalAlignment="Center" Stretch="Uniform">
+        <controls:DataGrid ItemsSource="{Binding}" Name="StockList" AutoGenerateColumns="False">
+            <controls:DataGrid.Columns>
+                <controls:DataGridTextColumn IsReadOnly="True" Header="Name" Binding="{Binding Name, Mode=TwoWay}" />
+                <controls:DataGridTextColumn IsReadOnly="True" Header="In Stock" Binding="{Binding Quantity, Mode=TwoWay}" />
+                <controls:DataGridTextColumn IsReadOnly="True" Header="Needed" Binding="{Binding NeededQuantity, Mode=TwoWay}" />
+                <controls:DataGridTextColumn IsReadOnly="True" Header="You Need To Get" >
+                    <controls:DataGridTextColumn.Binding>
+                        <Binding Source="{Binding}" Converter="{StaticResource ResourceKey=convert}">
+                        </Binding>
+                    </controls:DataGridTextColumn.Binding>
+                </controls:DataGridTextColumn>
+            </controls:DataGrid.Columns>
+        </controls:DataGrid>
+    </Viewbox>
 </ContentDialog>

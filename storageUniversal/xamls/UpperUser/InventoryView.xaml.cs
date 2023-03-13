@@ -371,9 +371,10 @@ namespace storageUniversal
             Frame.Navigate(typeof(BrowwingsAndDistractions));
         }
 
-        private void See_items_shortege_Click(object sender, RoutedEventArgs e)
+        private async void See_items_shortege_Click(object sender, RoutedEventArgs e)
         {
-
+            var window = new storageUniversal.visual_elements.content_dialog.ItemsInShortage(InventoryRowesBindedToUser) {};
+            await window.ShowAsync();
         }
     }
 }
