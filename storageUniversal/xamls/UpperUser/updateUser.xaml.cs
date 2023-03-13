@@ -134,6 +134,17 @@ namespace storageUniversal
         {
             var usr = UpperLogin.FullUser;
             var a = await UDBS.DeleteUserAsyncAsync(usr);
+            if (a)
+            {
+                var sucsess = new ContentDialog() {  CloseButtonText="ok" ,Title = "Sucsess", Content = "All your data is now gone." };
+                await sucsess.ShowAsync();
+                Frame.Navigate(typeof(MainPage));
+            }
+            else
+            {
+                var fail = new ContentDialog() { CloseButtonText = "ok", Title = "Failiur", Content = "Operation failed, please try again." };
+                await fail.ShowAsync();
+            }
         }
         class deleteButtonCommand : ICommand
         {

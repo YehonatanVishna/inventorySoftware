@@ -148,11 +148,11 @@ namespace WebServ1
         ///takes a user object, and deletes the coresponding user from db. Returns wether the delete operation secusseded.
         ///מקבל עצם של משתמש עם דואל וסיסמה ומוחק את משתמש או משתמשים אלו ממסד הנתונים
         /// </summary>
-        public async Task<bool> DeleteUserAsync(User usr) {
+        public bool DeleteUserAsync(User usr) {
             Connection con = new Connection(constr);
             con.openCon();
 
-            return  DeleteAllBorrows(usr) && DeleteAllOrders(usr) && await DeleteAllItemsInIventory(usr) && DeleteAllSubs(usr) && con.ExequteNoneQury("Delete From users where email='" + usr.Email + "' AND password = '" + usr.Password + "'");
+            return  DeleteAllBorrows(usr) && DeleteAllOrders(usr) && DeleteAllItemsInIventory(usr) && DeleteAllSubs(usr) && con.ExequteNoneQury("Delete From users where email='" + usr.Email + "' AND password = '" + usr.Password + "'");
         }
         //מוחק את כל התת משתמשים של אותו משתמש
         private bool DeleteAllSubs(User user)
@@ -169,18 +169,11 @@ namespace WebServ1
             return ok;
         }
         //מוחק את כל הפריטים של המשתמש
-        private async Task<bool> DeleteAllItemsInIventory(User user)
+        private bool DeleteAllItemsInIventory(User user)
         {
-            var Inventory = new InventoryFuncs.InventoryFuncsSoapClient();
-            var data_table = await Inventory.GetInventoryUserDataTableAsync(user.ID,user.Email,user.Password);
             Connection con = new Connection(constr);
             con.openCon();
-            bool ok = true;
-            foreach (DataRow dr in data_table.Rows)
-            {
-                ok = ok && await Inventory.DeleteInventoryRowAsync(int.Parse(dr["ID"].ToString()), user.Email, user.Password);
-            }
-            return ok;
+            return con.ExequteNoneQury("Delete From Inventory where OwnerUserId = " + user.ID + ";");
         }
         //מוחק את כל ההזמנות למשתמש
         private bool DeleteAllOrders(User user)
@@ -189,14 +182,14 @@ namespace WebServ1
             var data_table = getUpperOrders(user);
             Connection con = new Connection(constr);
             con.openCon();
-            return con.ExequteNoneQury("Delete * from Orders where ToUpperUser = " + user.ID + ";");
+            return con.ExequteNoneQury("Delete from Orders where ToUpperUser = " + user.ID + ";");
         }
         //מוחק את כל ההשאלות ציוד מהמשתמש
         private bool DeleteAllBorrows(User user)
         {
             Connection con = new Connection(constr);
             con.openCon();
-            return con.ExequteNoneQury("Delete * from BorrowedItems where UserId = " + user.ID + ";");
+            return con.ExequteNoneQury("Delete from BorrowedItems where UserId = " + user.ID + ";");
         }
 
         [WebMethod]

@@ -21,62 +21,50 @@ namespace storageUniversal.UserDBServ {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/reg", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Task))]
         System.Threading.Tasks.Task<bool> regAsync(storageUniversal.UserDBServ.User usr);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IsUserPermitted", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Task))]
         System.Threading.Tasks.Task<bool> IsUserPermittedAsync(storageUniversal.UserDBServ.User usr);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/AddEmptyUser", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Task))]
         System.Threading.Tasks.Task<int> AddEmptyUserAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetFullUser", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Task))]
         System.Threading.Tasks.Task<storageUniversal.UserDBServ.User> GetFullUserAsync(storageUniversal.UserDBServ.User usr);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/updateUserByIdAdmin", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Task))]
         System.Threading.Tasks.Task<bool> updateUserByIdAdminAsync(int id, storageUniversal.UserDBServ.User Admin, storageUniversal.UserDBServ.User NewUsr);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/updateUser", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Task))]
         System.Threading.Tasks.Task<bool> updateUserAsync(storageUniversal.UserDBServ.User OldUsr, storageUniversal.UserDBServ.User NewUsr);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DeleteUserAsync", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Task))]
-        System.Threading.Tasks.Task<storageUniversal.UserDBServ.TaskOfBoolean> DeleteUserAsyncAsync(storageUniversal.UserDBServ.User usr);
+        System.Threading.Tasks.Task<bool> DeleteUserAsyncAsync(storageUniversal.UserDBServ.User usr);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DeleteUserAdmin", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Task))]
         System.Threading.Tasks.Task<bool> DeleteUserAdminAsync(storageUniversal.UserDBServ.User Admin, int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IsAdmin", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Task))]
         System.Threading.Tasks.Task<bool> IsAdminAsync(storageUniversal.UserDBServ.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetAdminUserTbl", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Task))]
         System.Threading.Tasks.Task<System.Data.DataTable> GetAdminUserTblAsync(storageUniversal.UserDBServ.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DoesEmailExist", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Task))]
         System.Threading.Tasks.Task<bool> DoesEmailExistAsync(string email);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/getUpperOrders", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Task))]
         System.Threading.Tasks.Task<System.Data.DataTable> getUpperOrdersAsync(storageUniversal.UserDBServ.User user);
     }
     
@@ -194,30 +182,6 @@ namespace storageUniversal.UserDBServ {
         }
     }
     
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TaskOfBoolean))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class Task : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class TaskOfBoolean : Task {
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface UserDBServSoapChannel : storageUniversal.UserDBServ.UserDBServSoap, System.ServiceModel.IClientChannel {
     }
@@ -285,7 +249,7 @@ namespace storageUniversal.UserDBServ {
             return base.Channel.updateUserAsync(OldUsr, NewUsr);
         }
         
-        public System.Threading.Tasks.Task<storageUniversal.UserDBServ.TaskOfBoolean> DeleteUserAsyncAsync(storageUniversal.UserDBServ.User usr) {
+        public System.Threading.Tasks.Task<bool> DeleteUserAsyncAsync(storageUniversal.UserDBServ.User usr) {
             return base.Channel.DeleteUserAsyncAsync(usr);
         }
         
