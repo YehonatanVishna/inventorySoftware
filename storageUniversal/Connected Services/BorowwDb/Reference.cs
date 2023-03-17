@@ -50,6 +50,10 @@ namespace storageUniversal.BorowwDb {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/updateBorrow", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Threading.Tasks.Task<bool> updateBorrowAsync(storageUniversal.BorowwDb.Borrow oldborrow, storageUniversal.BorowwDb.Borrow newBorrow, string email, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/updateBorrowTest", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Threading.Tasks.Task updateBorrowTestAsync();
     }
     
     /// <remarks/>
@@ -225,6 +229,10 @@ namespace storageUniversal.BorowwDb {
         
         public System.Threading.Tasks.Task<bool> updateBorrowAsync(storageUniversal.BorowwDb.Borrow oldborrow, storageUniversal.BorowwDb.Borrow newBorrow, string email, string password) {
             return base.Channel.updateBorrowAsync(oldborrow, newBorrow, email, password);
+        }
+        
+        public System.Threading.Tasks.Task updateBorrowTestAsync() {
+            return base.Channel.updateBorrowTestAsync();
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync() {

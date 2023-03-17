@@ -216,6 +216,8 @@ namespace storageUniversal.SubUserServ {
         
         private string statusField;
         
+        private bool isActiveField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public int ID {
@@ -345,6 +347,18 @@ namespace storageUniversal.SubUserServ {
             set {
                 this.statusField = value;
                 this.RaisePropertyChanged("Status");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=11)]
+        public bool IsActive {
+            get {
+                return this.isActiveField;
+            }
+            set {
+                this.isActiveField = value;
+                this.RaisePropertyChanged("IsActive");
             }
         }
         

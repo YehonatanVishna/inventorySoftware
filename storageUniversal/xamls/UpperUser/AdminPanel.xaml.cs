@@ -17,6 +17,9 @@ using System.Data;
 using Windows.UI.Core;
 using System.Collections.ObjectModel;
 using storageUniversal.codes;
+using storageUniversal.xamls.UpperUser;
+using storageUniversal.xamls;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -201,9 +204,60 @@ namespace storageUniversal
         {
             loudTbl();
         }
+        //מעלה תפריט קליק ימני
+        private void Gridy_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            UsersTbl.SelectedItem = (sender as Grid).DataContext;
+            if (UsersTbl.SelectedItem != null)
+            {
+                var right_click_menu = new MenuFlyout();
+                var see_subUsers_option = new MenuFlyoutItem() { Text = "see sub users" };
+                see_subUsers_option.DataContext = UsersTbl.SelectedItem;
+                see_subUsers_option.Click += See_subUsers_option_ClickAsync;
+                right_click_menu.Items.Add(see_subUsers_option);
+                right_click_menu.ShowAt(sender as Grid, e.GetPosition(sender as Grid));
+            }
+            
 
+        }
 
-
+        private async void See_subUsers_option_ClickAsync(object sender, RoutedEventArgs e)
+        {
+            var user = (sender as MenuFlyoutItem).DataContext as User;
+            var server_user= new SubUserServ.User() { ID = user.ID, BDate = user.BDate, Compeny = user.Compeny, Email = user.Email, Fname = user.Fname, Lname = user.Lname, Password = user.Password };
+            //יוצר הודעה עם כל המשתמשים
+            var subUsers_popup = new ContentDialog() { Title = "The Sub Users That Belongs To User " + user.ID, CloseButtonText = "ok" };
+            var viewBox = new Viewbox();
+            var subs_grid = new DataGrid() { IsReadOnly = true};
+            var SubUsers_soap_client = new SubUserServ.SubUsersServSoapClient();
+            DataTable r;
+            try
+            {
+                r = await SubUsers_soap_client.getYourSubUsersAsync(server_user);
+            }
+            catch
+            {
+                r = new DataTable();
+            }
+            List<SubUser> Users = new List<SubUser>();
+            foreach (DataRow a in r.Rows)
+            {
+                SubUser row = new SubUser();
+                row.Id = int.Parse(a["ID"].ToString());
+                row.FName = a["FName"].ToString();
+                row.LName = a["LName"].ToString();
+                row.Email = a["Email"].ToString();
+                row.BelongsToUpperUser = int.Parse(a["BelongsToUpperUser"].ToString());
+                row.Role = a["Role"].ToString();
+                row.Password = a["Password"].ToString();
+                row.UserName = a["UserName"].ToString();
+                Users.Add(row);
+            }
+            subs_grid.ItemsSource = Users;
+            viewBox.Child = subs_grid;
+            subUsers_popup.Content = viewBox;
+            await subUsers_popup.ShowAsync();
+        }
     }
 }
 

@@ -68,7 +68,7 @@
         <ListView Grid.Column="1" Grid.Row="1" Name="UsersTbl" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Top" >
             <ListView.ItemTemplate>
                 <DataTemplate x:Name="dataTemp" x:DataType="data:User" x:DefaultBindMode="TwoWay">
-                    <Grid Name="gridy" HorizontalAlignment="Stretch">
+                    <Grid Name="gridy" HorizontalAlignment="Stretch" RightTapped="Gridy_RightTapped">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
@@ -78,7 +78,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox Grid.Column="0" Name="IdBox" Text= "{x:Bind ID, Mode=TwoWay}"/>
+                        <TextBlock Grid.Column="0" Name="IdBox" Text= "{x:Bind ID, Mode=TwoWay}"/>
                         <TextBox Grid.Column="1" Name="FNameBox" Text= "{x:Bind Fname, Mode=TwoWay}"/>
                         <TextBox Grid.Column="2" Name="LNameBox" Text= "{x:Bind Lname, Mode=TwoWay}"/>
                         <CalendarDatePicker Grid.Column="3" Name="BdateBox" Date="{x:Bind BDateTimeOffset, Mode=TwoWay}" HorizontalAlignment="Stretch"/>

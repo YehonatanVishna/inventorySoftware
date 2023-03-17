@@ -335,8 +335,17 @@ namespace storageUniversal
         {
             var button = sender as MenuFlyoutItem;
             InventoryRow row = button.DataContext as InventoryRow;
-            var s = (await googleApi(row.Name)).Items.First().Link;
-            var success = await Windows.System.Launcher.LaunchUriAsync( new Uri(s ));
+            try
+            {
+                var s = (await googleApi(row.Name)).Items.First().Link;
+                var success = await Windows.System.Launcher.LaunchUriAsync(new Uri(s));
+            }
+            catch
+            {
+                var fail = new ContentDialog() { Title = "We could not find the item you searched for", CloseButtonText = "ok" };
+                await fail.ShowAsync();
+            }
+
         }
 
         //הפקודה להוספת השאלה למסד הנתונים
