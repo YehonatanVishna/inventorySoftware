@@ -27,7 +27,6 @@
             <controls:DataGrid.Columns>
                 <controls:DataGridTextColumn Header="item name" Binding="{Binding ItemName}" IsReadOnly="True"/>
                 <controls:DataGridTextColumn Header="Amount" Binding="{Binding Amount, Mode=TwoWay}"/>
-                <controls:DataGridTextColumn Header="Remarkes" Binding="{Binding Remarkes, Mode=TwoWay}"/>
                 <controls:DataGridTextColumn Header="date" Binding="{Binding OrderDate}" IsReadOnly="True"/>
                 <controls:DataGridTemplateColumn >
                     <controls:DataGridTemplateColumn.CellTemplate>
@@ -58,7 +57,6 @@
                 <controls:DataGrid.Columns>
                     <controls:DataGridTextColumn Header="item name" Binding="{Binding ItemName}" IsReadOnly="True"/>
                     <controls:DataGridTextColumn Header="Amount" Binding="{Binding Amount, Mode=TwoWay}"/>
-                    <controls:DataGridTextColumn Header="Remarkes" Binding="{Binding Remarkes, Mode=TwoWay}"/>
                     <controls:DataGridTextColumn Header="date" Binding="{Binding OrderDate}" IsReadOnly="True"/>
                     <!--<controls:DataGridTemplateColumn >
                         <controls:DataGridTemplateColumn.CellTemplate>
