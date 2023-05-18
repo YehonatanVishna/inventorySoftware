@@ -29,7 +29,6 @@
                 <controls:DataGridTextColumn Header="item name" Binding="{Binding ItemName}"/>
                 <controls:DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
                 <controls:DataGridTextColumn Header="status?" Binding="{Binding Status}"/> 
-                <controls:DataGridTextColumn Header="Remarkes" Binding="{Binding Remarkes}"/>
                 <controls:DataGridTextColumn Header="date" Binding="{Binding OrderDate}"/>
             </controls:DataGrid.Columns>
         </controls:DataGrid>

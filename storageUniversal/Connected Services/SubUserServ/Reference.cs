@@ -51,6 +51,10 @@ namespace storageUniversal.SubUserServ {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Threading.Tasks.Task<System.Data.DataTable> getOrdersAsync(storageUniversal.SubUserServ.SubUser user);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DeleteOrder", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Threading.Tasks.Task DeleteOrderAsync(storageUniversal.SubUserServ.User user, int OrdId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetYourSubUser", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Threading.Tasks.Task<storageUniversal.SubUserServ.SubUser> GetYourSubUserAsync(storageUniversal.SubUserServ.User user, int SubUserID);
@@ -559,6 +563,10 @@ namespace storageUniversal.SubUserServ {
         
         public System.Threading.Tasks.Task<System.Data.DataTable> getOrdersAsync(storageUniversal.SubUserServ.SubUser user) {
             return base.Channel.getOrdersAsync(user);
+        }
+        
+        public System.Threading.Tasks.Task DeleteOrderAsync(storageUniversal.SubUserServ.User user, int OrdId) {
+            return base.Channel.DeleteOrderAsync(user, OrdId);
         }
         
         public System.Threading.Tasks.Task<storageUniversal.SubUserServ.SubUser> GetYourSubUserAsync(storageUniversal.SubUserServ.User user, int SubUserID) {

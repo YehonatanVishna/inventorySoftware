@@ -217,16 +217,22 @@ namespace WebServ1
                     newDr["ToUpperUser"] = order.ToUpperUser;
                     newDr["Aproved"] = "FALSE";
                     newDr["Rejected"] = "FALSE";
-                    if (order.Remarkes != null)
-                    {
-                        newDr["Remarks"] = order.Remarkes.ToString();
-                    }
+                    newDr["IsActive"] = "TRUE";
+
                     newDr["OrderDate"] = DateTime.Now.ToString();
 
                     newDr["ItemName"] = order.ItemName;
                     con.InsertDataRow(newDr);
-                    var updated = con.GetDataSet("1", "Select top 1 ID from Orders where BySubUser = " + subUser.Id + " AND ItemId = " + order.ItemId + " AND Amount = " + order.Amount + " AND ToUpperUser = " + order.ToUpperUser + " ORDER BY ID DESC;");
-                    return int.Parse(updated.Tables[0].Rows[0][0].ToString());
+                    try
+                    {
+                        var updated = con.GetDataSet("1", "Select top 1 ID from Orders where BySubUser = " + subUser.Id + " AND ItemId = " + order.ItemId + " AND Amount = " + order.Amount + " AND ToUpperUser = " + order.ToUpperUser + " ORDER BY ID DESC;");
+                        return int.Parse(updated.Tables[0].Rows[0][0].ToString());
+                    }
+                    catch
+                    {
+                        return -1;
+                    }
+
                 }
                 else
                 {
@@ -263,7 +269,37 @@ namespace WebServ1
                 throw new UnauthorizedAccessException();
             }
         }
-
+        [WebMethod]
+        ///<summary>
+        ///deletes the order
+        /// מוחק הזמנה עם תז שניתם
+        /// </summary>
+        /// <returns>
+        ///void
+        /// </returns>
+        public void DeleteOrder(User user, int OrdId)
+        {
+            var con = new Connection(constr);
+            var UserServ = new UserDBServ();
+            if (UserServ.IsUserPermitted(user))
+            {
+                var ds = con.GetDataSet("0", $"Select top 1 * from Orders where ID = {OrdId};");
+                var SubUserID = int.Parse( ds.Tables[0].Rows[0]["BySubUser"].ToString());
+                if (doesSubBelongToThisUser(SubUserID, user))
+                {
+                    con.openCon();
+                    con.ExequteNoneQury($"Delete From Orders Where ID = {OrdId};");
+                }
+                else
+                {
+                    throw new UnauthorizedAccessException();
+                }
+            }
+            else
+            {
+                throw new UnauthorizedAccessException();
+            }
+        }
         [WebMethod]
         ///<summary>
         ///gives the upper user all the details of one of his subUsers based on his id
@@ -318,7 +354,7 @@ namespace WebServ1
                         ds.Tables[0].Rows[0]["Amount"] = order.Amount;
                         ds.Tables[0].Rows[0]["Aproved"] = order.Aproved.ToString().ToUpper();
                         ds.Tables[0].Rows[0]["Rejected"] = order.Rejected.ToString().ToUpper();
-                        ds.Tables[0].Rows[0]["Remarks"] = order.Remarkes.ToString();
+                        ds.Tables[0].Rows[0]["IsActive"] = order.IsActive.ToString().ToUpper();
                         con.Update(ds);
                         return true;
                     }

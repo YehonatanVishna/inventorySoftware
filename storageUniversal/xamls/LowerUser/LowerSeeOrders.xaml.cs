@@ -59,7 +59,7 @@ namespace storageUniversal.xamls.LowerUser
                 order.ToUpperUser = int.Parse(row["ToUpperUser"].ToString());
                 order.Aproved = bool.Parse(row["Aproved"].ToString());
                 order.Rejected = bool.Parse(row["Rejected"].ToString());
-                order.Remarkes = row["Remarks"].ToString();
+                order.IsActive = bool.Parse( row["IsActive"].ToString());
                 if(DateTime.TryParse(row["OrderDate"].ToString(), out DateTime OrderDate))
                 {
                     order.OrderDate = OrderDate;

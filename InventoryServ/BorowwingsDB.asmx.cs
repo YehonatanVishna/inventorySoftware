@@ -89,11 +89,18 @@ namespace InventoryServ
             dr["Quantity"] = amountBorowwed;
             dr["UserId"] = userId;
             con.InsertDataRow(dr);
+            try
+            {
+                ds = con.GetDataSet("lands1", "select Top 1 * from BorrowedItems where ItemId =" + itemId.ToString() + "And BorrowedBy = N'" + lentForWho.ToString() + "' And Quantity =" + amountBorowwed.ToString() + "  ORDER BY BorrowingId DESC");
 
-            ds = con.GetDataSet("lands1", "select Top 1 * from BorrowedItems where ItemId =" + itemId.ToString() + "And BorrowedBy = N'"+ lentForWho.ToString() + "' And Quantity =" + amountBorowwed.ToString() + "  ORDER BY BorrowingId DESC");
-            
-            int id = int.Parse( ds.Tables[0].Rows[0]["BorrowingId"].ToString());
-            return id;
+                int id = int.Parse(ds.Tables[0].Rows[0]["BorrowingId"].ToString());
+                return id;
+            }
+            catch
+            {
+                return -1;
+            }
+
         }
         [WebMethod]
         ///<summary>

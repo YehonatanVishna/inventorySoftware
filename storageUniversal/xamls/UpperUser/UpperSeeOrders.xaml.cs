@@ -59,7 +59,7 @@ namespace storageUniversal.xamls.UpperUser
                 order.ToUpperUser = int.Parse(row["ToUpperUser"].ToString());
                 order.Aproved = bool.Parse(row["Aproved"].ToString());
                 order.Rejected = bool.Parse(row["Rejected"].ToString());
-                order.Remarkes = row["Remarks"].ToString();
+                order.IsActive = bool.Parse(row["IsActive"].ToString());
                 if (DateTime.TryParse(row["OrderDate"].ToString(), out DateTime OrderDate))
                 {
                     order.OrderDate = OrderDate;
@@ -71,14 +71,18 @@ namespace storageUniversal.xamls.UpperUser
             UnAprovedBindedOrders.Clear();
             foreach(var order in orders)
             {
-                if (!order.Rejected) { 
-                    if (order.Aproved)
+                if (order.IsActive)
+                {
+                    if (!order.Rejected)
                     {
-                        AprovedBindedOrders.Add(order);
-                    }
-                    else
-                    {
-                        UnAprovedBindedOrders.Add(order);
+                        if (order.Aproved)
+                        {
+                            AprovedBindedOrders.Add(order);
+                        }
+                        else
+                        {
+                            UnAprovedBindedOrders.Add(order);
+                        }
                     }
                 }
 
@@ -100,24 +104,40 @@ namespace storageUniversal.xamls.UpperUser
         //לחיצה מאשרת את ההזמנה
         private async void AcceptOrder_Click(object sender, RoutedEventArgs e)
         {
-            Button btn = sender as Button;
-            var order = btn.DataContext as SubUserServ.Order;
-            order.Aproved = true;
-            var serv = new SubUserServ.SubUsersServSoapClient();
-            bool a = await serv.UpdateOrderByUpperUserAsync(FullUpperUserFromSubServ, order);
-            UnAprovedBindedOrders.Remove(order);
-            AprovedBindedOrders.Add(order);
+            try
+            {
+                Button btn = sender as Button;
+                var order = btn.DataContext as SubUserServ.Order;
+                order.Aproved = true;
+                var serv = new SubUserServ.SubUsersServSoapClient();
+                bool a = await serv.UpdateOrderByUpperUserAsync(FullUpperUserFromSubServ, order);
+                UnAprovedBindedOrders.Remove(order);
+                AprovedBindedOrders.Add(order);
+            }
+            catch
+            {
+
+            }
+
 
         }
         //לחיצה דוחה את ההזמנה
         private async void RejectOrder_Click(object sender, RoutedEventArgs e)
         {
-            Button btn = sender as Button;
-            var order = btn.DataContext as SubUserServ.Order;
-            order.Rejected = true;
-            var serv = new SubUserServ.SubUsersServSoapClient();
-            bool a = await serv.UpdateOrderByUpperUserAsync(FullUpperUserFromSubServ, order);
-            UnAprovedBindedOrders.Remove(order);
+            try
+            {
+                Button btn = sender as Button;
+                var order = btn.DataContext as SubUserServ.Order;
+                order.Rejected = true;
+                var serv = new SubUserServ.SubUsersServSoapClient();
+                bool a = await serv.UpdateOrderByUpperUserAsync(FullUpperUserFromSubServ, order);
+                UnAprovedBindedOrders.Remove(order);
+            }
+            catch
+            {
+
+            }
+
         }
         //פעולה שמוסיפה את ההשאלות שאאושרו לרשימת ההשאלות
         private async void AddAllAprovedToBorrowings_Click(object sender, RoutedEventArgs e)
@@ -126,9 +146,19 @@ namespace storageUniversal.xamls.UpperUser
             var SubServ = new SubUserServ.SubUsersServSoapClient();
             foreach(var order in AprovedBindedOrders)
             {
-                var borrower = await SubServ.GetYourSubUserAsync(FullUpperUserFromSubServ, order.BySubUser);
-                int borrowing_ID = await borowwServ.AddLendingAsync(order.ItemId,borrower.FName + " " + borrower.LName, DateTime.Now, order.Amount, UpperLogin.FullUser.ID);
-                borowwServ.UpdateAmountOutAsync(order.ItemId);
+                try
+                {
+                    order.IsActive = false;
+                    var borrower = await SubServ.GetYourSubUserAsync(FullUpperUserFromSubServ, order.BySubUser);
+                    int borrowing_ID = await borowwServ.AddLendingAsync(order.ItemId, borrower.FName + " " + borrower.LName, DateTime.Now, order.Amount, UpperLogin.FullUser.ID);
+                    await SubServ.UpdateOrderByUpperUserAsync(FullUpperUserFromSubServ, order);
+                    borowwServ.UpdateAmountOutAsync(order.ItemId);
+                }
+                catch
+                {
+
+                }
+
             }
             AprovedBindedOrders.Clear();
         }

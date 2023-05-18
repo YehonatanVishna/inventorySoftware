@@ -101,7 +101,7 @@ namespace storageUniversal
         {
             InventoryServ.InventoryFuncsSoapClient s = new InventoryServ.InventoryFuncsSoapClient();
             var broww = new BorowwDb.BorowwingsDBSoapClient();
-            var hasCalcWorked = await broww.UpdateUserAmountOutAsync(FullUser.ID);
+            var hasCalcWorked = Task.Run(()=> broww.UpdateUserAmountOutAsync(FullUser.ID));
             var r = await s.GetInventoryUserDataTableAsync(FullUser.ID, FullUser.Email, FullUser.Password);
             List<InventoryRow> inventoryRows = new List<InventoryRow>();
             foreach (DataRow dr in r.Rows) {
